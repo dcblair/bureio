@@ -555,18 +555,6 @@ video {
   margin: 2.5rem;
 }
 
-.ml-10 {
-  margin-left: 2.5rem;
-}
-
-.ml-20 {
-  margin-left: 5rem;
-}
-
-.h-full {
-  height: 100%;
-}
-
 .h-\[100vh\] {
   height: 100vh;
 }
