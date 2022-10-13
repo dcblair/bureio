@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import NavBar from "./components/NavBar";
 import styles from "./styles/app.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
@@ -24,7 +25,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-romance">
+        <NavBar />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

@@ -3,10 +3,12 @@ module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
-    colors: {
-      "dark-cyan": "#363f43"
+    extend: {
+      colors: {
+        "dark-cyan": "#363f43",
+        "romance": "#f2efe8",
+      },
     },
-    extend: {},
   },
   plugins: [],
 }
