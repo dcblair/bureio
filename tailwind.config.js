@@ -4,6 +4,9 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      animation: {
+        "fade-in": "fade-in 10s ease-in-out"
+      },
       colors: {
         "dark-cyan": "#363f43",
         "blanched-almond": "#ffebcd",
@@ -13,6 +16,13 @@ module.exports = {
       },
       fontFamily: {
         "questrial": ["Questrial", "sans-serif"]
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: 0 },
+          "50%": { opacity: 40 },
+          "100%": { opacity: 100 }
+        }
       }
     },
   },
