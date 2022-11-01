@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Questrial";
+  src: local(""),
+    url("/fonts/questrial/Questrial-Regular.ttf");
+}
