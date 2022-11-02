@@ -10,7 +10,7 @@ import {
   useCatch,
 } from "@remix-run/react";
 import NavBar from "./components/NavBar";
-import { NotFound } from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 import styles from "./styles/app.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];

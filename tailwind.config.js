@@ -5,7 +5,11 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        "fade-in": "fade-in 10s ease-in-out"
+        "fade-in": "fade-in 2s ease-in-out",
+        "fade-out": "fade-out 1.9s ease-in"
+      },
+      aspectRatio: {
+        "9/16": "9 / 16"
       },
       colors: {
         "dark-cyan": "#363f43",
@@ -19,10 +23,15 @@ module.exports = {
       },
       keyframes: {
         "fade-in": {
-          "0%": { opacity: 0 },
-          "50%": { opacity: 40 },
-          "100%": { opacity: 100 }
-        }
+          "0%": { opacity: .3 },
+          "50%": { opactiy: .7 },
+          "100%": { opacity: 1 }
+        },
+        "fade-out": {
+          "0%": { opacity: 1 },
+          "50%": { opactiy: .7 },
+          "100%": { opacity: .3 }
+        },
       }
     },
   },
