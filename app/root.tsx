@@ -6,8 +6,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
 } from "@remix-run/react";
 import NavBar from "./components/NavBar";
+import NotFound from "./pages/NotFound";
 import styles from "./styles/app.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
@@ -20,17 +22,54 @@ export const meta: MetaFunction = () => ({
 
 export default function App() {
   return (
-    <html lang="en">
+    <html className="h-full" lang="en">
       <head>
         <Meta />
         <Links />
       </head>
-      <body className="bg-romance">
+      <body className="bg-romance h-full">
         <NavBar />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+      </body>
+    </html>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  console.error(caught.status, caught.statusText);
+
+  return (
+    <html className="h-full" lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body className="bg-romance h-full">
+        <NavBar />
+        <NotFound />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+
+  return (
+    <html className="h-full" lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body className="bg-romance h-full">
+        <NavBar />
+        <NotFound />
+        <Scripts />
       </body>
     </html>
   );
