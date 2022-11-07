@@ -7,3 +7,19 @@
   src: local(""),
     url("/fonts/questrial/Questrial-Regular.ttf");
 }
+
+@font-face {
+  font-family: "M Plus 1";
+  src: local(""),
+    url("/fonts/M_PLUS_1/MPLUS1-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Zen Kaku Gothic";
+  src: local(""),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Medium.ttf"),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Regular.ttf"),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Bold.ttf"),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Black.ttf"),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Light.ttf"),
+}

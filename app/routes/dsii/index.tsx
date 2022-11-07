@@ -4,6 +4,9 @@ import { json } from "@remix-run/node";
 import { Link, useCatch, useLoaderData } from "@remix-run/react";
 import useIntersectionObserver from "~/hooks/useIntersectionObserver";
 import NotFound from "~/pages/NotFound";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBandcamp } from "@fortawesome/free-brands-svg-icons";
+import Tooltip from "~/components/Tooltip";
 
 export const loader: LoaderFunction = async () => {
   return json({
@@ -34,8 +37,6 @@ export default function DreamSequenceIi() {
   console.log(imgIntersectionCount, videoIntersectionCount);
 
   return (
-    // bg color - 242 239 232 - #f2efe8
-    // For dark theme? 2f363b - 47 54 59
     <div className="flex flex-col items-center text-center w-full">
       <div className="mb-40 lg:mt-40">
         {/* TODO: would it look better using the std artwork for mobile and cropped for desktop? */}
@@ -79,14 +80,22 @@ export default function DreamSequenceIi() {
           <p>floating</p>
         </div>
       </div>
-      <div className="mb-20">
+      <div className="flex flex-col justify-center items-center mb-20">
         <h3 className="font-bold font-questrial tracking-widest text-2xl">
           release: 1.20.2023
         </h3>
-        <p>preorder</p>
-        <Link to="https://bu-re.bandcamp.com/">dream sequence ii here</Link>
-        {/* bandcamp logo? */}
-        <img src="" alt="" />
+        <div className="mb-2">
+          <p className="text-xl font-zen-kaku-gothic">preorder</p>
+        </div>
+
+        <Tooltip title="bandcamp">
+          <Link to="https://bu-re.bandcamp.com/">
+            <FontAwesomeIcon
+              className="max-w-[60px] h-auto"
+              icon={faBandcamp}
+            />
+          </Link>
+        </Tooltip>
       </div>
     </div>
   );
@@ -98,7 +107,7 @@ export function CatchBoundary() {
 
   switch (caught.status) {
     case 404:
-      return <h1>something's not right.</h1>;
+      return <NotFound />;
     default:
       break;
   }

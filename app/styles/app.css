@@ -567,12 +567,24 @@ video {
   margin-top: 1rem;
 }
 
-.mb-40 {
-  margin-bottom: 10rem;
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem;
 }
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.mb-40 {
+  margin-bottom: 10rem;
+}
+
+.mb-48 {
+  margin-bottom: 12rem;
 }
 
 .mb-4 {
@@ -583,20 +595,8 @@ video {
   margin-bottom: 5rem;
 }
 
-.mb-10 {
-  margin-bottom: 2.5rem;
-}
-
-.mb-12 {
-  margin-bottom: 3rem;
-}
-
-.mb-60 {
-  margin-bottom: 15rem;
-}
-
-.mb-48 {
-  margin-bottom: 12rem;
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
 .flex {
@@ -623,20 +623,86 @@ video {
   height: 0px;
 }
 
-.h-auto {
-  height: auto;
-}
-
 .h-\[100vh\] {
   height: 100vh;
+}
+
+.h-auto {
+  height: auto;
 }
 
 .w-full {
   width: 100%;
 }
 
-.max-w-\[720px\] {
-  max-width: 720px;
+.max-w-\[60px\] {
+  max-width: 60px;
+}
+
+@-webkit-keyframes full-fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opactiy: 0.4px;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes full-fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opactiy: 0.4px;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-full-fade-in {
+  -webkit-animation: full-fade-in 1s ease-in-out;
+          animation: full-fade-in 1s ease-in-out;
+}
+
+@-webkit-keyframes full-fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opactiy: 0.6px;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes full-fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opactiy: 0.6px;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-full-fade-out {
+  -webkit-animation: full-fade-out 1s ease-in;
+          animation: full-fade-out 1s ease-in;
 }
 
 @-webkit-keyframes fade-in {
@@ -731,6 +797,10 @@ video {
   justify-content: space-evenly;
 }
 
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
 .bg-romance {
   --tw-bg-opacity: 1;
   background-color: rgb(242 239 232 / var(--tw-bg-opacity));
@@ -775,12 +845,31 @@ video {
   padding-bottom: 1rem;
 }
 
+.px-2\.5 {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .text-center {
   text-align: center;
 }
 
 .font-questrial {
   font-family: Questrial, sans-serif;
+}
+
+.font-zen-kaku-gothic {
+  font-family: Zen Kaku Gothic, sans-serif;
 }
 
 .text-xl {
@@ -801,6 +890,15 @@ video {
   letter-spacing: 0.1em;
 }
 
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
 .opacity-30 {
   opacity: 0.3;
 }
@@ -812,25 +910,27 @@ video {
     url("/fonts/questrial/Questrial-Regular.ttf");
 }
 
-@media (min-width: 768px) {
-  .md\:w-\[720px\] {
-    width: 720px;
-  }
+@font-face {
+  font-family: "M Plus 1";
 
+  src: local(""),
+    url("/fonts/M_PLUS_1/MPLUS1-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "Zen Kaku Gothic";
+
+  src: local(""),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Medium.ttf"),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Regular.ttf"),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Bold.ttf"),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Black.ttf"),
+    url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Light.ttf"),
+}
+
+@media (min-width: 768px) {
   .md\:w-\[500px\] {
     width: 500px;
-  }
-
-  .md\:max-w-7xl {
-    max-width: 80rem;
-  }
-
-  .md\:max-w-xl {
-    max-width: 36rem;
-  }
-
-  .md\:max-w-2xl {
-    max-width: 42rem;
   }
 
   .md\:max-w-3xl {

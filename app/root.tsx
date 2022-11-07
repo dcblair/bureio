@@ -1,6 +1,5 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
-  Link,
   Links,
   LiveReload,
   Meta,
@@ -45,7 +44,7 @@ export function CatchBoundary() {
 
   switch (caught.status) {
     case 401:
-      return <Link to="/">come back</Link>;
+      return <NotFound />;
     case 404:
       return <NotFound />;
     default:
@@ -56,18 +55,5 @@ export function CatchBoundary() {
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
 
-  return (
-    <div className="flex flex-col">
-      <h1>something went wrong</h1>
-      <iframe
-        src="https://player.vimeo.com/video/759633300?h=67eafd605c&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-        frameBorder="0"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowFullScreen
-        width="720"
-        height="1080"
-        title="floating"
-      />
-    </div>
-  );
+  return <NotFound />;
 }
