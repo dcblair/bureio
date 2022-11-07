@@ -38,22 +38,39 @@ export default function App() {
   );
 }
 
-// TODO: Abstract Catch and Error Boundary components into their own files
 export function CatchBoundary() {
   const caught = useCatch();
+  console.error(caught.status, caught.statusText);
 
-  switch (caught.status) {
-    case 401:
-      return <NotFound />;
-    case 404:
-      return <NotFound />;
-    default:
-      break;
-  }
+  return (
+    <html className="h-full" lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body className="bg-romance h-full">
+        <NavBar />
+        <NotFound />
+        <Scripts />
+      </body>
+    </html>
+  );
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
 
-  return <NotFound />;
+  return (
+    <html className="h-full" lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+      <body className="bg-romance h-full">
+        <NavBar />
+        <NotFound />
+        <Scripts />
+      </body>
+    </html>
+  );
 }

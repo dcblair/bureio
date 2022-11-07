@@ -2,7 +2,7 @@ import { Link } from "@remix-run/react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center text-center w-full">
+    <div className="flex flex-col items-center justify-center text-center h-full w-full">
       <div className="mb-10">
         <iframe
           allow="autoplay; fullscreen; picture-in-picture"

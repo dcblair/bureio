@@ -3,7 +3,7 @@ import React from "react";
 export const useIntersectionObserver = (ref: React.RefObject<Element>, options?: IntersectionObserverInit) => {
   const [isIntersecting, setIsIntersecting] = React.useState(false);
   // TODO: How do I set this per time it intersects?
-  const [intersectionCount, setIntersectionCount] = React.useState(0);
+  // const [intersectionCount, setIntersectionCount] = React.useState(0);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -19,7 +19,7 @@ export const useIntersectionObserver = (ref: React.RefObject<Element>, options?:
     };
   }, [ref, options])
 
-  return { intersectionCount, isIntersecting };
+  return { isIntersecting };
 }
 
 export default useIntersectionObserver;
