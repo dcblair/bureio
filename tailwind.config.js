@@ -46,6 +46,9 @@ module.exports = {
           "50%": { opactiy: .6 },
           "100%": { opacity: 0 }
         },
+      },
+      screens: {
+        "xs": "480px"
       }
     },
   },

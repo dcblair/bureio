@@ -8,7 +8,6 @@ import NotFound from "~/pages/NotFound";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBandcamp } from "@fortawesome/free-brands-svg-icons";
 import Tooltip from "~/components/Tooltip";
-import useMediaQuery from "~/hooks/useMediaQuery";
 
 export const loader: LoaderFunction = async () => {
   return json({
@@ -19,7 +18,6 @@ export const loader: LoaderFunction = async () => {
 
 export default function DreamSequenceIi() {
   const { dsIiAlbumArt, dsIiCroppedAlbumArt } = useLoaderData();
-  const width = useMediaQuery();
   const imgRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLDivElement | null>(null);
   const { isIntersecting: isImgIntersecting } = useIntersectionObserver(
@@ -39,8 +37,7 @@ export default function DreamSequenceIi() {
 
   return (
     <div className="flex flex-col items-center text-center w-full">
-      <div className="mb-40 lg:mt-40">
-        {/* TODO: would it look better using the std artwork for mobile and cropped for desktop? */}
+      <div className="mb-10 lg:mb-40 lg:mt-40">
         <div
           className={
             isImgIntersecting
@@ -49,14 +46,11 @@ export default function DreamSequenceIi() {
           }
           ref={imgRef}
         >
-          <div className="md:max-w-3xl h-auto select-none pointer-events-none">
+          <div className="w-[100vw] sm:w-[70vw] md:w-[50vw] lg:max-w-3xl select-none pointer-events-none aspect-9/16">
             <img
               alt="dream sequence ii album artwork"
-              src={
-                width && width < 800 && width > 500
-                  ? dsIiAlbumArt
-                  : dsIiCroppedAlbumArt
-              }
+              className="h-auto w-full"
+              src={dsIiCroppedAlbumArt}
             />
           </div>
         </div>
@@ -71,11 +65,11 @@ export default function DreamSequenceIi() {
                 : "animate-fade-out mb-4 opacity-30"
             }
           >
-            <div className="md:w-[500px] lg:w-[720px] h-auto mb-8">
+            <div className="w-[80vw] sm:max-w-[50vw] lg:max-w-[600px] h-auto mb-8 aspect-9/16">
               <iframe
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
-                className="w-full h-full aspect-9/16"
+                className="w-full h-full"
                 frameBorder="0"
                 src="https://player.vimeo.com/video/759633300"
                 title="floating"
@@ -84,14 +78,14 @@ export default function DreamSequenceIi() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center mb-20">
+      <div className="flex flex-col justify-center items-center lg:mb-20">
         <div className="mb-4">
           <div className="mb-2">
-            <p className="font-black font-questrial text-lg md:text-2xl tracking-widest">
+            <p className="font-black font-questrial text-lg lg:text-xl tracking-widest">
               digital album / cassette
             </p>
           </div>
-          <h3 className="font-questrial text-xl md:text-3xl tracking-widest">
+          <h3 className="font-questrial text-xl lg:text-2xl tracking-widest">
             january 2023
           </h3>
         </div>
