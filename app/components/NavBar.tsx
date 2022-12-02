@@ -6,11 +6,11 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="text-center items-center justify-center py-12 bg-gradient-to-r from-romance via-ghost-white to-romance">
+      <div className="text-center items-center justify-center py-4 md:py-12 bg-gradient-to-r from-romance via-ghost-white to-romance">
         {!isScroll && (
           <div className="">
             <Link
-              className="text-xl md:text-4xl font-questrial tracking-widest font-bold"
+              className="text-2xl lg:text-4xl font-questrial tracking-widest font-bold"
               to="/"
             >
               bu.re_

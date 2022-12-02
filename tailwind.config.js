@@ -3,6 +3,14 @@ module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
+    screens: {
+      xs: { max: "480px"},
+      sm: { min: "481px", max: "767px"},
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px"
+    },
     extend: {
       animation: {
         "fade-in": "fade-in 2s ease-in-out",
@@ -46,7 +54,7 @@ module.exports = {
           "50%": { opactiy: .6 },
           "100%": { opacity: 0 }
         },
-      }
+      },
     },
   },
   plugins: [],

@@ -567,6 +567,10 @@ video {
   margin-top: 1rem;
 }
 
+.mt-1\.5 {
+  margin-top: 0.375rem;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -579,32 +583,12 @@ video {
   margin-bottom: 2rem;
 }
 
-.mb-40 {
-  margin-bottom: 10rem;
-}
-
-.mb-48 {
-  margin-bottom: 12rem;
-}
-
 .mb-4 {
   margin-bottom: 1rem;
 }
 
-.mb-20 {
-  margin-bottom: 5rem;
-}
-
 .mb-2 {
   margin-bottom: 0.5rem;
-}
-
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
-
-.mb-3 {
-  margin-bottom: 0.75rem;
 }
 
 .flex {
@@ -639,20 +623,16 @@ video {
   height: auto;
 }
 
-.h-\[100px\] {
-  height: 100px;
-}
-
-.h-\[1000px\] {
-  height: 1000px;
-}
-
 .w-full {
   width: 100%;
 }
 
-.max-w-\[60px\] {
-  max-width: 60px;
+.w-\[75vw\] {
+  width: 75vw;
+}
+
+.max-w-\[4rem\] {
+  max-width: 4rem;
 }
 
 @-webkit-keyframes full-fade-in {
@@ -793,6 +773,10 @@ video {
           user-select: none;
 }
 
+.resize {
+  resize: both;
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -811,6 +795,10 @@ video {
 
 .justify-evenly {
   justify-content: space-evenly;
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
 }
 
 .rounded-xl {
@@ -851,29 +839,19 @@ video {
   --tw-gradient-to: #f2efe8;
 }
 
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
-.px-2\.5 {
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .text-center {
@@ -884,27 +862,9 @@ video {
   font-family: Questrial, sans-serif;
 }
 
-.font-zen-kaku-gothic {
-  font-family: Zen Kaku Gothic, sans-serif;
-}
-
-.font-m-plus-one {
-  font-family: M Plus 1, sans-serif;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 
 .text-lg {
@@ -912,12 +872,13 @@ video {
   line-height: 1.75rem;
 }
 
-.font-bold {
-  font-weight: 700;
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
-.font-extrabold {
-  font-weight: 800;
+.font-bold {
+  font-weight: 700;
 }
 
 .font-black {
@@ -926,10 +887,6 @@ video {
 
 .tracking-widest {
   letter-spacing: 0.1em;
-}
-
-.tracking-wide {
-  letter-spacing: 0.025em;
 }
 
 .text-white {
@@ -970,37 +927,70 @@ video {
     url("/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Light.ttf"),
 }
 
+@media (max-width: 480px) {
+  .xs\:w-\[90vw\] {
+    width: 90vw;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .sm\:w-\[65vw\] {
+    width: 65vw;
+  }
+
+  .sm\:max-w-\[50vw\] {
+    max-width: 50vw;
+  }
+}
+
 @media (min-width: 768px) {
-  .md\:w-\[500px\] {
-    width: 500px;
+  .md\:w-\[50vw\] {
+    width: 50vw;
   }
 
-  .md\:max-w-3xl {
-    max-width: 48rem;
+  .md\:max-w-\[5rem\] {
+    max-width: 5rem;
   }
 
-  .md\:text-4xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-
-  .md\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .md\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+  .md\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 }
 
 @media (min-width: 1024px) {
+  .lg\:mb-40 {
+    margin-bottom: 10rem;
+  }
+
   .lg\:mt-40 {
     margin-top: 10rem;
   }
 
-  .lg\:w-\[720px\] {
-    width: 720px;
+  .lg\:mb-20 {
+    margin-bottom: 5rem;
+  }
+
+  .lg\:max-w-3xl {
+    max-width: 48rem;
+  }
+
+  .lg\:max-w-\[600px\] {
+    max-width: 600px;
+  }
+
+  .lg\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .lg\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .lg\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 export const useIntersectionObserver = (ref: React.RefObject<Element>, options?: IntersectionObserverInit) => {
   const [isIntersecting, setIsIntersecting] = React.useState(false);

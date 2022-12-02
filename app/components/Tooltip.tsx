@@ -24,9 +24,9 @@ const Tooltip = ({ children, title }: TooltipProps) => {
           isSelected
             ? "animate-full-fade-in"
             : "animate-full-fade-out opacity-0"
-        } mt-1 bg-dark-cyan rounded-xl`}
+        } mt-1.5 bg-dark-cyan rounded-xl`}
       >
-        <p className="text-white px-2.5 py-1 tracking-widest w-full">{title}</p>
+        <p className="text-white px-2 py-1 tracking-widest w-full">{title}</p>
       </div>
     </div>
   );
