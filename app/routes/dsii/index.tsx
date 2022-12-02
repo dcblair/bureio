@@ -5,37 +5,42 @@ import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
 import useIntersectionObserver from "~/hooks/useIntersectionObserver";
 import NotFound from "~/pages/NotFound";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBandcamp } from "@fortawesome/free-brands-svg-icons";
-import Tooltip from "~/components/Tooltip";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBandcamp } from "@fortawesome/free-brands-svg-icons";
+// import Tooltip from "~/components/Tooltip";
 import { useParallax } from "~/hooks/useParallax";
 
 export const loader: LoaderFunction = async () => {
   return json({
-    dsIiAlbumArt: process.env.DSII_ALBUM_ART,
     dsIiCroppedAlbumArt: process.env.DSII_CROPPED_ALBUM_ART,
+    floatingVideoDriveUrl: process.env.FLOATING_VIDEO_DRIVE_URL,
   });
 };
 
 export default function DreamSequenceIi() {
+  const { dsIiCroppedAlbumArt, floatingVideoDriveUrl } = useLoaderData();
   const collageRef = React.useRef<HTMLVideoElement | null>(null);
-  const { dsIiAlbumArt, dsIiCroppedAlbumArt } = useLoaderData();
   const imgRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLDivElement | null>(null);
+
+  const intersectionOptions = {
+    threshold: 0.85,
+    rootMargin: "20px",
+  };
+
   const { isIntersecting: isImgIntersecting } = useIntersectionObserver(
     imgRef,
-    {
-      threshold: 0.85,
-      rootMargin: "20px",
-    }
+    intersectionOptions
   );
   const { isIntersecting: isVideoIntersecting } = useIntersectionObserver(
     videoRef,
-    {
-      threshold: 0.85,
-      rootMargin: "20px",
-    }
+    intersectionOptions
   );
+  const { isIntersecting: isCollageIntersecting } = useIntersectionObserver(
+    collageRef,
+    intersectionOptions
+  );
+
   const yOffset = useParallax();
 
   React.useEffect(() => {
@@ -64,6 +69,7 @@ export default function DreamSequenceIi() {
           </div>
         </div>
       </div>
+
       <div className="mb-30 flex flex-row justify-evenly w-full mb-8">
         <div>
           <div
@@ -87,13 +93,25 @@ export default function DreamSequenceIi() {
           </div>
         </div>
       </div>
+
+      {/* TODO: Replace floating video with collage video */}
       <div className="mb-10 lg:mb-40 lg:mt-40">
-        <video
-          className="w-full h-full"
-          ref={collageRef}
-          src="https://drive.google.com/uc?id=1GYVk3tE-Nf55LRjc6U104-w1uptn3etD"
-          title="test"
-        />
+        <div
+          className={
+            isCollageIntersecting
+              ? "animate-fade-in"
+              : "animate-fade-out opacity-30"
+          }
+        >
+          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-w-3xl select-none pointer-events-none aspect-9/16">
+            <video
+              className="w-full h-full"
+              ref={collageRef}
+              src={floatingVideoDriveUrl}
+              title="test"
+            />
+          </div>
+        </div>
       </div>
       <div className="flex flex-col justify-center items-center mb-4 lg:mb-20">
         <div className="mb-2">
@@ -107,14 +125,15 @@ export default function DreamSequenceIi() {
           </h3>
         </div>
 
-        <Tooltip title="bandcamp">
+        {/* TODO: When album is uploaded, expose this. 😌 */}
+        {/* <Tooltip title="bandcamp">
           <a href="https://bu-re.bandcamp.com/" target="_blank">
             <FontAwesomeIcon
               className="max-w-[4rem] md:max-w-[5rem] h-auto"
               icon={faBandcamp}
             />
           </a>
-        </Tooltip>
+        </Tooltip> */}
       </div>
     </div>
   );
@@ -127,6 +146,6 @@ export function CatchBoundary() {
     case 404:
       return <NotFound />;
     default:
-      break;
+      return <NotFound />;
   }
 }
