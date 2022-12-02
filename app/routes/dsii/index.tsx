@@ -8,6 +8,7 @@ import NotFound from "~/pages/NotFound";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBandcamp } from "@fortawesome/free-brands-svg-icons";
 import Tooltip from "~/components/Tooltip";
+import { useParallax } from "~/hooks/useParallax";
 
 export const loader: LoaderFunction = async () => {
   return json({
@@ -17,6 +18,7 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function DreamSequenceIi() {
+  const collageRef = React.useRef<HTMLVideoElement | null>(null);
   const { dsIiAlbumArt, dsIiCroppedAlbumArt } = useLoaderData();
   const imgRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLDivElement | null>(null);
@@ -34,6 +36,13 @@ export default function DreamSequenceIi() {
       rootMargin: "20px",
     }
   );
+  const yOffset = useParallax();
+
+  React.useEffect(() => {
+    if (collageRef.current) {
+      collageRef.current.currentTime = (yOffset / 1000) * (100 / 60);
+    }
+  }, [yOffset]);
 
   return (
     <div className="flex flex-col items-center text-center w-full">
@@ -46,7 +55,7 @@ export default function DreamSequenceIi() {
           }
           ref={imgRef}
         >
-          <div className="w-[100vw] sm:w-[70vw] md:w-[50vw] lg:max-w-3xl select-none pointer-events-none aspect-9/16">
+          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-w-3xl select-none pointer-events-none aspect-9/16">
             <img
               alt="dream sequence ii album artwork"
               className="h-auto w-full"
@@ -65,7 +74,7 @@ export default function DreamSequenceIi() {
                 : "animate-fade-out mb-4 opacity-30"
             }
           >
-            <div className="w-[80vw] sm:max-w-[50vw] lg:max-w-[600px] h-auto mb-8 aspect-9/16">
+            <div className="w-[75vw] sm:max-w-[50vw] lg:max-w-[600px] h-auto mb-8 aspect-9/16">
               <iframe
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
@@ -78,8 +87,16 @@ export default function DreamSequenceIi() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center lg:mb-20">
-        <div className="mb-4">
+      <div className="mb-10 lg:mb-40 lg:mt-40">
+        <video
+          className="w-full h-full"
+          ref={collageRef}
+          src="https://drive.google.com/uc?id=1GYVk3tE-Nf55LRjc6U104-w1uptn3etD"
+          title="test"
+        />
+      </div>
+      <div className="flex flex-col justify-center items-center mb-4 lg:mb-20">
+        <div className="mb-2">
           <div className="mb-2">
             <p className="font-black font-questrial text-lg lg:text-xl tracking-widest">
               digital album / cassette
@@ -93,7 +110,7 @@ export default function DreamSequenceIi() {
         <Tooltip title="bandcamp">
           <a href="https://bu-re.bandcamp.com/" target="_blank">
             <FontAwesomeIcon
-              className="max-w-[60px] h-auto"
+              className="max-w-[4rem] md:max-w-[5rem] h-auto"
               icon={faBandcamp}
             />
           </a>
@@ -103,7 +120,6 @@ export default function DreamSequenceIi() {
   );
 }
 
-// TODO: Abstract Catch and Error Boundary components into their own files
 export function CatchBoundary() {
   const caught = useCatch();
 
