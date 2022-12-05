@@ -12,13 +12,12 @@ import { useParallax } from "~/hooks/useParallax";
 
 export const loader: LoaderFunction = async () => {
   return json({
-    dsIiCroppedAlbumArt: process.env.DSII_CROPPED_ALBUM_ART,
     floatingVideoDriveUrl: process.env.FLOATING_VIDEO_DRIVE_URL,
   });
 };
 
 export default function DreamSequenceIi() {
-  const { dsIiCroppedAlbumArt, floatingVideoDriveUrl } = useLoaderData();
+  const { floatingVideoDriveUrl } = useLoaderData();
   const collageRef = React.useRef<HTMLVideoElement | null>(null);
   const imgRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLDivElement | null>(null);
@@ -45,7 +44,7 @@ export default function DreamSequenceIi() {
 
   React.useEffect(() => {
     if (collageRef.current) {
-      collageRef.current.currentTime = (yOffset / 1000) * (100 / 60);
+      collageRef.current.currentTime = (yOffset / 1000) * (90 / 60);
     }
   }, [yOffset]);
 
@@ -64,7 +63,7 @@ export default function DreamSequenceIi() {
             <img
               alt="dream sequence ii album artwork"
               className="h-auto w-full"
-              src={dsIiCroppedAlbumArt}
+              src="/images/cropped_dsii_artwork.jpg"
             />
           </div>
         </div>
@@ -80,15 +79,23 @@ export default function DreamSequenceIi() {
                 : "animate-fade-out mb-4 opacity-30"
             }
           >
-            <div className="w-[75vw] sm:max-w-[50vw] lg:max-w-[600px] h-auto mb-8 aspect-9/16">
-              <iframe
+            <div className="w-[90vw] sm:max-w-[65vw] md:w-[50vw] lg:max-w-2xl h-auto mb-8 aspect-9/16">
+              <video
+                className="w-full h-full"
+                controls
+                controlsList="nodownload noplaybackrate"
+                poster="/images/floating_still3.png"
+                src="/videos/floating_vertical_5.mp4"
+                title="floating"
+              />
+              {/* <iframe
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"
                 frameBorder="0"
                 src="https://player.vimeo.com/video/759633300"
                 title="floating"
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -103,7 +110,7 @@ export default function DreamSequenceIi() {
               : "animate-fade-out opacity-30"
           }
         >
-          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-w-3xl select-none pointer-events-none aspect-9/16">
+          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-w-2xl select-none pointer-events-none aspect-9/16">
             <video
               className="w-full h-full"
               ref={collageRef}
