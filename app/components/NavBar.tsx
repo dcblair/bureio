@@ -8,7 +8,7 @@ const NavBar = () => {
     <>
       <div className="text-center items-center justify-center py-4 md:py-12 bg-gradient-to-r from-romance via-ghost-white to-romance">
         {!isScroll && (
-          <div className="">
+          <div className="mt-4">
             <Link
               className="text-2xl lg:text-4xl font-questrial tracking-widest font-bold"
               to="/"
