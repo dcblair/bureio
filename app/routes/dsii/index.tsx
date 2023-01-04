@@ -50,7 +50,7 @@ export default function DreamSequenceIi() {
 
   return (
     <div className="flex flex-col items-center text-center w-full">
-      <div className="mb-10 lg:mb-40 lg:mt-40">
+      <div className="mb-10 lg:mb-40 lg:mt-10 2xl:mt-30">
         <div
           className={
             isImgIntersecting
@@ -59,7 +59,7 @@ export default function DreamSequenceIi() {
           }
           ref={imgRef}
         >
-          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-w-3xl select-none pointer-events-none aspect-9/16">
+          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-h-[75vh] lg:w-auto select-none pointer-events-none aspect-9/16">
             <img
               alt="dream sequence ii album artwork"
               className="h-auto w-full"
@@ -79,7 +79,7 @@ export default function DreamSequenceIi() {
                 : "animate-fade-out mb-4 opacity-30"
             }
           >
-            <div className="w-[90vw] sm:max-w-[65vw] md:w-[50vw] lg:max-w-2xl h-auto mb-8 aspect-9/16">
+            <div className="w-[90vw] sm:max-w-[65vw] md:w-[50vw] lg:max-h-[65vh] lg:w-auto h-auto mb-8 aspect-9/16">
               <video
                 className="w-full h-full"
                 controls
@@ -110,7 +110,7 @@ export default function DreamSequenceIi() {
               : "animate-fade-out opacity-30"
           }
         >
-          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-w-2xl select-none pointer-events-none aspect-9/16">
+          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-h-[65vh] lg:w-auto select-none pointer-events-none aspect-9/16">
             <video
               className="w-full h-full"
               ref={collageRef}
