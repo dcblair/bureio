@@ -128,7 +128,7 @@ export default function DreamSequenceIi() {
             </p>
           </div>
           <h3 className="font-questrial text-xl lg:text-2xl tracking-widest">
-            january 2023
+            february 10
           </h3>
         </div>
 
