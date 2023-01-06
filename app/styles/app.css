@@ -591,6 +591,14 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mb-32 {
+  margin-bottom: 8rem;
+}
+
 .flex {
   display: flex;
 }
@@ -627,8 +635,8 @@ video {
   width: 100%;
 }
 
-.w-\[90vw\] {
-  width: 90vw;
+.w-\[80vw\] {
+  width: 80vw;
 }
 
 .max-w-\[4rem\] {
@@ -903,8 +911,8 @@ video {
 }
 
 @media (max-width: 480px) {
-  .xs\:w-\[90vw\] {
-    width: 90vw;
+  .xs\:w-\[100vw\] {
+    width: 100vw;
   }
 }
 
@@ -927,10 +935,6 @@ video {
     max-width: 5rem;
   }
 
-  .md\:max-w-\[50vw\] {
-    max-width: 50vw;
-  }
-
   .md\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -942,77 +946,33 @@ video {
     margin-bottom: 10rem;
   }
 
-  .lg\:mt-40 {
-    margin-top: 10rem;
+  .lg\:mt-10 {
+    margin-top: 2.5rem;
   }
 
   .lg\:mb-20 {
     margin-bottom: 5rem;
   }
 
-  .lg\:mt-20 {
-    margin-top: 5rem;
-  }
-
-  .lg\:mt-10 {
-    margin-top: 2.5rem;
-  }
-
-  .lg\:h-\[90vw\] {
-    height: 90vw;
-  }
-
-  .lg\:h-\[90vh\] {
-    height: 90vh;
-  }
-
-  .lg\:max-h-\[90vh\] {
-    max-height: 90vh;
-  }
-
-  .lg\:max-h-\[80vh\] {
-    max-height: 80vh;
-  }
-
-  .lg\:max-h-\[70vh\] {
-    max-height: 70vh;
-  }
-
-  .lg\:max-h-\[65vh\] {
-    max-height: 65vh;
+  .lg\:mb-32 {
+    margin-bottom: 8rem;
   }
 
   .lg\:max-h-\[75vh\] {
     max-height: 75vh;
   }
 
-  .lg\:w-\[10vw\] {
-    width: 10vw;
-  }
-
-  .lg\:w-\[50vw\] {
-    width: 50vw;
+  .lg\:max-h-\[65vh\] {
+    max-height: 65vh;
   }
 
   .lg\:w-auto {
     width: auto;
   }
 
-  .lg\:max-w-\[50vw\] {
-    max-width: 50vw;
-  }
-
-  .lg\:max-w-3xl {
-    max-width: 48rem;
-  }
-
-  .lg\:max-w-2xl {
-    max-width: 42rem;
-  }
-
-  .lg\:text-4xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+  .lg\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .lg\:text-xl {
@@ -1024,26 +984,9 @@ video {
     font-size: 1.5rem;
     line-height: 2rem;
   }
-
-  .lg\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
 }
 
 @media (min-width: 1280px) {
-  .xl\:mt-40 {
-    margin-top: 10rem;
-  }
-
-  .xl\:mt-20 {
-    margin-top: 5rem;
-  }
-
-  .xl\:mt-10 {
-    margin-top: 2.5rem;
-  }
-
   .xl\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;

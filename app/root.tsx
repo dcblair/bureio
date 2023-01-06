@@ -43,7 +43,7 @@ export function CatchBoundary() {
   console.error(caught.status, caught.statusText);
 
   return (
-    <html className="h-full" lang="en">
+    <html className="h-full scroll-smooth" lang="en">
       <head>
         <Meta />
         <Links />
