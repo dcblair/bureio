@@ -78,11 +78,11 @@ export default function DreamSequenceIi() {
       <div className="flex flex-col justify-center items-center mb-4 lg:mb-20">
         <div className="mb-2">
           <div className="mb-2">
-            <p className="font-black font-questrial text-lg lg:text-2xl tracking-widest">
+            <p className="font-black font-questrial text-lg lg:text-xl tracking-widest">
               digital album / cassette
             </p>
           </div>
-          <h3 className="font-questrial text-xl lg:text-2xl tracking-widest">
+          <h3 className="font-questrial text-xl lg:text-xl tracking-widest">
             february 10
           </h3>
         </div>

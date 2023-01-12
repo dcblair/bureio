@@ -16,8 +16,7 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title:
-    "bu.re_ / ambient musician and producer / dream sequence ii out february 10 2023",
+  title: "bu.re_",
   viewport: "width=device-width,initial-scale=1",
 });
 
