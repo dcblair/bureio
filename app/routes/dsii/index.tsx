@@ -36,7 +36,7 @@ export default function DreamSequenceIi() {
           }
           ref={imgRef}
         >
-          <div className="xs:w-[100vw] sm:w-[65vw] md:w-[50vw] lg:max-h-[75vh] lg:w-auto select-none pointer-events-none aspect-9/16">
+          <div className="xs:w-[95vw] sm:w-[65vw] md:w-[50vw] lg:max-h-[75vh] lg:w-auto select-none pointer-events-none aspect-9/16">
             <img
               alt="dream sequence ii album artwork"
               className="h-auto w-full"
@@ -56,7 +56,7 @@ export default function DreamSequenceIi() {
                 : "animate-fade-out mb-4 opacity-30"
             }
           >
-            <div className="w-[80vw] sm:max-w-[65vw] md:w-[50vw] lg:max-h-[65vh] lg:w-auto h-auto mb-8 aspect-9/16">
+            <div className="w-[75vw] sm:max-w-[65vw] md:w-[50vw] lg:max-h-[65vh] lg:w-auto h-auto mb-8 aspect-9/16">
               <video
                 className="w-full h-full"
                 controls
@@ -68,7 +68,7 @@ export default function DreamSequenceIi() {
                   src="/videos/floating_vertical_5.mp4"
                   type="video/mp4"
                 />
-                no browser support.
+                <p>no browser support.</p>
               </video>
             </div>
           </div>
