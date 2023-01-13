@@ -6,7 +6,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="text-center items-center justify-center py-4 md:py-12 bg-gradient-to-r from-romance via-ghost-white to-romance">
+      <div className="text-center items-center justify-center py-4 md:py-12">
         {!isScroll && (
           <div className="mt-4">
             <Link
