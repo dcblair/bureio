@@ -36,10 +36,8 @@ export default function DreamSequenceIi() {
         >
           <div className="xs:w-[95vw] sm:w-[65vw] md:w-[50vw] lg:max-h-[75vh] lg:w-auto select-none pointer-events-none aspect-9/16">
             <img
+              className="w-full h-full"
               alt="dream sequence ii album artwork"
-              // className="h-auto w-full"
-              width="100%"
-              height="100%"
               src="/images/cropped_dsii_artwork.jpg"
             />
           </div>
