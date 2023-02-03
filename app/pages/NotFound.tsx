@@ -2,7 +2,7 @@ import { Link } from "@remix-run/react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center text-center h-full w-full">
+    <div className="flex flex-col items-center text-center h-full w-full">
       <div className="mb-10">
         <iframe
           allow="autoplay; fullscreen; picture-in-picture"
@@ -14,7 +14,12 @@ export default function NotFound() {
         />
       </div>
       <div className="mb-8">
-        <Link to="/">come back</Link>
+        <div className="mb-4">
+          <span>something went wrong</span>
+        </div>
+        <Link className="underline font-bold" to="/">
+          come back
+        </Link>
       </div>
     </div>
   );

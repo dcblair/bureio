@@ -3,9 +3,7 @@ import * as React from "react";
 import { useCatch } from "@remix-run/react";
 import useIntersectionObserver from "~/hooks/useIntersectionObserver";
 import NotFound from "~/pages/NotFound";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faBandcamp } from "@fortawesome/free-brands-svg-icons";
-// import Tooltip from "~/components/Tooltip";
+import { Tooltip } from "~/components";
 
 export default function DreamSequenceIi() {
   const imgRef = React.useRef<HTMLDivElement | null>(null);
@@ -39,7 +37,9 @@ export default function DreamSequenceIi() {
           <div className="xs:w-[95vw] sm:w-[65vw] md:w-[50vw] lg:max-h-[75vh] lg:w-auto select-none pointer-events-none aspect-9/16">
             <img
               alt="dream sequence ii album artwork"
-              className="h-auto w-full"
+              // className="h-auto w-full"
+              width="100%"
+              height="100%"
               src="/images/cropped_dsii_artwork.jpg"
             />
           </div>
@@ -76,26 +76,46 @@ export default function DreamSequenceIi() {
       </div>
 
       <div className="flex flex-col justify-center items-center mb-4 lg:mb-20">
-        <div className="mb-2">
+        <div className="mb-10">
           <div className="mb-2">
             <p className="font-black font-questrial text-lg lg:text-xl tracking-widest">
               digital album / cassette
             </p>
           </div>
-          <h3 className="font-questrial text-xl lg:text-xl tracking-widest">
-            february 10
-          </h3>
+          <div className="mb-7">
+            <h3 className="font-questrial text-xl tracking-wider">
+              february 10
+            </h3>
+          </div>
+          <h4 className="font-questrial text-xl tracking-[0.5rem]">
+            available:
+          </h4>
         </div>
 
-        {/* TODO: When album is uploaded, expose this. 😌 */}
-        {/* <Tooltip title="bandcamp">
-          <a href="https://bu-re.bandcamp.com/" target="_blank">
-            <FontAwesomeIcon
-              className="max-w-[4rem] md:max-w-[5rem] h-auto"
-              icon={faBandcamp}
-            />
-          </a>
-        </Tooltip> */}
+        <div className="flex space-x-8">
+          <Tooltip content="bandcamp" placement="bottom">
+            <a
+              href="https://bu-re.bandcamp.com/album/dream-sequence-ii"
+              target="_blank"
+            >
+              <img
+                alt="bandcamp logo"
+                className="max-w-[4rem] md:max-w-[5rem] h-auto"
+                src="/images/bandcamp_logo_circle.png"
+              />
+            </a>
+          </Tooltip>
+
+          <Tooltip content="loser records" placement="bottom">
+            <a href="https://loserrecords.bandcamp.com/" target="_blank">
+              <img
+                alt="loser records logo"
+                className="max-w-[4rem] md:max-w-[5rem] h-auto"
+                src="/images/loser_logo_offwhite.jpg"
+              />
+            </a>
+          </Tooltip>
+        </div>
       </div>
     </div>
   );
