@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from "react";
+import * as React from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import {
   arrow,
@@ -12,8 +12,10 @@ import {
   useHover,
   useInteractions,
   useRole,
+  useTransitionStyles,
 } from "@floating-ui/react";
 import type { Side } from "@floating-ui/react";
+import { classed } from "@tw-classed/react";
 
 interface TooltipProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
@@ -22,13 +24,29 @@ interface TooltipProps extends ComponentPropsWithoutRef<"div"> {
   placement?: Side;
 }
 
+const StyledArrow = classed("div", "", {
+  variants: {
+    placement: {
+      left: "-right-1",
+      right: "-left-1",
+      top: "-bottom-1",
+      bottom: "-top-1",
+    },
+  },
+});
+
+const StyledContent = classed(
+  "div",
+  "rounded-xl bg-black px-2.5 py-1.5 text-xs leading-relaxed text-romance"
+);
+
 const BaseTooltip = ({
   children,
   content,
   placement = "right",
 }: TooltipProps) => {
-  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-  const arrowRef = useRef<HTMLDivElement | null>(null);
+  const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
+  const arrowRef = React.useRef<HTMLDivElement | null>(null);
   const { context, x, y, reference, floating, strategy, middlewareData } =
     useFloating({
       open: isTooltipOpen,
@@ -37,6 +55,16 @@ const BaseTooltip = ({
       whileElementsMounted: autoUpdate,
       middleware: [shift(), offset(15), arrow({ element: arrowRef })],
     });
+  const { isMounted, styles } = useTransitionStyles(context, {
+    duration: 1000,
+
+    open: {
+      opacity: 1,
+    },
+    close: {
+      opacity: 0,
+    },
+  });
   const hover = useHover(context, { move: false });
   const focus = useFocus(context);
   const dismiss = useDismiss(context);
@@ -50,26 +78,19 @@ const BaseTooltip = ({
   ]);
 
   if (middlewareData?.arrow && arrowRef?.current?.style) {
-    const { x } = middlewareData.arrow;
+    const { x, y } = middlewareData.arrow;
     Object.assign(arrowRef?.current?.style, {
       left: x != null ? `${x}px` : "",
-      top: placement === "bottom" ? `${-5}px` : "",
+      top: y != null ? `${y}px` : "",
     });
-  }
-
-  function classNames(...classes: any) {
-    return classes.filter(Boolean).join(" ");
   }
 
   return (
     <>
       <div {...getReferenceProps({ ref: reference })}>{children}</div>
       <FloatingPortal>
-        {isTooltipOpen && (
-          <div
-            className={classNames(
-              "rounded-xl bg-slate-600 px-2.5 py-1.5 text-xs leading-normal text-white"
-            )}
+        {isMounted && (
+          <StyledContent
             {...getFloatingProps({
               ref: floating,
             })}
@@ -77,25 +98,26 @@ const BaseTooltip = ({
               position: strategy,
               left: x ?? 0,
               top: y ?? 0,
+              ...styles,
             }}
           >
             {content}
-            <div
-              className="bg-slate-600"
-              id="arrow"
+            <StyledArrow
+              className="bg-black"
               style={{
                 position: "absolute",
                 width: "1em",
                 height: "1em",
                 transform: "rotate(45deg)",
               }}
+              placement={placement}
               ref={arrowRef}
             />
-          </div>
+          </StyledContent>
         )}
       </FloatingPortal>
     </>
   );
 };
 
-export const Tooltip = memo(BaseTooltip);
+export const Tooltip = React.memo(BaseTooltip);
