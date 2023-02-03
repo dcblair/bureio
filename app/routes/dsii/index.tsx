@@ -75,7 +75,7 @@ export default function DreamSequenceIi() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-center items-center mb-4 lg:mb-20">
+      <div className="flex flex-col justify-center items-center mb-10 lg:mb-20">
         <div className="mb-10">
           <div className="mb-2">
             <p className="font-black font-questrial text-lg lg:text-xl tracking-widest">
@@ -100,7 +100,7 @@ export default function DreamSequenceIi() {
             >
               <img
                 alt="bandcamp logo"
-                className="max-w-[4.5rem] md:max-w-[5.5rem] h-auto"
+                className="max-w-[4.4rem] md:max-w-[5.5rem] h-auto"
                 src="/images/bandcamp_square_logo_filled.jpg"
               />
             </a>
