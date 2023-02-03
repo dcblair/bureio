@@ -587,14 +587,6 @@ video {
   margin-bottom: 0.5rem;
 }
 
-.mb-12 {
-  margin-bottom: 3rem;
-}
-
-.mb-6 {
-  margin-bottom: 1.5rem;
-}
-
 .mb-7 {
   margin-bottom: 1.75rem;
 }
@@ -641,6 +633,26 @@ video {
 
 .max-w-\[4rem\] {
   max-width: 4rem;
+}
+
+.max-w-\[4\.1rem\] {
+  max-width: 4.1rem;
+}
+
+.max-w-\[4\.2rem\] {
+  max-width: 4.2rem;
+}
+
+.max-w-\[4\.3rem\] {
+  max-width: 4.3rem;
+}
+
+.max-w-\[4\.4rem\] {
+  max-width: 4.4rem;
+}
+
+.max-w-\[4\.5rem\] {
+  max-width: 4.5rem;
 }
 
 .transform {
@@ -743,30 +755,6 @@ video {
   justify-content: space-evenly;
 }
 
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-6 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
-}
-
-.space-x-10 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(2.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(2rem * var(--tw-space-x-reverse));
@@ -863,24 +851,8 @@ video {
   font-weight: 700;
 }
 
-.font-light {
-  font-weight: 300;
-}
-
 .font-black {
   font-weight: 900;
-}
-
-.font-semibold {
-  font-weight: 600;
-}
-
-.leading-tight {
-  line-height: 1.25;
-}
-
-.leading-snug {
-  line-height: 1.375;
 }
 
 .leading-normal {
@@ -891,20 +863,8 @@ video {
   letter-spacing: 0.1em;
 }
 
-.tracking-wide {
-  letter-spacing: 0.025em;
-}
-
 .tracking-wider {
   letter-spacing: 0.05em;
-}
-
-.tracking-\[1rem\] {
-  letter-spacing: 1rem;
-}
-
-.tracking-\[0\.8rem\] {
-  letter-spacing: 0.8rem;
 }
 
 .tracking-\[0\.5rem\] {
@@ -954,6 +914,26 @@ video {
     max-width: 5rem;
   }
 
+  .md\:max-w-\[5\.1rem\] {
+    max-width: 5.1rem;
+  }
+
+  .md\:max-w-\[5\.2rem\] {
+    max-width: 5.2rem;
+  }
+
+  .md\:max-w-\[5\.3rem\] {
+    max-width: 5.3rem;
+  }
+
+  .md\:max-w-\[5\.4rem\] {
+    max-width: 5.4rem;
+  }
+
+  .md\:max-w-\[5\.5rem\] {
+    max-width: 5.5rem;
+  }
+
   .md\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -1001,11 +981,6 @@ video {
 
   .lg\:text-xl {
     font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .lg\:text-lg {
-    font-size: 1.125rem;
     line-height: 1.75rem;
   }
 }

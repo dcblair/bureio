@@ -100,8 +100,8 @@ export default function DreamSequenceIi() {
             >
               <img
                 alt="bandcamp logo"
-                className="max-w-[4rem] md:max-w-[5rem] h-auto"
-                src="/images/bandcamp_logo_circle.png"
+                className="max-w-[4.5rem] md:max-w-[5.5rem] h-auto"
+                src="/images/bandcamp_square_logo_filled.jpg"
               />
             </a>
           </Tooltip>
