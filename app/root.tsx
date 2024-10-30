@@ -10,9 +10,7 @@ import {
 } from "@remix-run/react";
 import NavBar from "./components/NavBar";
 import NotFound from "./pages/NotFound";
-import styles from "./tailwind.css";
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+import "./tailwind.css";
 
 export const meta: MetaFunction = () => {
   return [
