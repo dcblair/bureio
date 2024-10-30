@@ -29,6 +29,7 @@ module.exports = {
         "romance": "#f2efe8",
       },
       fontFamily: {
+        "sans": ["Questrial", "Zen Kaku Gothic", "sans-serif"],
         "questrial": ["Questrial", "sans-serif"],
         "zen-kaku-gothic": ["Zen Kaku Gothic", "sans-serif"],
         "m-plus-one": ["M Plus 1", "sans-serif"]

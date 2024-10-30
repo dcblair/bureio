@@ -1,20 +1,12 @@
 /* eslint-disable react/jsx-no-target-blank */
 import * as React from "react";
 import type { LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { useParallax } from "~/hooks/useParallax";
 import useIntersectionObserver from "~/hooks/useIntersectionObserver";
 import NotFound from "~/pages/NotFound";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faBandcamp } from "@fortawesome/free-brands-svg-icons";
-// import Tooltip from "~/components/Tooltip";
-import { useParallax } from "~/hooks/useParallax";
-
-export const loader: LoaderFunction = async () => {
-  return json({
-    floatingVideoDriveUrl: process.env.FLOATING_VIDEO_DRIVE_URL,
-  });
-};
+import { Tooltip } from "~/components";
 
 export default function DreamSequenceIi() {
   const { floatingVideoDriveUrl } = useLoaderData() as {
@@ -52,7 +44,7 @@ export default function DreamSequenceIi() {
 
   return (
     <div className="flex flex-col items-center text-center w-full">
-      <div className="mb-10 lg:mb-40 lg:mt-40">
+      <div className="mb-10 lg:mb-40 lg:mt-10 2xl:mt-30">
         <div
           className={
             isImgIntersecting
@@ -61,17 +53,17 @@ export default function DreamSequenceIi() {
           }
           ref={imgRef}
         >
-          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-w-3xl select-none pointer-events-none aspect-9/16">
+          <div className="xs:w-[95vw] sm:w-[65vw] md:w-[50vw] lg:max-h-[75vh] lg:w-auto select-none pointer-events-none aspect-9/16">
             <img
+              className="w-full h-full"
               alt="dream sequence ii album artwork"
-              className="h-auto w-full"
               src="/images/cropped_dsii_artwork.jpg"
             />
           </div>
         </div>
       </div>
 
-      <div className="mb-30 flex flex-row justify-evenly w-full mb-8">
+      <div className="mb-10 lg:mb-32 flex flex-row justify-evenly w-full">
         <div>
           <div
             ref={videoRef}
@@ -102,46 +94,47 @@ export default function DreamSequenceIi() {
         </div>
       </div>
 
-      {/* TODO: Replace floating video with collage video */}
-      <div className="mb-10 lg:mb-40 lg:mt-40">
-        <div
-          className={
-            isCollageIntersecting
-              ? "animate-fade-in"
-              : "animate-fade-out opacity-30"
-          }
-        >
-          <div className="xs:w-[90vw] sm:w-[65vw] md:w-[50vw] lg:max-w-2xl select-none pointer-events-none aspect-9/16">
-            <video
-              className="w-full h-full"
-              ref={collageRef}
-              src={floatingVideoDriveUrl}
-              title="test"
-            />
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col justify-center items-center mb-4 lg:mb-20">
-        <div className="mb-2">
+      <div className="flex flex-col justify-center items-center mb-10 lg:mb-20">
+        <div className="mb-10">
           <div className="mb-2">
             <p className="font-black font-questrial text-lg lg:text-xl tracking-widest">
               digital album / cassette
             </p>
           </div>
-          <h3 className="font-questrial text-xl lg:text-2xl tracking-widest">
-            january 2023
-          </h3>
+          <div className="mb-7">
+            <h3 className="font-questrial text-xl tracking-wider">
+              february 10
+            </h3>
+          </div>
+          <h4 className="font-questrial text-xl tracking-[0.5rem]">
+            available:
+          </h4>
         </div>
 
-        {/* TODO: When album is uploaded, expose this. 😌 */}
-        {/* <Tooltip title="bandcamp">
-          <a href="https://bu-re.bandcamp.com/" target="_blank">
-            <FontAwesomeIcon
-              className="max-w-[4rem] md:max-w-[5rem] h-auto"
-              icon={faBandcamp}
-            />
-          </a>
-        </Tooltip> */}
+        <div className="flex space-x-8">
+          <Tooltip content="bandcamp" placement="bottom">
+            <a
+              href="https://bu-re.bandcamp.com/album/dream-sequence-ii"
+              target="_blank"
+            >
+              <img
+                alt="bandcamp logo"
+                className="max-w-[4.4rem] md:max-w-[5.5rem] h-auto"
+                src="/images/bandcamp_square_logo_filled.jpg"
+              />
+            </a>
+          </Tooltip>
+
+          <Tooltip content="loser records" placement="bottom">
+            <a href="https://loserrecords.bandcamp.com/" target="_blank">
+              <img
+                alt="loser records logo"
+                className="max-w-[4rem] md:max-w-[5rem] h-auto"
+                src="/images/loser_logo_offwhite.jpg"
+              />
+            </a>
+          </Tooltip>
+        </div>
       </div>
     </div>
   );
