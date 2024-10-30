@@ -2,7 +2,7 @@
 import * as React from "react";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useCatch, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import useIntersectionObserver from "~/hooks/useIntersectionObserver";
 import NotFound from "~/pages/NotFound";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +17,9 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function DreamSequenceIi() {
-  const { floatingVideoDriveUrl } = useLoaderData();
+  const { floatingVideoDriveUrl } = useLoaderData() as {
+    floatingVideoDriveUrl: string;
+  };
   const collageRef = React.useRef<HTMLVideoElement | null>(null);
   const imgRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLDivElement | null>(null);
@@ -29,15 +31,15 @@ export default function DreamSequenceIi() {
 
   const { isIntersecting: isImgIntersecting } = useIntersectionObserver(
     imgRef,
-    intersectionOptions
+    intersectionOptions,
   );
   const { isIntersecting: isVideoIntersecting } = useIntersectionObserver(
     videoRef,
-    intersectionOptions
+    intersectionOptions,
   );
   const { isIntersecting: isCollageIntersecting } = useIntersectionObserver(
     collageRef,
-    intersectionOptions
+    intersectionOptions,
   );
 
   const yOffset = useParallax();
@@ -79,23 +81,22 @@ export default function DreamSequenceIi() {
                 : "animate-fade-out mb-4 opacity-30"
             }
           >
-            <div className="w-[90vw] sm:max-w-[65vw] md:w-[50vw] lg:max-w-2xl h-auto mb-8 aspect-9/16">
-              <video
-                className="w-full h-full"
-                controls
-                controlsList="nodownload noplaybackrate"
-                poster="/images/floating_still3.png"
-                src="/videos/floating_vertical_5.mp4"
-                title="floating"
-              />
-              {/* <iframe
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-                frameBorder="0"
-                src="https://player.vimeo.com/video/759633300"
-                title="floating"
-              /> */}
+            <div className="w-[75vw] sm:max-w-[65vw] md:w-[50vw] lg:max-h-[65vh] lg:w-auto h-auto mb-8 aspect-9/16">
+              <React.Suspense fallback={null}>
+                <video
+                  className="w-full h-full"
+                  controls
+                  controlsList="nodownload noplaybackrate"
+                  poster="/images/floating_still3.png"
+                  title="floating"
+                >
+                  <source
+                    src="/videos/floating_vertical_5.mp4"
+                    type="video/mp4"
+                  />
+                  <p>no browser support.</p>
+                </video>
+              </React.Suspense>
             </div>
           </div>
         </div>
@@ -144,15 +145,4 @@ export default function DreamSequenceIi() {
       </div>
     </div>
   );
-}
-
-export function CatchBoundary() {
-  const caught = useCatch();
-
-  switch (caught.status) {
-    case 404:
-      return <NotFound />;
-    default:
-      return <NotFound />;
-  }
 }

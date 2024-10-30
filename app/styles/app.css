@@ -635,6 +635,7 @@ video {
   max-width: 4rem;
 }
 
+<<<<<<< Updated upstream
 @-webkit-keyframes full-fade-in {
   0% {
     opacity: 0;
@@ -699,6 +700,10 @@ video {
 .animate-full-fade-out {
   -webkit-animation: full-fade-out 1s ease-in;
           animation: full-fade-out 1s ease-in;
+=======
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+>>>>>>> Stashed changes
 }
 
 @-webkit-keyframes fade-in {
@@ -885,6 +890,13 @@ video {
   font-weight: 900;
 }
 
+<<<<<<< Updated upstream
+=======
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+>>>>>>> Stashed changes
 .tracking-widest {
   letter-spacing: 0.1em;
 }

@@ -1,12 +1,12 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch,
+  useRouteError,
+  isRouteErrorResponse,
 } from "@remix-run/react";
 import NavBar from "./components/NavBar";
 import NotFound from "./pages/NotFound";
@@ -14,11 +14,14 @@ import styles from "./styles/app.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "bu.re_",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: MetaFunction = () => {
+  return [
+    {title: "bu.re_"},
+    {
+      content: "ambient musician / producer / saxophonist",
+    },
+  ]
+};
 
 export default function App() {
   return (
@@ -32,33 +35,18 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
 }
 
-export function CatchBoundary() {
-  const caught = useCatch();
-  console.error(caught.status, caught.statusText);
-
-  return (
-    <html className="h-full" lang="en">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      <body className="bg-romance h-full">
-        <NavBar />
-        <NotFound />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-
-export function ErrorBoundary({ error }: { error: Error }) {
+export function ErrorBoundary() {
+  const error = useRouteError();
   console.error(error);
+
+  if (isRouteErrorResponse(error)) {
+    return <NotFound />;
+  }
 
   return (
     <html className="h-full" lang="en">
