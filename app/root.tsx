@@ -10,17 +10,17 @@ import {
 } from "@remix-run/react";
 import NavBar from "./components/NavBar";
 import NotFound from "./pages/NotFound";
-import styles from "./styles/app.css";
+import styles from "./tailwind.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const meta: MetaFunction = () => {
   return [
-    {title: "bu.re_"},
+    { title: "bu.re_" },
     {
       content: "ambient musician / producer / saxophonist",
     },
-  ]
+  ];
 };
 
 export default function App() {
