@@ -1,17 +1,16 @@
 /* eslint-disable react/jsx-no-target-blank */
 import * as React from "react";
-import type { LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { json } from "@remix-run/node";
+// import type { LoaderFunction } from "@remix-run/node";
+// import { useLoaderData } from "@remix-run/react";
+// import { json } from "@remix-run/node";
 import { useParallax } from "~/hooks/useParallax";
 import useIntersectionObserver from "~/hooks/useIntersectionObserver";
-import NotFound from "~/pages/NotFound";
 import { Tooltip } from "~/components";
 
 export default function DreamSequenceIi() {
-  const { floatingVideoDriveUrl } = useLoaderData() as {
-    floatingVideoDriveUrl: string;
-  };
+  // const { floatingVideoDriveUrl } = useLoaderData() as {
+  //   floatingVideoDriveUrl: string;
+  // };
   const collageRef = React.useRef<HTMLVideoElement | null>(null);
   const imgRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLDivElement | null>(null);
