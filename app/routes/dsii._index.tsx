@@ -3,8 +3,7 @@ import * as React from "react";
 // import type { LoaderFunction } from "@remix-run/node";
 // import { useLoaderData } from "@remix-run/react";
 // import { json } from "@remix-run/node";
-import { useParallax } from "~/hooks/useParallax";
-import useIntersectionObserver from "~/hooks/useIntersectionObserver";
+import { useIntersectionObserver, useParallax } from "~/hooks";
 import { Tooltip } from "~/components";
 
 export default function DreamSequenceIi() {
