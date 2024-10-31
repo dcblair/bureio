@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useIntersectionObserver, useParallax } from '~/hooks';
+import { useIntersectionObserver } from '~/hooks';
 import { Tooltip } from '~/components';
 
 export default function DreamSequenceIi() {
-  const collageRef = React.useRef<HTMLVideoElement | null>(null);
   const imgRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -12,7 +11,7 @@ export default function DreamSequenceIi() {
   };
 
   const {
-    hasAnimated: hasImgAnimated,
+    // hasAnimated: hasImgAnimated,
     intersectionRatio: imgIntersectionRatio,
   } = useIntersectionObserver(imgRef, intersectionOptions);
   const {
