@@ -1,16 +1,16 @@
-import { Link, NavLink } from "@remix-run/react";
-import * as React from "react";
+import { Link, NavLink } from '@remix-run/react';
+import * as React from 'react';
 
-const NavBar = () => {
+const BaseNavBar = () => {
   const [isScroll, setIsScroll] = React.useState(false);
 
   return (
     <>
-      <div className="text-center items-center justify-center py-4 md:py-12">
+      <div className="items-center justify-center py-4 text-center md:py-8">
         {!isScroll && (
           <div className="mt-4">
             <Link
-              className="text-2xl md:text-3xl lg:text-4xl font-questrial tracking-widest font-bold"
+              className="font-questrial text-6xl tracking-widest md:text-5xl"
               to="/"
             >
               bu.re_
@@ -33,4 +33,4 @@ const NavBar = () => {
   );
 };
 
-export default React.memo(NavBar);
+export const NavBar = React.memo(BaseNavBar);

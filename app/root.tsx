@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from '@remix-run/node';
 import {
   Links,
   Meta,
@@ -7,28 +7,28 @@ import {
   ScrollRestoration,
   useRouteError,
   isRouteErrorResponse,
-} from "@remix-run/react";
-import NavBar from "./components/NavBar";
-import NotFound from "./pages/NotFound";
-import "./tailwind.css";
+} from '@remix-run/react';
+import { NavBar } from '~/components';
+import NotFound from './pages/NotFound';
+import './tailwind.css';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "bu.re_" },
+    { title: 'bu.re_' },
     {
-      content: "ambient musician / producer / saxophonist",
+      content: 'ambient musician / producer / saxophonist',
     },
   ];
 };
 
 export default function App() {
   return (
-    <html className="scroll-smooth h-full" lang="en">
+    <html className="h-full scroll-smooth" lang="en">
       <head>
         <Meta />
         <Links />
       </head>
-      <body className="bg-romance h-full">
+      <body className="h-full bg-[#C9D5B5]">
         <NavBar />
         <Outlet />
         <ScrollRestoration />
@@ -52,7 +52,7 @@ export function ErrorBoundary() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-romance h-full">
+      <body className="h-full bg-romance">
         <NavBar />
         <NotFound />
         <Scripts />
