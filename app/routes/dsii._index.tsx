@@ -24,7 +24,7 @@ export default function DreamSequenceIi() {
   // TODO: figure out intersection count => in and out of the viewport
 
   return (
-    <div className="flex w-full flex-col items-center text-center md:mt-4">
+    <div className="flex w-full flex-col items-center text-center">
       <div className="lg:mb-20 lg:mt-10">
         <div
           className={
