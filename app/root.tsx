@@ -28,7 +28,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full bg-[#C9D5B5]">
+      <body className="h-full bg-romance">
         <NavBar />
         <Outlet />
         <ScrollRestoration />
