@@ -34,16 +34,16 @@ export default function DreamSequenceIi() {
   }, [yOffset]);
 
   return (
-    <div className="mt-12 flex w-full flex-col items-center text-center md:mt-4">
+    <div className="mt-4 flex w-full flex-col items-center text-center">
       <div className="flex w-full flex-col items-center">
-        <div className="2xl:mt-30 relative mb-40 lg:mb-40 lg:mt-10">
+        <div className="2xl:mt-30 relative mb-20 lg:mb-40 lg:mt-10">
           <div
             className={
               isImgIntersecting ? 'animate-fade-in' : 'animate-fade-out'
             }
             ref={imgRef}
           >
-            <div className="aspect-9/16 w-[95vw] select-none transition-all duration-1000 hover:shadow-2xl md:w-[50vw] lg:max-h-[75vh] lg:w-auto">
+            <div className="aspect-9/16 w-[calc(100%-10px)] select-none transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl">
               <img
                 className="h-full w-full"
                 alt="dream sequence ii album artwork"
@@ -63,7 +63,7 @@ export default function DreamSequenceIi() {
                 isVideoIntersecting ? 'animate-fade-in' : 'animate-fade-out'
               }
             >
-              <div className="mb-8 aspect-9/16 h-auto w-[75vw] transition-all duration-1000 hover:shadow-2xl sm:max-w-[65vw] md:w-[50vw] lg:max-h-[65vh] lg:w-auto">
+              <div className="mb-8 aspect-9/16 w-[calc(100%-10px)] bg-romance p-10 transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl">
                 <React.Suspense fallback={null}>
                   <video
                     className="h-full w-full"

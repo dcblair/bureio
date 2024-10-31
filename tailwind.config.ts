@@ -13,6 +13,11 @@ export default {
       aspectRatio: {
         '9/16': '9 / 16',
       },
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+        '4xl': '0 50px 100px -20px rgba(0, 0, 0, 0.3)',
+        '5xl': '0 50px 100px -20px rgba(0, 0, 0, 0.6)',
+      },
       colors: {
         'dark-cyan': '#363f43',
         'blanched-almond': '#ffebcd',
@@ -47,6 +52,14 @@ export default {
           '50%': { opacity: '0.6' },
           '100%': { opacity: '0' },
         },
+      },
+      transitionDuration: {
+        '2000': '2000ms',
+        '3000': '3000ms',
+        '4000': '4000ms',
+        '5000': '5000ms',
+        '7500': '7500ms',
+        '10000': '10000ms',
       },
     },
   },
