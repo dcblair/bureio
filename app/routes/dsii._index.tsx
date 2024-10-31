@@ -24,7 +24,7 @@ export default function DreamSequenceIi() {
 
   return (
     <div className="flex w-full flex-col items-center text-center">
-      <div className="lg:mb-20 lg:mt-10">
+      <div className="mb-4 lg:mb-8 lg:mt-10">
         <div
           className="transition-all duration-2000"
           ref={imgRef}
@@ -47,10 +47,11 @@ export default function DreamSequenceIi() {
             ref={videoRef}
             style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
           >
-            <div className="mb-8 aspect-9/16 w-[calc(100%-10px)] bg-romance p-10 transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl">
+            <div className="mb-8 flex aspect-9/16 w-[calc(100%-10px)] items-center justify-center bg-romance px-8 py-4 transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl">
               <React.Suspense fallback={null}>
+                {/* todo: investigate white border on top of video */}
                 <video
-                  className="h-full w-full"
+                  // className="h-full w-full"
                   controls
                   controlsList="nodownload noplaybackrate"
                   poster="/images/floating_still3.png"
