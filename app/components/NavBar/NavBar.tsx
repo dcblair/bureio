@@ -21,7 +21,9 @@ const BaseNavBar = () => {
 
       {/* divider */}
       <div
-        className={'mt-6 h-0.5 w-1/2 rounded-r-sm bg-rich-black-fogra29'}
+        className={
+          'mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/30'
+        }
         ref={ref}
       />
 

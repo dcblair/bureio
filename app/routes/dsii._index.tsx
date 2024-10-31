@@ -79,7 +79,7 @@ export default function DreamSequenceIi() {
         </div>
 
         {/* right-positioned divider */}
-        <div className="absolute -bottom-2 right-0 h-0.5 w-1/2 rounded-r-sm bg-rich-black-fogra29 md:-bottom-12" />
+        <div className="absolute -bottom-2 right-0 h-0.5 w-1/2 rounded-l-sm rounded-r-sm bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/40 md:-bottom-12" />
       </div>
 
       {/* divider */}
@@ -103,7 +103,7 @@ export default function DreamSequenceIi() {
           </h4>
 
           {/* divider */}
-          <div className="mt-4 h-0.5 w-1/2 rounded-r-sm bg-rich-black-fogra29" />
+          <div className="mt-4 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40" />
         </div>
 
         <div className="flex space-x-8">
