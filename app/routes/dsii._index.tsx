@@ -21,14 +21,14 @@ export default function DreamSequenceIi() {
     isIntersecting: isVideoIntersecting,
   } = useIntersectionObserver(videoRef, intersectionOptions);
 
-  console.log('imgIntersectionCount', imgIntersectionCount);
-  console.log('videoIntersectionCount', videoIntersectionCount);
+  // TODO: figure out intersection count => in and out of the viewport
+
   return (
     <div className="flex w-full flex-col items-center text-center md:mt-4">
-      <div className="relative lg:mb-20 lg:mt-10">
+      <div className="lg:mb-20 lg:mt-10">
         <div
           className={
-            imgIntersectionCount < 1
+            imgIntersectionCount < 2
               ? isImgIntersecting
                 ? 'animate-fade-in'
                 : 'animate-fade-out'
@@ -44,8 +44,6 @@ export default function DreamSequenceIi() {
             />
           </div>
         </div>
-
-        {/* <div className="absolute z-[-1] h-4 w-[calc(100vw-20px)] rotate-45 rounded-md bg-green-50" /> */}
       </div>
 
       <div className="relative mb-10 flex w-full flex-row justify-evenly lg:mb-20">
@@ -53,7 +51,7 @@ export default function DreamSequenceIi() {
           <div
             ref={videoRef}
             className={
-              videoIntersectionCount < 1
+              videoIntersectionCount < 2
                 ? isVideoIntersecting
                   ? 'animate-fade-in'
                   : 'animate-fade-out'
@@ -81,7 +79,7 @@ export default function DreamSequenceIi() {
         </div>
 
         {/* right-positioned divider */}
-        <div className="absolute bottom-4 right-0 mt-4 h-0.5 w-1/2 rounded-r-sm bg-rich-black-fogra29 md:-bottom-12" />
+        <div className="absolute -bottom-2 right-0 h-0.5 w-1/2 rounded-r-sm bg-rich-black-fogra29 md:-bottom-12" />
       </div>
 
       {/* divider */}
