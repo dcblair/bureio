@@ -8,33 +8,28 @@ export default function DreamSequenceIi() {
   const videoRef = React.useRef<HTMLDivElement | null>(null);
 
   const intersectionOptions = {
-    threshold: 0.95,
-    rootMargin: '20px',
+    threshold: 1.0,
   };
 
   const {
-    intersectionCount: imgIntersectionCount,
-    isIntersecting: isImgIntersecting,
+    hasAnimated: hasImgAnimated,
+    intersectionRatio: imgIntersectionRatio,
   } = useIntersectionObserver(imgRef, intersectionOptions);
   const {
-    intersectionCount: videoIntersectionCount,
-    isIntersecting: isVideoIntersecting,
+    // hasAnimated: hasVideoAnimated,
+    intersectionRatio: videoIntersectionRatio,
   } = useIntersectionObserver(videoRef, intersectionOptions);
 
-  // TODO: figure out intersection count => in and out of the viewport
+  const setOpacityRange = (value: string | number) =>
+    Math.max(0.25, Number(value));
 
   return (
     <div className="flex w-full flex-col items-center text-center">
       <div className="lg:mb-20 lg:mt-10">
         <div
-          className={
-            imgIntersectionCount < 2
-              ? isImgIntersecting
-                ? 'animate-fade-in'
-                : 'animate-fade-out'
-              : ''
-          }
+          className="transition-all duration-2000"
           ref={imgRef}
+          style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
           <div className="aspect-9/16 w-[calc(100%-10px)] select-none transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl">
             <img
@@ -49,14 +44,9 @@ export default function DreamSequenceIi() {
       <div className="relative mb-10 flex w-full flex-row justify-evenly lg:mb-20">
         <div>
           <div
+            className="transition-all duration-2000"
             ref={videoRef}
-            className={
-              videoIntersectionCount < 2
-                ? isVideoIntersecting
-                  ? 'animate-fade-in'
-                  : 'animate-fade-out'
-                : ''
-            }
+            style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
           >
             <div className="mb-8 aspect-9/16 w-[calc(100%-10px)] bg-romance p-10 transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl">
               <React.Suspense fallback={null}>

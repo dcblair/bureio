@@ -5,13 +5,15 @@ export const useIntersectionObserver = (
   options?: IntersectionObserverInit,
 ) => {
   const [isIntersecting, setIsIntersecting] = React.useState(false);
-  const [intersectionCount, setIntersectionCount] = React.useState(0);
+  const [hasAnimated, setHasAnimated] = React.useState(false);
+  const [intersectionRatio, setIntersectionRatio] = React.useState(0);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
+      setIntersectionRatio(entry.intersectionRatio);
       if (entry.isIntersecting) {
-        setIntersectionCount((prevCount) => prevCount + 1);
         setIsIntersecting(true);
+        setHasAnimated(true);
       } else {
         setIsIntersecting(false);
       }
@@ -26,5 +28,5 @@ export const useIntersectionObserver = (
     };
   }, [ref, options]);
 
-  return { intersectionCount, isIntersecting };
+  return { hasAnimated, intersectionRatio, isIntersecting };
 };
