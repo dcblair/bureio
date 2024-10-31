@@ -21,7 +21,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function App({ children }: { children: React.ReactNode }) {
+export default function App() {
   return (
     <html className="h-full scroll-smooth" lang="en">
       <head>
