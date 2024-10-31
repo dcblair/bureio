@@ -2,11 +2,11 @@ import type { MetaFunction } from '@remix-run/node';
 import {
   Links,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   useRouteError,
   isRouteErrorResponse,
+  Outlet,
 } from '@remix-run/react';
 import { NavBar } from '~/components';
 import NotFound from './pages/NotFound';
@@ -21,11 +21,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function App() {
+export default function App({ children }: { children: React.ReactNode }) {
   return (
     <html className="h-full scroll-smooth" lang="en">
       <head>
         <Meta />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Links />
       </head>
       <body className="h-full bg-romance">

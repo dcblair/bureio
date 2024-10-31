@@ -10,7 +10,7 @@ const BaseNavBar = () => {
         {!isScroll && (
           <div className="mt-4">
             <Link
-              className="font-questrial text-6xl tracking-widest md:text-5xl"
+              className="font-questrial text-4xl tracking-widest md:text-5xl"
               to="/"
             >
               bu.re_
