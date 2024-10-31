@@ -22,7 +22,7 @@ const BaseNavBar = () => {
       {/* divider */}
       <div
         className={
-          'absolute -bottom-3 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/30'
+          'absolute bottom-4 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/30 md:-bottom-3'
         }
         ref={ref}
       />
