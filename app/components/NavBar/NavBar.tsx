@@ -8,7 +8,7 @@ const BaseNavBar = () => {
   // const { hasAnimated, isIntersecting } = useIntersectionObserver(ref);
 
   return (
-    <div className="relative flex flex-col items-center justify-center py-8 text-center md:pb-0 md:pt-12">
+    <div className="relative mt-3 flex flex-col items-center justify-center pb-3 pt-1 text-center md:mt-12">
       {/* header */}
       <div>
         {/* add gradient text mask to header */}
@@ -22,7 +22,7 @@ const BaseNavBar = () => {
       {/* divider */}
       <div
         className={
-          'absolute bottom-4 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/30 md:-bottom-3'
+          'absolute bottom-1 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/30 md:-bottom-3'
         }
         ref={ref}
       />

@@ -8,6 +8,7 @@ export default function DreamSequenceIi() {
 
   const intersectionOptions = {
     threshold: 1.0,
+    rootMargin: '10px',
   };
 
   const {
@@ -24,47 +25,38 @@ export default function DreamSequenceIi() {
 
   return (
     <div className="flex w-full flex-col items-center text-center">
-      <div className="mb-4 lg:mb-8 lg:mt-10">
+      <div className="mb-4 flex items-center justify-center lg:mb-8 lg:mt-10">
         <div
-          className="transition-all duration-2000"
+          className="aspect-9/16 w-[calc(100%-40px)] select-none transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl"
           ref={imgRef}
           style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
-          <div className="aspect-9/16 w-[calc(100%-10px)] select-none transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl">
-            <img
-              className="h-full w-full"
-              alt="dream sequence ii album artwork"
-              src="/images/cropped_dsii_artwork.jpg"
-            />
-          </div>
+          <img
+            className="h-full w-full"
+            alt="dream sequence ii album artwork"
+            src="/images/cropped_dsii_artwork.jpg"
+          />
         </div>
       </div>
 
-      <div className="relative mb-10 flex w-full flex-row justify-evenly lg:mb-20">
-        <div>
-          <div
-            className="transition-all duration-2000"
-            ref={videoRef}
-            style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
-          >
-            <div className="mx-auto mb-8 aspect-9/16 w-[calc(100%-10px)] bg-romance p-10 transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl">
-              <React.Suspense fallback={null}>
-                <video
-                  className="my-2 h-full w-full object-cover"
-                  controls
-                  controlsList="nodownload noplaybackrate"
-                  poster="/images/floating_still3.png"
-                  title="floating"
-                >
-                  <source
-                    src="/videos/floating_vertical_5.mp4"
-                    type="video/mp4"
-                  />
-                  <p>no browser support.</p>
-                </video>
-              </React.Suspense>
-            </div>
-          </div>
+      <div className="relative mx-auto mb-6 w-full lg:mb-20">
+        <div
+          className="mx-auto mb-2 aspect-9/16 w-[calc(100%-40px)] bg-romance p-10 transition-all duration-2000 md:mb-8 md:max-w-96 md:hover:shadow-5xl"
+          ref={videoRef}
+          style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
+        >
+          <React.Suspense fallback={null}>
+            <video
+              className="my-2 h-full w-full object-cover"
+              controls
+              controlsList="nodownload noplaybackrate"
+              poster="/images/floating_still3.png"
+              title="floating"
+            >
+              <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
+              <p>no browser support.</p>
+            </video>
+          </React.Suspense>
         </div>
 
         {/* right-positioned divider */}
@@ -74,15 +66,15 @@ export default function DreamSequenceIi() {
       {/* divider */}
 
       {/* footer */}
-      <div className="relative mb-10 flex flex-col items-center justify-center lg:mb-20">
-        <div className="mb-10 flex flex-col items-center">
+      <div className="relative mb-6 flex flex-col items-center justify-center lg:mb-20">
+        <div className="mb-6 flex flex-col items-center md:mb-10">
           {/* release info */}
           <div className="mb-2">
             <p className="font-questrial text-lg font-black tracking-widest lg:text-xl">
               digital album / cassette
             </p>
           </div>
-          <div className="mb-7">
+          <div className="mb-3 md:mb-7">
             <h3 className="font-questrial text-xl tracking-wider">
               february 10
             </h3>
