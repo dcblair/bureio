@@ -1,6 +1,12 @@
 import * as React from 'react';
+import { LinksFunction } from '@remix-run/node';
 import { useIntersectionObserver } from '~/hooks';
 import { Tooltip } from '~/components';
+
+export const links: LinksFunction = () => [
+  { rel: 'preload', as: 'image', href: '/images/cropped_dsii_artwork.jpg' },
+  { rel: 'preload', as: 'video', href: '/videos/floating_vertical_5.mp4' },
+];
 
 export default function DreamSequenceIi() {
   const imgRef = React.useRef<HTMLDivElement | null>(null);
@@ -27,21 +33,26 @@ export default function DreamSequenceIi() {
     <div className="flex w-full flex-col items-center text-center">
       <div className="mb-4 flex items-center justify-center lg:mb-8 lg:mt-10">
         <div
-          className="aspect-9/16 w-[calc(100%-40px)] select-none transition-all duration-2000 md:max-w-96 md:hover:shadow-5xl"
+          className="aspect-9/16 w-[calc(100%-50px)] select-none transition-all duration-2000 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
           ref={imgRef}
           style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
-          <img
-            className="h-full w-full"
-            alt="dream sequence ii album artwork"
-            src="/images/cropped_dsii_artwork.jpg"
-          />
+          <React.Suspense
+            fallback={<div className="size-full object-cover"></div>}
+          >
+            <img
+              alt="dream sequence ii album artwork"
+              className="size-full object-cover"
+              src="/images/cropped_dsii_artwork.jpg"
+              loading="lazy"
+            />
+          </React.Suspense>
         </div>
       </div>
 
       <div className="relative mx-auto mb-6 w-full lg:mb-20">
         <div
-          className="mx-auto mb-2 aspect-9/16 w-[calc(100%-40px)] bg-romance p-10 transition-all duration-2000 md:mb-8 md:max-w-96 md:hover:shadow-5xl"
+          className="mx-auto mb-2 aspect-9/16 h-[calc(100%-50px)] w-[calc(100%-50px)] bg-romance p-10 transition-all duration-2000 md:mb-8 md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
           ref={videoRef}
           style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
         >
@@ -50,7 +61,7 @@ export default function DreamSequenceIi() {
               className="my-2 h-full w-full object-cover"
               controls
               controlsList="nodownload noplaybackrate"
-              poster="/images/floating_still3.png"
+              poster="/images/floating_still_3.png"
               title="floating"
             >
               <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
@@ -66,7 +77,7 @@ export default function DreamSequenceIi() {
       {/* divider */}
 
       {/* footer */}
-      <div className="relative mb-6 flex flex-col items-center justify-center lg:mb-20">
+      <div className="relative mb-6 flex flex-col items-center justify-center bg-transparent lg:mb-20">
         <div className="mb-6 flex flex-col items-center md:mb-10">
           {/* release info */}
           <div className="mb-2">
