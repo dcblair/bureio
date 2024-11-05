@@ -2,7 +2,7 @@ import { Link, NavLink } from '@remix-run/react';
 import * as React from 'react';
 import { useIntersectionObserver } from '~/hooks';
 
-const BaseNavBar = () => {
+const BaseHeader = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
   // todo: test intersection with animation
   // const { hasAnimated, isIntersecting } = useIntersectionObserver(ref);
@@ -13,7 +13,7 @@ const BaseNavBar = () => {
       <div>
         {/* add gradient text mask to header */}
         <Link to="/">
-          <h1 className="font-questrial text-4xl tracking-widest md:text-5xl">
+          <h1 className="bg-gradient-to-tr from-rich-black-fogra29 to-rich-black-fogra29/50 bg-clip-text font-questrial text-4xl tracking-widest text-transparent md:text-5xl">
             bu.re_
           </h1>
         </Link>
@@ -42,4 +42,4 @@ const BaseNavBar = () => {
   );
 };
 
-export const NavBar = React.memo(BaseNavBar);
+export const Header = React.memo(BaseHeader);
