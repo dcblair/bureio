@@ -11,10 +11,10 @@ const BaseHeader = () => {
     <div className="relative mt-3 flex flex-col items-center justify-center pb-3 pt-1 text-center md:mt-12">
       {/* header */}
       <div>
-        {/* add gradient text mask to header */}
         <Link to="/">
-          <h1 className="bg-gradient-to-tr from-rich-black-fogra29 to-rich-black-fogra29/50 bg-clip-text font-questrial text-4xl tracking-widest text-transparent md:text-5xl">
-            bu.re_
+          <h1 className="font-questrial text-4xl tracking-widest text-rich-black-fogra29 md:text-5xl">
+            bu.
+            <span className="text-slate-600">re_</span>
           </h1>
         </Link>
       </div>
