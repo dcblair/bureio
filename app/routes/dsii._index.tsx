@@ -33,7 +33,7 @@ export default function DreamSequenceIi() {
     <div className="flex w-full flex-col items-center text-center">
       <div className="mb-4 flex items-center justify-center lg:mb-8 lg:mt-10">
         <div
-          className="aspect-9/16 w-[calc(100%-50px)] select-none transition-all duration-2000 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
+          className="aspect-9/16 w-3/4 select-none transition-all duration-2000 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
           ref={imgRef}
           style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
@@ -52,13 +52,13 @@ export default function DreamSequenceIi() {
 
       <div className="relative mx-auto mb-6 w-full lg:mb-20">
         <div
-          className="mx-auto mb-2 aspect-9/16 h-[calc(100%-50px)] w-[calc(100%-50px)] bg-romance p-10 transition-all duration-2000 md:mb-8 md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
+          className="mx-auto mb-2 aspect-9/16 w-3/4 bg-romance p-10 transition-all duration-2000 md:mb-8 md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
           ref={videoRef}
           style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
         >
           <React.Suspense fallback={null}>
             <video
-              className="my-2 h-full w-full object-cover"
+              className="h-full w-full object-cover"
               controls
               controlsList="nodownload noplaybackrate"
               poster="/images/floating_still_3.png"
@@ -77,7 +77,7 @@ export default function DreamSequenceIi() {
       {/* divider */}
 
       {/* footer */}
-      <div className="relative mb-6 flex flex-col items-center justify-center bg-transparent lg:mb-20">
+      <div className="relative mb-6 flex flex-col items-center justify-center lg:mb-20">
         <div className="mb-6 flex flex-col items-center md:mb-10">
           {/* release info */}
           <div className="mb-2">
