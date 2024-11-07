@@ -53,7 +53,8 @@ export default function DreamSequenceIi() {
           <React.Suspense
             fallback={<div className="size-full object-cover"></div>}
           >
-            <button onClick={handleOpenModal}>
+            {/* todo: update outline styling */}
+            <button className="outline-offset-4" onClick={handleOpenModal}>
               <img
                 alt="dream sequence ii album artwork"
                 className="size-full object-cover"
