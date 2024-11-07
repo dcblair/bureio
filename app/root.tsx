@@ -8,7 +8,7 @@ import {
   isRouteErrorResponse,
   Outlet,
 } from '@remix-run/react';
-import { NavBar } from '~/components';
+import { Header } from '~/components';
 import NotFound from './pages/NotFound';
 import './tailwind.css';
 
@@ -31,7 +31,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full bg-romance">
-        <NavBar />
+        <Header />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
@@ -55,7 +55,7 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body className="h-full bg-romance">
-        <NavBar />
+        <Header />
         <NotFound />
         <Scripts />
       </body>

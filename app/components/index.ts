@@ -1,4 +1,5 @@
 export * from './Button';
 export * from './Input';
-export * from './NavBar/NavBar';
+export * from './Header/Header';
+export * from './Overlay/Overlay';
 export * from './Tooltip';

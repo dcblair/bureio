@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { LinksFunction } from '@remix-run/node';
 import { useIntersectionObserver } from '~/hooks';
-import { Tooltip } from '~/components';
+import { Overlay, Tooltip } from '~/components';
+import { Link } from '@remix-run/react';
 
 export const links: LinksFunction = () => [
   { rel: 'preload', as: 'image', href: '/images/cropped_dsii_artwork.jpg' },
@@ -11,6 +12,7 @@ export const links: LinksFunction = () => [
 export default function DreamSequenceIi() {
   const imgRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLDivElement | null>(null);
+  const [searchParams, setSearchParams] = React.useState<URLSearchParams>();
 
   const intersectionOptions = {
     threshold: 1.0,
@@ -26,11 +28,22 @@ export default function DreamSequenceIi() {
     intersectionRatio: videoIntersectionRatio,
   } = useIntersectionObserver(videoRef, intersectionOptions);
 
+  const isModalOpen = searchParams?.get('modal') === 'true';
+
+  const handleOpenModal = () => {
+    setSearchParams(new URLSearchParams({ modal: 'true' }));
+  };
+
+  const handleCloseModal = () => {
+    setSearchParams(new URLSearchParams({ modal: 'false' }));
+  };
+
   const setOpacityRange = (value: string | number) =>
     Math.max(0.25, Number(value));
 
   return (
     <div className="flex w-full flex-col items-center text-center">
+      {/* image */}
       <div className="mb-4 flex items-center justify-center lg:mb-8 lg:mt-10">
         <div
           className="aspect-9/16 w-3/4 select-none transition-all duration-2000 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
@@ -40,19 +53,47 @@ export default function DreamSequenceIi() {
           <React.Suspense
             fallback={<div className="size-full object-cover"></div>}
           >
-            <img
-              alt="dream sequence ii album artwork"
-              className="size-full object-cover"
-              src="/images/cropped_dsii_artwork.jpg"
-              loading="lazy"
-            />
+            <button onClick={handleOpenModal}>
+              <img
+                alt="dream sequence ii album artwork"
+                className="size-full object-cover"
+                src="/images/cropped_dsii_artwork.jpg"
+                loading="lazy"
+              />
+            </button>
           </React.Suspense>
         </div>
       </div>
 
+      {/* modal overlay */}
+      <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
+        <div className="relative flex items-center">
+          <button onClick={handleCloseModal}>
+            <img
+              alt="dream sequence ii album artwork"
+              className="aspect-9/16 max-h-[calc(100vh-20px)] w-auto cursor-auto object-cover"
+              src="/images/cropped_dsii_artwork.jpg"
+            />
+          </button>
+          <button
+            className="rounded-full outline-2 outline-offset-2 outline-black"
+            onClick={handleCloseModal}
+          >
+            <svg
+              aria-label="close modal"
+              className="absolute -right-8 top-0 hidden rounded-full fill-romance md:-right-20 md:block md:size-16"
+              viewBox="0 0 24 24"
+            >
+              <path d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z" />
+            </svg>
+          </button>
+        </div>
+      </Overlay>
+
       <div className="relative mx-auto mb-6 w-full lg:mb-20">
+        {/* video */}
         <div
-          className="mx-auto mb-2 aspect-9/16 w-3/4 bg-romance p-10 transition-all duration-2000 md:mb-8 md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
+          className="mx-auto mb-2 aspect-9/16 w-3/4 bg-romance px-4 py-10 transition-all duration-2000 md:mb-8 md:min-h-[578px] md:w-[325px] md:p-10 md:hover:shadow-5xl"
           ref={videoRef}
           style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
         >
@@ -74,9 +115,6 @@ export default function DreamSequenceIi() {
         <div className="absolute -bottom-2 right-0 h-0.5 w-1/2 rounded-l-sm rounded-r-sm bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/40 md:-bottom-12" />
       </div>
 
-      {/* divider */}
-
-      {/* footer */}
       <div className="relative mb-6 flex flex-col items-center justify-center lg:mb-20">
         <div className="mb-6 flex flex-col items-center md:mb-10">
           {/* release info */}
@@ -99,6 +137,7 @@ export default function DreamSequenceIi() {
         </div>
 
         <div className="flex space-x-8">
+          {/* bu.re_ personal bandcamp link */}
           <Tooltip content="bandcamp" placement="bottom">
             <a
               aria-label="bu.re_ dream sequence ii bandcamp"
@@ -115,6 +154,7 @@ export default function DreamSequenceIi() {
             </a>
           </Tooltip>
 
+          {/* loser records bandcamp link */}
           <Tooltip content="loser records" placement="bottom">
             <a
               about="bu.re_ dream sequence ii loser records bandcamp"
