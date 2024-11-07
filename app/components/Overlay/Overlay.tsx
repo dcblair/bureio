@@ -20,7 +20,7 @@ const BaseOverlay = ({ children, isOpen, onClose }: OverlayProps) => {
       onClose={onClose}
       open={isOpen}
     >
-      <DialogBackdrop className="fixed inset-0 -z-10 bg-slate-800/70" />
+      <DialogBackdrop className="fixed inset-0 -z-10 bg-gradient-to-t from-slate-950/70 to-slate-600/70 backdrop-blur-lg" />
       <DialogPanel className="flex size-full flex-col items-center justify-center">
         {children}
       </DialogPanel>

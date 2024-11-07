@@ -74,6 +74,11 @@ export default function DreamSequenceIi() {
               className="aspect-9/16 max-h-[calc(100vh-20px)] w-auto cursor-auto object-cover"
               src="/images/cropped_dsii_artwork.jpg"
             />
+          </button>
+          <button
+            className="rounded-full outline-2 outline-offset-2 outline-black"
+            onClick={handleCloseModal}
+          >
             <svg
               aria-label="close modal"
               className="absolute -right-8 top-0 hidden rounded-full fill-romance md:-right-20 md:block md:size-16"
