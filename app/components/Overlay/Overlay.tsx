@@ -20,9 +20,9 @@ const BaseOverlay = ({ children, isOpen, onClose }: OverlayProps) => {
       onClose={onClose}
       open={isOpen}
     >
-      <DialogBackdrop className="fixed inset-0 bg-black bg-opacity-50" />
-      <DialogPanel className="flex min-h-screen items-center justify-center">
-        <div className="h-full w-full bg-white">{children}</div>
+      <DialogBackdrop className="fixed inset-0 -z-10 bg-slate-800/70" />
+      <DialogPanel className="flex size-full flex-col items-center justify-center">
+        {children}
       </DialogPanel>
     </Dialog>
   );

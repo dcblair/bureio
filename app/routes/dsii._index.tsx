@@ -67,31 +67,21 @@ export default function DreamSequenceIi() {
 
       {/* modal overlay */}
       <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
-        <div className="h-full w-full bg-white">
-          <div className="flex h-full w-full flex-col items-center justify-center">
+        <div className="relative flex items-center">
+          <button onClick={handleCloseModal}>
             <img
               alt="dream sequence ii album artwork"
-              className="h-full w-full object-cover"
+              className="aspect-9/16 max-h-[calc(100vh-20px)] w-auto cursor-auto object-cover"
               src="/images/cropped_dsii_artwork.jpg"
             />
-            <Link
-              className="absolute right-0 top-0 p-4"
-              to="/dsii"
-              onClick={handleCloseModal}
+            <svg
+              aria-label="close modal"
+              className="absolute -right-8 top-0 hidden rounded-full fill-romance md:-right-20 md:block md:size-16"
+              viewBox="0 0 24 24"
             >
-              <svg
-                className="h-8 w-8 text-black"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  clipRule="evenodd"
-                  d="M19.707 4.293a1 1 0 0 1 1.414 1.414L13.414 12l7.707 7.293a1 1 0 0 1-1.414 1.414L12 13.414l-7.293 7.707a1 1 0 0 1-1.414-1.414L10.586 12 3.879 4.707a1 1 0 0 1 1.414-1.414L12 10.586l7.707-7.293z"
-                  fillRule="evenodd"
-                />
-              </svg>
-            </Link>
-          </div>
+              <path d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z" />
+            </svg>
+          </button>
         </div>
       </Overlay>
 
