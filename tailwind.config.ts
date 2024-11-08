@@ -9,6 +9,7 @@ export default {
         'fade-out': 'fade-out 1.2s ease-in',
         'full-fade-in': 'full-fade-in 1s ease-in-out',
         'full-fade-out': 'full-fade-out 1s ease-in',
+        'gradient-shift': 'gradient-shift 3s infinite ease',
       },
       aspectRatio: {
         '9/16': '9 / 16',
@@ -51,6 +52,16 @@ export default {
           '0%': { opacity: '1' },
           '50%': { opacity: '0.6' },
           '100%': { opacity: '0' },
+        },
+        'gradient-shift': {
+          '0%, 100%': {
+            'background-position': 'left center',
+            'background-size': '200% 200%',
+          },
+          '50%': {
+            'background-position': 'right center',
+            'background-size': '200% 200%',
+          },
         },
       },
       transitionDuration: {
