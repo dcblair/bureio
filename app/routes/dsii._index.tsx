@@ -50,11 +50,12 @@ export default function DreamSequenceIi() {
           ref={imgRef}
           style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
-          <React.Suspense
-            fallback={<div className="size-full object-cover"></div>}
-          >
+          <React.Suspense fallback={<div className="size-full object-cover" />}>
             {/* todo: update outline styling */}
-            <button className="outline-offset-4" onClick={handleOpenModal}>
+            <button
+              className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
+              onClick={handleOpenModal}
+            >
               <img
                 alt="dream sequence ii album artwork"
                 className="size-full object-cover"
@@ -69,15 +70,18 @@ export default function DreamSequenceIi() {
       {/* modal overlay */}
       <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
         <div className="relative flex items-center">
-          <button onClick={handleCloseModal}>
+          <button
+            className="focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
+            onClick={handleCloseModal}
+          >
             <img
               alt="dream sequence ii album artwork"
-              className="aspect-9/16 max-h-[calc(100vh-20px)] w-auto cursor-auto object-cover"
+              className="aspect-9/16 max-h-[calc(100vh-50px)] w-auto cursor-auto object-cover"
               src="/images/cropped_dsii_artwork.jpg"
             />
           </button>
           <button
-            className="rounded-full outline-2 outline-offset-2 outline-black"
+            className="rounded-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
             onClick={handleCloseModal}
           >
             <svg
@@ -91,16 +95,16 @@ export default function DreamSequenceIi() {
         </div>
       </Overlay>
 
-      <div className="relative mx-auto mb-6 w-full lg:mb-20">
+      <div
+        className="relative mx-auto mb-6 w-full lg:mb-20"
+        ref={videoRef}
+        style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
+      >
         {/* video */}
-        <div
-          className="mx-auto mb-2 aspect-9/16 w-3/4 bg-romance px-4 py-10 transition-all duration-2000 md:mb-8 md:min-h-[578px] md:w-[325px] md:p-10 md:hover:shadow-5xl"
-          ref={videoRef}
-          style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
-        >
+        <div className="mx-auto mb-2 flex aspect-9/16 w-3/4 items-center transition-all duration-2000 md:mb-8 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl">
           <React.Suspense fallback={null}>
             <video
-              className="h-full w-full object-cover"
+              className="bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
               controls
               controlsList="nodownload noplaybackrate"
               poster="/images/floating_still_3.png"

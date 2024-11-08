@@ -12,7 +12,7 @@ const BaseHeader = () => {
     <div className="relative mt-3 flex flex-col items-center justify-center pb-3 pt-1 text-center md:mt-12">
       {/* header */}
       <Link to="/">
-        <h1 className="bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/75 bg-clip-text font-questrial text-4xl tracking-widest text-transparent md:text-5xl">
+        <h1 className="hover:animate-gradient-shift bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/75 bg-clip-text font-questrial text-4xl tracking-widest text-transparent transition-all duration-1000 md:text-5xl">
           bu.re_
         </h1>
       </Link>
