@@ -4,8 +4,7 @@ import { useIntersectionObserver } from '~/hooks';
 import { Overlay, Tooltip } from '~/components';
 
 export const links: LinksFunction = () => [
-  { rel: 'preload', href: '/images/cropped_dsii_artwork.jpg' },
-  { rel: 'preload', href: '/videos/floating_vertical_5.mp4' },
+  { rel: 'preload', as: 'image', href: '/images/cropped_dsii_artwork.jpg' },
 ];
 
 export default function DreamSequenceIi() {
@@ -106,6 +105,7 @@ export default function DreamSequenceIi() {
               className="aspect-9/16 bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
               controls
               controlsList="nodownload noplaybackrate"
+              preload="auto"
               poster="/images/floating_still_3.png"
               title="floating"
             >
