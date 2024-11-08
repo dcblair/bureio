@@ -1,4 +1,5 @@
-import { Link, NavLink } from '@remix-run/react';
+import { NavLink } from '@remix-run/react';
+import { Link } from '~/components';
 import * as React from 'react';
 import { useIntersectionObserver } from '~/hooks';
 
@@ -10,13 +11,11 @@ const BaseHeader = () => {
   return (
     <div className="relative mt-3 flex flex-col items-center justify-center pb-3 pt-1 text-center md:mt-12">
       {/* header */}
-      <div>
-        <Link to="/">
-          <h1 className="bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/75 bg-clip-text font-questrial text-4xl tracking-widest text-transparent md:text-5xl">
-            bu.re_
-          </h1>
-        </Link>
-      </div>
+      <Link to="/">
+        <h1 className="bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/75 bg-clip-text font-questrial text-4xl tracking-widest text-transparent md:text-5xl">
+          bu.re_
+        </h1>
+      </Link>
 
       {/* divider */}
       <div
