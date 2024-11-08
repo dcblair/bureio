@@ -2,11 +2,10 @@ import * as React from 'react';
 import { LinksFunction } from '@remix-run/node';
 import { useIntersectionObserver } from '~/hooks';
 import { Overlay, Tooltip } from '~/components';
-import { Link } from '@remix-run/react';
 
 export const links: LinksFunction = () => [
-  { rel: 'preload', as: 'image', href: '/images/cropped_dsii_artwork.jpg' },
-  { rel: 'preload', as: 'video', href: '/videos/floating_vertical_5.mp4' },
+  { rel: 'preload', href: '/images/cropped_dsii_artwork.jpg' },
+  { rel: 'preload', href: '/videos/floating_vertical_5.mp4' },
 ];
 
 export default function DreamSequenceIi() {
@@ -101,10 +100,10 @@ export default function DreamSequenceIi() {
         style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
       >
         {/* video */}
-        <div className="mx-auto mb-2 flex aspect-9/16 w-3/4 items-center transition-all duration-2000 md:mb-8 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl">
+        <div className="mx-auto mb-2 flex w-3/4 items-center transition-all duration-2000 md:mb-8 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl">
           <React.Suspense fallback={null}>
             <video
-              className="bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
+              className="aspect-9/16 bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
               controls
               controlsList="nodownload noplaybackrate"
               poster="/images/floating_still_3.png"
