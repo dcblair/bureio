@@ -49,7 +49,6 @@ export default function DreamSequenceIi() {
           style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
           <React.Suspense fallback={<div className="size-full object-cover" />}>
-            {/* todo: update outline styling */}
             <button
               className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
               onClick={handleOpenModal}
@@ -74,7 +73,7 @@ export default function DreamSequenceIi() {
           >
             <img
               alt="dream sequence ii album artwork"
-              className="aspect-9/16 max-h-[calc(100vh-50px)] w-auto cursor-auto object-cover"
+              className="aspect-9/16 max-h-[calc(100vh-60px)] w-auto cursor-auto object-cover md:max-h-[calc(100vh-50px)]"
               src="/images/cropped_dsii_artwork.jpg"
             />
           </button>
