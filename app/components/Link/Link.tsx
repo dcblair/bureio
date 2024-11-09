@@ -4,7 +4,7 @@ import { Link as RemixLink } from '@remix-run/react';
 import { classed } from '@tw-classed/react';
 import { RemixLinkProps } from '@remix-run/react/dist/components';
 
-interface LinkProps extends RefAttributes<HTMLAnchorElement> {
+interface LinkProps extends RemixLinkProps {
   variant?: 'icon' | 'primary';
 }
 
@@ -18,17 +18,9 @@ const StyledLink = classed(RemixLink, '', {
   },
 });
 
-const BaseLink = forwardRef(
-  (
-    {
-      variant = 'primary',
-      ...props
-    }: LinkProps & RemixLinkProps & RefAttributes<HTMLAnchorElement>,
-    ref: Ref<HTMLAnchorElement>,
-  ) => {
-    return <StyledLink as={RemixLink} ref={ref} variant={variant} {...props} />;
-  },
-);
+const BaseLink = ({ variant = 'primary', ...props }: LinkProps) => {
+  return <StyledLink variant={variant} {...props} />;
+};
 
 BaseLink.displayName = 'Link';
 
