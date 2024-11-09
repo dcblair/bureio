@@ -1,5 +1,5 @@
 import { NavLink } from '@remix-run/react';
-import { Link } from '~/components';
+import { Link } from '@remix-run/react';
 import * as React from 'react';
 import { useIntersectionObserver } from '~/hooks';
 
@@ -17,7 +17,7 @@ const BaseHeader = () => {
         </h1>
 
         {/* underscore */}
-        <div className="rountded-sm absolute -right-10 bottom-1 hidden h-1 w-14 bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/45 to-70% transition-all duration-2000 group-hover:w-32 md:flex" />
+        <div className="rountded-sm absolute -right-14 bottom-1 hidden h-1 w-14 bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/45 to-70% transition-all duration-2000 group-hover:w-32 md:flex" />
       </Link>
 
       {/* divider */}
