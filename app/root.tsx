@@ -28,6 +28,20 @@ export default function App() {
         <Meta />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="preload"
+          href="/fonts/questrial/Questrial-Regular.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Regular.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
         <Links />
       </head>
       <body className="h-full bg-romance">

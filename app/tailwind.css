@@ -4,16 +4,22 @@
 
 @font-face {
   font-family: 'Questrial';
+  font-style: 'normal';
+  font-display: 'swap';
   src: url('../fonts/questrial/Questrial-Regular.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'M Plus 1';
+  font-style: 'normal';
+  font-display: 'swap';
   src: url('../fonts/M_PLUS_1/MPLUS1-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Zen Kaku Gothic Antique';
+  font-style: 'normal';
+  font-display: 'swap';
   src: url('../fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Regular.ttf')
     format('truetype');
 }
