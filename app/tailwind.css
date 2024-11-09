@@ -23,3 +23,11 @@
   src: url('../fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Regular.ttf')
     format('truetype');
 }
+
+@layer utilities {
+  .bg-clip-text-safari {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
