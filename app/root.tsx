@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/node';
+import type { MetaFunction } from "@remix-run/node";
 import {
   Links,
   Meta,
@@ -7,16 +7,16 @@ import {
   useRouteError,
   isRouteErrorResponse,
   Outlet,
-} from '@remix-run/react';
-import { Header } from '~/components';
-import NotFound from './pages/NotFound';
-import './tailwind.css';
+} from "@remix-run/react";
+import { Header } from "~/components";
+import NotFound from "./pages/NotFound";
+import "./tailwind.css";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'bu.re_' },
+    { title: "bu.re_" },
     {
-      content: 'ambient musician / producer / saxophonist',
+      content: "ambient musician / producer / saxophonist",
     },
   ];
 };
