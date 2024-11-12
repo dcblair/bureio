@@ -1,7 +1,7 @@
-import { NavLink } from '@remix-run/react';
-import { Link } from '~/components';
-import * as React from 'react';
-import { useIntersectionObserver } from '~/hooks';
+import { NavLink } from "@remix-run/react";
+import { Link } from "~/components";
+import * as React from "react";
+import { useIntersectionObserver } from "~/hooks";
 
 const BaseHeader = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
@@ -12,7 +12,7 @@ const BaseHeader = () => {
     <div className="relative mt-3 flex flex-col items-center justify-center pb-3 pt-1 text-center md:mt-12">
       {/* header */}
       <Link className="group relative" to="/">
-        <h1 className="bg-clip-text-safari will-change-bg-clip force-3d inline bg-rich-black-fogra29 font-questrial text-4xl tracking-widest text-transparent transition-all duration-3000 hover:bg-rich-black-fogra29/55 md:text-5xl">
+        <h1 className="bg-clip-text-safari will-change-bg-clip force-3d inline bg-rich-black-fogra29 font-questrial text-4xl tracking-widest text-transparent transition-opacity duration-3000 hover:bg-rich-black-fogra29/55 md:text-5xl">
           bu.re<span className="inline md:hidden">_</span>
         </h1>
 
@@ -23,7 +23,7 @@ const BaseHeader = () => {
       {/* divider */}
       <div
         className={
-          'absolute bottom-1 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/30 md:-bottom-4'
+          "absolute bottom-1 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29 to-rich-black-fogra29/30 md:-bottom-4"
         }
         ref={ref}
       />
