@@ -3,8 +3,8 @@ import {
   DialogBackdrop,
   DialogPanel,
   DialogTitle,
-} from '@headlessui/react';
-import React from 'react';
+} from "@headlessui/react";
+import React from "react";
 
 interface OverlayProps {
   children: React.ReactNode;
@@ -20,6 +20,9 @@ const BaseOverlay = ({ children, isOpen, onClose }: OverlayProps) => {
       onClose={onClose}
       open={isOpen}
     >
+      <DialogTitle className="sr-only">
+        dream sequence ii album artwork overlay
+      </DialogTitle>
       <DialogBackdrop className="fixed inset-0 -z-10 bg-gradient-to-t from-slate-950/70 to-slate-600/70 backdrop-blur-lg" />
       <DialogPanel className="flex size-full flex-col items-center justify-center">
         {children}

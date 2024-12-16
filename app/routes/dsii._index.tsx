@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { LinksFunction } from '@remix-run/node';
-import { useIntersectionObserver } from '~/hooks';
-import { Overlay, Tooltip } from '~/components';
+import * as React from "react";
+import { LinksFunction } from "@remix-run/node";
+import { useIntersectionObserver } from "~/hooks";
+import { Overlay, Tooltip } from "~/components";
 
 export const links: LinksFunction = () => [
-  { rel: 'preload', as: 'image', href: '/images/cropped_dsii_artwork.jpg' },
+  { rel: "preload", as: "image", href: "/images/cropped_dsii_artwork.jpg" },
 ];
 
 export default function DreamSequenceIi() {
@@ -14,7 +14,7 @@ export default function DreamSequenceIi() {
 
   const intersectionOptions = {
     threshold: 1.0,
-    rootMargin: '10px',
+    rootMargin: "10px",
   };
 
   const {
@@ -26,14 +26,14 @@ export default function DreamSequenceIi() {
     intersectionRatio: videoIntersectionRatio,
   } = useIntersectionObserver(videoRef, intersectionOptions);
 
-  const isModalOpen = searchParams?.get('modal') === 'true';
+  const isModalOpen = searchParams?.get("modal") === "true";
 
   const handleOpenModal = () => {
-    setSearchParams(new URLSearchParams({ modal: 'true' }));
+    setSearchParams(new URLSearchParams({ modal: "true" }));
   };
 
   const handleCloseModal = () => {
-    setSearchParams(new URLSearchParams({ modal: 'false' }));
+    setSearchParams(new URLSearchParams({ modal: "false" }));
   };
 
   const setOpacityRange = (value: string | number) =>
@@ -68,7 +68,7 @@ export default function DreamSequenceIi() {
       <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
         <div className="relative flex items-center">
           <button
-            className="focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
+            className="focus-visible:outline-offset-8 focus-visible:outline-white"
             onClick={handleCloseModal}
           >
             <img
@@ -78,13 +78,13 @@ export default function DreamSequenceIi() {
             />
           </button>
           <button
-            className="rounded-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
+            className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
             onClick={handleCloseModal}
           >
             <svg
               aria-label="close modal"
-              className="absolute -right-8 top-0 hidden rounded-full fill-romance md:-right-20 md:block md:size-16"
-              viewBox="0 0 24 24"
+              className="fill-romance md:size-16"
+              viewBox="1 0 22 22"
             >
               <path d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z" />
             </svg>
@@ -92,13 +92,13 @@ export default function DreamSequenceIi() {
         </div>
       </Overlay>
 
-      <div
-        className="relative mx-auto mb-6 w-full lg:mb-20"
-        ref={videoRef}
-        style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
-      >
+      <div className="relative mx-auto mb-6 w-full lg:mb-20">
         {/* video */}
-        <div className="mx-auto mb-2 flex w-3/4 items-center transition-all duration-2000 md:mb-8 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl">
+        <div
+          className="mx-auto mb-2 flex w-3/4 items-center transition-all duration-2000 md:mb-8 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
+          ref={videoRef}
+          style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
+        >
           <React.Suspense fallback={null}>
             <video
               className="aspect-9/16 bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"

@@ -25,6 +25,25 @@
 }
 
 @layer utilities {
+  video:fullscreen {
+    @apply object-contain;
+    @apply h-full;
+    @apply w-full;
+    @apply p-0;
+  }
+
+  video:-webkit-full-screen {
+    @apply object-contain;
+  }
+
+  video:-moz-full-screen {
+    @apply object-contain;
+  }
+
+  video:-ms-fullscreen {
+    @apply object-contain;
+  }
+
   .bg-clip-text-safari {
     -webkit-background-clip: text;
     background-clip: text;
