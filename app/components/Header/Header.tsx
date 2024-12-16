@@ -11,13 +11,15 @@ const BaseHeader = () => {
   return (
     <div className="relative mt-3 flex flex-col items-center justify-center pb-3 pt-1 text-center md:mt-12">
       {/* header */}
-      <Link className="group relative" to="/">
-        <h1 className="bg-clip-text-safari will-change-bg-clip force-3d inline bg-rich-black-fogra29 font-questrial text-4xl tracking-widest text-transparent transition-opacity duration-3000 hover:bg-rich-black-fogra29/55 md:text-5xl">
-          bu.re<span className="inline md:hidden">_</span>
-        </h1>
+      <Link className="group relative w-60" to="/">
+        <div className="w-full">
+          <h1 className="bg-clip-text-safari will-change-bg-clip force-3d inline bg-rich-black-fogra29 font-questrial text-4xl tracking-widest text-transparent transition-all duration-3000 hover:bg-rich-black-fogra29/55 md:text-5xl">
+            bu.re<span className="inline md:hidden">_</span>
+          </h1>
 
-        {/* underscore */}
-        <div className="rountded-sm absolute -right-10 bottom-1 hidden h-1 w-14 bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/45 to-70% transition-all duration-2000 group-hover:w-32 md:flex" />
+          {/* underscore */}
+          <div className="rountded-sm absolute bottom-1.5 right-0 hidden h-1 w-14 bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/45 to-70% transition-all duration-2000 group-hover:w-32 md:flex" />
+        </div>
       </Link>
 
       {/* divider */}
