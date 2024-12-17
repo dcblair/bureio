@@ -13,7 +13,7 @@ const BaseHeader = () => {
       {/* header */}
       <Link className="group relative w-60" to="/">
         <div className="w-full">
-          <h1 className="bg-clip-text-safari will-change-bg-clip force-3d inline bg-rich-black-fogra29 font-questrial text-4xl tracking-widest text-transparent transition duration-3000 hover:bg-rich-black-fogra29/55 md:text-5xl">
+          <h1 className="inline bg-rich-black-fogra29 bg-clip-text font-questrial text-4xl tracking-widest text-transparent transition duration-3000 ease-in-out hover:bg-rich-black-fogra29/55 md:text-5xl">
             bu.re<span className="inline md:hidden">_</span>
           </h1>
 
