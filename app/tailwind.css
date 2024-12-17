@@ -43,4 +43,8 @@
   video:-ms-fullscreen {
     @apply object-contain;
   }
+
+  .header-text-transparent {
+    -webkit-text-fill-color: transparent;
+  }
 }
