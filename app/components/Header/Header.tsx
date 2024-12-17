@@ -13,12 +13,12 @@ const BaseHeader = () => {
       {/* header */}
       <Link className="group relative w-60" to="/">
         <div className="w-full">
-          <h1 className="header-text-transparent inline bg-rich-black-fogra29 bg-clip-text font-questrial text-4xl tracking-widest text-transparent transition duration-3000 ease-in-out hover:bg-rich-black-fogra29/55 md:text-5xl">
+          <h1 className="header-text-transparent inline bg-rich-black-fogra29 bg-clip-text font-questrial text-4xl tracking-widest text-transparent transition duration-3000 ease-in-out hover:bg-rich-black-fogra29/55 motion-reduce:transition-none md:text-5xl">
             bu.re<span className="inline md:hidden">_</span>
           </h1>
 
           {/* underscore */}
-          <div className="rountded-sm absolute bottom-1.5 right-0 hidden h-1 w-14 bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/45 to-70% transition-all duration-2000 group-hover:w-32 md:flex" />
+          <div className="rountded-sm absolute bottom-1.5 right-0 hidden h-1 w-14 bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/45 to-70% transition-all duration-2000 group-hover:w-32 motion-reduce:transition-none md:flex" />
         </div>
       </Link>
 
