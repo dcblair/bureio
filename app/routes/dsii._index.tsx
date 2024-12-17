@@ -95,13 +95,13 @@ export default function DreamSequenceIi() {
       <div className="relative mx-auto mb-6 w-full lg:mb-20">
         {/* video */}
         <div
-          className="mx-auto mb-2 flex aspect-9/16 w-3/4 items-center transition-all duration-2000 md:mb-8 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
+          className="mx-auto mb-2 flex w-3/4 items-center transition-all duration-2000 md:mb-8 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
           ref={videoRef}
           style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
         >
           <React.Suspense fallback={null}>
             <video
-              className="aspect-9/16 bg-romance object-fill p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
+              className="min-h-2/3 aspect-9/16 bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
               controls
               controlsList="nodownload noplaybackrate"
               preload="auto"

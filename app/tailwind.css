@@ -43,16 +43,4 @@
   video:-ms-fullscreen {
     @apply object-contain;
   }
-
-  .bg-clip-text-safari {
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .force-3d {
-    transform: translate3d(0, 0, 0);
-  }
-  .will-change-bg-clip {
-    will-change: background-clip;
-  }
 }
