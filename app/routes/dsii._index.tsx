@@ -101,7 +101,7 @@ export default function DreamSequenceIi() {
         >
           <React.Suspense fallback={null}>
             <video
-              className="aspect-9/16 min-h-[530px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
+              className="aspect-9/16 size-full min-h-[530px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
               controls
               controlsList="nodownload noplaybackrate"
               preload="auto"
