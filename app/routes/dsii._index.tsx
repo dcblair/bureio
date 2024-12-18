@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { LinksFunction } from "@remix-run/node";
 import { useIntersectionObserver } from "~/hooks";
 import { Overlay, Tooltip } from "~/components";
@@ -8,9 +8,9 @@ export const links: LinksFunction = () => [
 ];
 
 export default function DreamSequenceIi() {
-  const imgRef = React.useRef<HTMLDivElement | null>(null);
-  const videoRef = React.useRef<HTMLDivElement | null>(null);
-  const [searchParams, setSearchParams] = React.useState<URLSearchParams>();
+  const imgRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLDivElement | null>(null);
+  const [searchParams, setSearchParams] = useState<URLSearchParams>();
 
   const intersectionOptions = {
     threshold: 1.0,
@@ -44,23 +44,26 @@ export default function DreamSequenceIi() {
       {/* image */}
       <div className="mb-4 flex items-center justify-center lg:mb-8 lg:mt-10">
         <div
-          className="aspect-9/16 w-3/4 select-none transition-all duration-2000 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
+          className="aspect-9/16 w-3/4 select-none transition-all duration-2000 md:h-[578px] md:w-[325px] md:hover:shadow-5xl"
           ref={imgRef}
           style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
-          <React.Suspense fallback={<div className="size-full object-cover" />}>
+          <Suspense fallback={<div className="size-full object-cover" />}>
             <button
               className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
               onClick={handleOpenModal}
             >
+              <source
+                media="(max-width: 720px)"
+                srcSet="/images/cropped_dsii_artwork.jpg?width=280 360w, /images/cropped_dsii_artwork.jpg?width=325 720w, /images/cropped_dsii_artwork.jpg?width=325 1440w"
+              />
               <img
                 alt="dream sequence ii album artwork"
-                className="size-full object-cover"
+                className="size-full object-cover md:h-[578px] md:w-[325px]"
                 src="/images/cropped_dsii_artwork.jpg"
-                loading="lazy"
               />
             </button>
-          </React.Suspense>
+          </Suspense>
         </div>
       </div>
 
@@ -71,11 +74,18 @@ export default function DreamSequenceIi() {
             className="focus-visible:outline-offset-8 focus-visible:outline-white"
             onClick={handleCloseModal}
           >
-            <img
-              alt="dream sequence ii album artwork"
-              className="aspect-9/16 max-h-[calc(100vh-60px)] w-auto cursor-auto object-cover md:max-h-[calc(100vh-50px)]"
-              src="/images/cropped_dsii_artwork.jpg"
-            />
+            <picture>
+              <source
+                media="(max-width: 720px)"
+                srcSet="/images/cropped_dsii_artwork.jpg?width=280 360w, /images/cropped_dsii_artwork.jpg?width=325 720w, /images/cropped_dsii_artwork.jpg?width=325 1440w"
+              />
+              <img
+                alt="dream sequence ii album artwork"
+                className="aspect-9/16 max-h-[calc(100vh-60px)] w-auto cursor-auto object-cover md:max-h-[calc(100vh-80px)] md:w-auto"
+                src="/images/webp/cropped_dsii_artwork-1440w.webp"
+                fetchPriority="high"
+              />
+            </picture>
           </button>
           <button
             className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
@@ -92,16 +102,16 @@ export default function DreamSequenceIi() {
         </div>
       </Overlay>
 
-      <div className="relative mx-auto mb-6 w-full lg:mb-20">
+      <div className="relative mb-6 flex w-full items-center justify-center lg:mb-20">
         {/* video */}
         <div
-          className="mx-auto mb-2 flex w-3/4 items-center transition-all duration-2000 md:mb-8 md:h-auto md:min-h-[578px] md:w-[325px] md:hover:shadow-5xl"
+          className="mb-2 flex w-3/4 items-center text-center transition-all duration-2000 md:mb-8 md:h-[578px] md:w-[325px] md:hover:shadow-5xl"
           ref={videoRef}
           style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
         >
-          <React.Suspense fallback={null}>
+          <Suspense fallback={null}>
             <video
-              className="aspect-9/16 size-full min-h-[530px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
+              className="aspect-9/16 size-full bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:h-[565px] md:w-[320px]"
               controls
               controlsList="nodownload noplaybackrate"
               preload="auto"
@@ -111,7 +121,7 @@ export default function DreamSequenceIi() {
               <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
               <p>no browser support.</p>
             </video>
-          </React.Suspense>
+          </Suspense>
         </div>
 
         {/* right-positioned divider */}
