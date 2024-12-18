@@ -40,7 +40,7 @@ export default function DreamSequenceIi() {
     Math.max(0.25, Number(value));
 
   return (
-    <div className="flex w-full flex-col items-center text-center">
+    <main className="flex w-full flex-col items-center text-center">
       {/* image */}
       <div className="mb-4 flex items-center justify-center lg:mb-8 lg:mt-10">
         <div
@@ -185,6 +185,6 @@ export default function DreamSequenceIi() {
           </Tooltip>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
