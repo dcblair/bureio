@@ -59,7 +59,7 @@ export default function DreamSequenceIi() {
             />
             <img
               alt="dream sequence ii album artwork"
-              className="h-[calc(100vh-200px)] md:max-h-[578px] md:max-w-[325px]"
+              className="h-[calc(100vh-200px)] w-auto md:max-h-[578px] md:max-w-[325px]"
               src="/images/webp/cropped-dsii-artwork-420w.webp"
             />
           </picture>
@@ -110,7 +110,7 @@ export default function DreamSequenceIi() {
       >
         <Suspense fallback={null}>
           <video
-            className="aspect-9/16 size-full bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:h-[565px] md:w-[320px]"
+            className="aspect-9/16 h-[calc(100vh-200px)] w-auto bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:max-h-[578px] md:max-w-[325px]"
             controls
             controlsList="nodownload noplaybackrate"
             preload="auto"
