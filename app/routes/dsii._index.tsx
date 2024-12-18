@@ -42,29 +42,29 @@ export default function DreamSequenceIi() {
   return (
     <main className="flex w-full flex-col items-center text-center">
       {/* image */}
-      <div className="mb-4 flex items-center justify-center lg:mb-8 lg:mt-10">
-        <div
-          className="aspect-9/16 w-3/4 select-none transition-all duration-2000 md:h-[578px] md:w-[325px] md:hover:shadow-5xl"
-          ref={imgRef}
-          style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
+      <div
+        className="mb-4 aspect-9/16 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:mb-8 lg:mt-10"
+        ref={imgRef}
+        style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
+      >
+        {/* <Suspense fallback={<div className="size-full object-cover" />}> */}
+        <button
+          className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
+          onClick={handleOpenModal}
         >
-          <Suspense fallback={<div className="size-full object-cover" />}>
-            <button
-              className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
-              onClick={handleOpenModal}
-            >
-              <source
-                media="(max-width: 720px)"
-                srcSet="/images/cropped_dsii_artwork.jpg?width=280 360w, /images/cropped_dsii_artwork.jpg?width=325 720w, /images/cropped_dsii_artwork.jpg?width=325 1440w"
-              />
-              <img
-                alt="dream sequence ii album artwork"
-                className="size-full object-cover md:h-[578px] md:w-[325px]"
-                src="/images/cropped_dsii_artwork.jpg"
-              />
-            </button>
-          </Suspense>
-        </div>
+          <picture>
+            <source
+              media="(max-width: 720px)"
+              srcSet="/images/webp/cropped-dsii-artwork-325w.webp 360w, /images/webp/cropped-dsii-artwork-420w.webp 1440w"
+            />
+            <img
+              alt="dream sequence ii album artwork"
+              className="h-[calc(100vh-200px)] md:max-h-[578px] md:max-w-[325px]"
+              src="/images/webp/cropped-dsii-artwork-420w.webp"
+            />
+          </picture>
+        </button>
+        {/* </Suspense> */}
       </div>
 
       {/* modal overlay */}
@@ -77,12 +77,12 @@ export default function DreamSequenceIi() {
             <picture>
               <source
                 media="(max-width: 720px)"
-                srcSet="/images/cropped_dsii_artwork.jpg?width=280 360w, /images/cropped_dsii_artwork.jpg?width=325 720w, /images/cropped_dsii_artwork.jpg?width=325 1440w"
+                srcSet="/images/webp/cropped-dsii-artwork-280w.webp 360w, /images/webp/cropped-dsii-artwork-720w.webp 720w, /images/webp/cropped-dsii-artwork-1440w.webp 1440w"
               />
               <img
                 alt="dream sequence ii album artwork"
-                className="aspect-9/16 max-h-[calc(100vh-60px)] w-auto cursor-auto object-cover md:max-h-[calc(100vh-80px)] md:w-auto"
-                src="/images/webp/cropped_dsii_artwork-1440w.webp"
+                className="aspect-9/16 max-h-[calc(100vh-60px)] w-[calc(100vw-20px)] cursor-auto object-cover md:max-h-[calc(100vh-80px)] md:w-auto"
+                src="/images/webp/cropped-dsii-artwork-1440w.webp"
                 fetchPriority="high"
               />
             </picture>
@@ -102,33 +102,31 @@ export default function DreamSequenceIi() {
         </div>
       </Overlay>
 
-      <div className="relative mb-6 flex w-full items-center justify-center lg:mb-20">
-        {/* video */}
-        <div
-          className="mb-2 flex w-3/4 items-center text-center transition-all duration-2000 md:mb-8 md:h-[578px] md:w-[325px] md:hover:shadow-5xl"
-          ref={videoRef}
-          style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
-        >
-          <Suspense fallback={null}>
-            <video
-              className="aspect-9/16 size-full bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:h-[565px] md:w-[320px]"
-              controls
-              controlsList="nodownload noplaybackrate"
-              preload="auto"
-              poster="/images/floating_still_3.png"
-              title="floating"
-            >
-              <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
-              <p>no browser support.</p>
-            </video>
-          </Suspense>
-        </div>
-
-        {/* right-positioned divider */}
-        <div className="absolute -bottom-2 right-0 h-0.5 w-1/2 rounded-l-sm rounded-r-sm bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/40 md:-bottom-12" />
+      {/* video */}
+      <div
+        className="mb-6 flex items-center text-center transition-all duration-2000 md:mb-8 md:h-[578px] md:w-[325px] md:hover:shadow-5xl lg:mb-20"
+        ref={videoRef}
+        style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
+      >
+        <Suspense fallback={null}>
+          <video
+            className="aspect-9/16 size-full bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:h-[565px] md:w-[320px]"
+            controls
+            controlsList="nodownload noplaybackrate"
+            preload="auto"
+            poster="/images/floating_still_3.png"
+            title="floating"
+          >
+            <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
+            <p>no browser support.</p>
+          </video>
+        </Suspense>
       </div>
 
-      <div className="relative mb-6 flex flex-col items-center justify-center lg:mb-20">
+      <div className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
+        {/* right-positioned divider */}
+        <div className="absolute -top-3 right-0 h-0.5 w-1/2 rounded-l-sm rounded-r-sm bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/40 md:-top-8" />
+
         <div className="mb-6 flex flex-col items-center md:mb-10">
           {/* release info */}
           <div className="mb-2">
@@ -162,6 +160,7 @@ export default function DreamSequenceIi() {
               <img
                 alt="bandcamp logo"
                 className="h-auto max-w-[4.4rem] md:max-w-[5.5rem]"
+                loading="lazy"
                 src="/images/bandcamp_square_logo_filled.jpg"
               />
             </a>
@@ -179,6 +178,7 @@ export default function DreamSequenceIi() {
               <img
                 alt="loser records logo"
                 className="h-auto max-w-[4rem] md:max-w-[5rem]"
+                loading="lazy"
                 src="/images/loser_logo_offwhite.jpg"
               />
             </a>
