@@ -43,7 +43,7 @@ export default function DreamSequenceIi() {
     <main className="flex w-full flex-col items-center text-center">
       {/* image */}
       <div
-        className="mb-4 aspect-9/16 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:my-10"
+        className="mb-4 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:my-10"
         ref={imgRef}
         style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
       >
@@ -58,7 +58,7 @@ export default function DreamSequenceIi() {
             />
             <img
               alt="dream sequence ii album artwork"
-              className="h-[calc(100vh-15rem)] w-auto md:max-h-[578px] md:max-w-[325px]"
+              className="aspect-9/16 h-[calc(100vh-15rem)] w-auto md:max-h-[578px] md:max-w-[325px]"
               src="/images/webp/cropped-dsii-artwork-420w.webp"
             />
           </picture>
@@ -79,7 +79,7 @@ export default function DreamSequenceIi() {
               />
               <img
                 alt="dream sequence ii album artwork"
-                className="aspect-9/16 max-h-[calc(100vh-60px)] w-[calc(100vw-20px)] cursor-auto object-cover md:max-h-[calc(100vh-80px)] md:w-auto"
+                className="aspect-9/16 max-h-[calc(100vh-60px)] max-w-[calc(100vw-20px)] cursor-auto object-cover md:max-h-[calc(100vh-80px)] md:w-auto"
                 src="/images/webp/cropped-dsii-artwork-1440w.webp"
                 fetchPriority="high"
               />
@@ -102,7 +102,7 @@ export default function DreamSequenceIi() {
 
       {/* video */}
       <div
-        className="mb-4 aspect-9/16 h-[calc(100vh-15rem)] w-auto select-none bg-romance p-8 transition-all duration-2000 md:mb-8 md:max-h-[578px] md:max-w-[325px] md:hover:shadow-5xl lg:mb-14 lg:h-[737px] lg:w-[420px]"
+        className="mb-8 aspect-9/16 h-[calc(100vh-15rem)] w-auto select-none bg-romance p-8 transition-all duration-2000 md:max-h-[578px] md:max-w-[325px] md:hover:shadow-5xl lg:mb-14 lg:h-[737px] lg:w-[420px]"
         ref={videoRef}
         style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
       >
