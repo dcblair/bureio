@@ -106,12 +106,12 @@ export default function DreamSequenceIi() {
 
       {/* video */}
       <div
-        className="mb-8 aspect-9/16 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:mb-14"
+        className="mb-8 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:mb-14"
         ref={videoRef}
         style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
       >
         <video
-          className="h-full w-[calc(100vw-5rem)] min-w-[310px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:max-h-[578px] md:max-w-[325px] lg:h-[737px] lg:w-[420px]"
+          className="aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-[310px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:max-h-[578px] md:max-w-[325px] lg:h-[737px] lg:w-[420px]"
           controls
           controlsList="nodownload noplaybackrate"
           preload="auto"
