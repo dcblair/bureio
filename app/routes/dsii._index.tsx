@@ -60,6 +60,10 @@ export default function DreamSequenceIi() {
               media="(max-width: 720px)"
               srcSet="/images/webp/cropped-dsii-artwork-325w.webp 360w, /images/webp/cropped-dsii-artwork-420w.webp 1440w"
             />
+            <source
+              media="(min-width: 721px)"
+              srcSet="/images/webp/cropped-dsii-artwork-420w.webp 1440w"
+            />
             <img
               alt="dream sequence ii album artwork"
               className="aspect-9/16 w-[calc(100vw-5rem)] min-w-[310px] md:max-h-[578px] md:max-w-[325px] lg:h-[737px] lg:w-[420px]"
@@ -79,7 +83,11 @@ export default function DreamSequenceIi() {
             <picture>
               <source
                 media="(max-width: 720px)"
-                srcSet="/images/webp/cropped-dsii-artwork-280w.webp 360w, /images/webp/cropped-dsii-artwork-720w.webp 720w, /images/webp/cropped-dsii-artwork-1440w.webp 1440w"
+                srcSet="/images/webp/cropped-dsii-artwork-280w.webp 360w, /images/webp/cropped-dsii-artwork-720w.webp 720w"
+              />
+              <source
+                media="(max-width: 1440px)"
+                srcSet="/images/webp/cropped-dsii-artwork-1440w.webp 1440w"
               />
               <img
                 alt="dream sequence ii album artwork"
