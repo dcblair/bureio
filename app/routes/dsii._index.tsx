@@ -4,7 +4,11 @@ import { useIntersectionObserver } from "~/hooks";
 import { Overlay, Tooltip } from "~/components";
 
 export const links: LinksFunction = () => [
-  { rel: "preload", as: "image", href: "/images/cropped_dsii_artwork.jpg" },
+  {
+    rel: "preload",
+    as: "image",
+    href: "/images/webp/cropped-dsii-artwork-1440w.webp",
+  },
 ];
 
 export default function DreamSequenceIi() {
@@ -58,7 +62,7 @@ export default function DreamSequenceIi() {
             />
             <img
               alt="dream sequence ii album artwork"
-              className="aspect-9/16 h-[calc(100vh-15rem)] w-auto md:max-h-[578px] md:max-w-[325px]"
+              className="aspect-9/16 w-[calc(100vw-5rem)] min-w-[310px] md:max-h-[578px] md:max-w-[325px] lg:h-[737px] lg:w-[420px]"
               src="/images/webp/cropped-dsii-artwork-420w.webp"
             />
           </picture>
@@ -102,12 +106,12 @@ export default function DreamSequenceIi() {
 
       {/* video */}
       <div
-        className="mb-8 aspect-9/16 h-[calc(100vh-15rem)] w-auto select-none bg-romance p-8 transition-all duration-2000 md:max-h-[578px] md:max-w-[325px] md:hover:shadow-5xl lg:mb-14 lg:h-[737px] lg:w-[420px]"
+        className="mb-8 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:mb-14"
         ref={videoRef}
         style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
       >
         <video
-          className="size-full object-cover focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
+          className="aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-[310px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:max-h-[578px] md:max-w-[325px] lg:h-[737px] lg:w-[420px]"
           controls
           controlsList="nodownload noplaybackrate"
           preload="auto"
