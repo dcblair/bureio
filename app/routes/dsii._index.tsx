@@ -43,11 +43,10 @@ export default function DreamSequenceIi() {
     <main className="flex w-full flex-col items-center text-center">
       {/* image */}
       <div
-        className="mb-4 aspect-9/16 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:mb-8 lg:mt-10"
+        className="mb-4 aspect-9/16 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:my-10"
         ref={imgRef}
         style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
       >
-        {/* <Suspense fallback={<div className="size-full object-cover" />}> */}
         <button
           className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
           onClick={handleOpenModal}
@@ -59,12 +58,11 @@ export default function DreamSequenceIi() {
             />
             <img
               alt="dream sequence ii album artwork"
-              className="h-[calc(100vh-200px)] w-auto md:max-h-[578px] md:max-w-[325px]"
+              className="h-[calc(100vh-15rem)] w-auto md:max-h-[578px] md:max-w-[325px]"
               src="/images/webp/cropped-dsii-artwork-420w.webp"
             />
           </picture>
         </button>
-        {/* </Suspense> */}
       </div>
 
       {/* modal overlay */}
@@ -104,25 +102,25 @@ export default function DreamSequenceIi() {
 
       {/* video */}
       <div
-        className="mb-6 flex items-center text-center transition-all duration-2000 md:mb-8 md:h-[578px] md:w-[325px] md:hover:shadow-5xl lg:mb-20"
+        className="mb-4 aspect-9/16 h-[calc(100vh-15rem)] w-auto select-none bg-romance p-8 transition-all duration-2000 md:mb-8 md:max-h-[578px] md:max-w-[325px] md:hover:shadow-5xl lg:mb-14 lg:h-[737px] lg:w-[420px]"
         ref={videoRef}
         style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
       >
-        <Suspense fallback={null}>
-          <video
-            className="aspect-9/16 h-[calc(100vh-200px)] w-auto bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 md:max-h-[578px] md:max-w-[325px]"
-            controls
-            controlsList="nodownload noplaybackrate"
-            preload="auto"
-            poster="/images/floating_still_3.png"
-            title="floating"
-          >
-            <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
-            <p>no browser support.</p>
-          </video>
-        </Suspense>
+        <video
+          className="size-full object-cover focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29"
+          controls
+          controlsList="nodownload noplaybackrate"
+          preload="auto"
+          poster="/images/webp/floating-still-3-960w.webp"
+          title="floating"
+        >
+          <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
+          <p>no browser support.</p>
+        </video>
       </div>
 
+      {/* footer */}
+      {/* todo: add footer tag if this ends up being actual footer */}
       <div className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
         {/* right-positioned divider */}
         <div className="absolute -top-3 right-0 h-0.5 w-1/2 rounded-l-sm rounded-r-sm bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/40 md:-top-8" />
@@ -161,7 +159,7 @@ export default function DreamSequenceIi() {
                 alt="bandcamp logo"
                 className="h-auto max-w-[4.4rem] md:max-w-[5.5rem]"
                 loading="lazy"
-                src="/images/bandcamp_square_logo_filled.jpg"
+                src="/images/bandcamp-square-logo-filled.jpg"
               />
             </a>
           </Tooltip>
@@ -179,7 +177,7 @@ export default function DreamSequenceIi() {
                 alt="loser records logo"
                 className="h-auto max-w-[4rem] md:max-w-[5rem]"
                 loading="lazy"
-                src="/images/loser_logo_offwhite.jpg"
+                src="/images/webp/loser-logo-offwhite-414w.webp"
               />
             </a>
           </Tooltip>
