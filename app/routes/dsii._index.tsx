@@ -43,15 +43,6 @@ export default function DreamSequenceIi() {
   const setOpacityRange = (value: string | number) =>
     Math.max(0.25, Number(value));
 
-  const currentSong = {
-    id: "1",
-    title: "floating",
-    artist: "bu.re_",
-    // need non-cropped image for audio player
-    cover: "/images/webp/cropped-dsii-artwork-325w.webp",
-    audio: "/audio/floating.mp3",
-  };
-
   return (
     <main className="flex w-full flex-col items-center text-center">
       {/* image */}
@@ -204,7 +195,7 @@ export default function DreamSequenceIi() {
           </Tooltip>
         </div>
       </div>
-      <AudioPlayer currentSong={currentSong} />
+      <AudioPlayer />
     </main>
   );
 }
