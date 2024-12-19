@@ -1,7 +1,7 @@
 import React, { Suspense, useRef, useState } from "react";
 import { LinksFunction } from "@remix-run/node";
 import { useIntersectionObserver } from "~/hooks";
-import { Overlay, Tooltip } from "~/components";
+import { AudioPlayer, Overlay, Tooltip } from "~/components";
 
 export const links: LinksFunction = () => [
   {
@@ -42,6 +42,15 @@ export default function DreamSequenceIi() {
 
   const setOpacityRange = (value: string | number) =>
     Math.max(0.25, Number(value));
+
+  const currentSong = {
+    id: "1",
+    title: "floating",
+    artist: "bu.re_",
+    // need non-cropped image for audio player
+    cover: "/images/webp/cropped-dsii-artwork-325w.webp",
+    audio: "/audio/floating.mp3",
+  };
 
   return (
     <main className="flex w-full flex-col items-center text-center">
@@ -140,18 +149,18 @@ export default function DreamSequenceIi() {
         <div className="mb-6 flex flex-col items-center md:mb-10">
           {/* release info */}
           <div className="mb-2">
-            <p className="font-questrial text-lg font-black tracking-widest lg:text-xl">
+            <h2 className="font-questrial text-lg font-black tracking-widest lg:text-xl">
               digital album / cassette
-            </p>
+            </h2>
           </div>
           <div className="mb-3 md:mb-7">
-            <h3 className="font-questrial text-xl tracking-wider">
+            <span className="font-questrial text-xl tracking-wider">
               february 10
-            </h3>
+            </span>
           </div>
-          <h4 className="font-questrial text-xl tracking-[0.5rem]">
+          <span className="font-questrial text-xl tracking-[0.5rem]">
             available:
-          </h4>
+          </span>
 
           {/* divider */}
           <div className="mt-4 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40" />
@@ -195,6 +204,7 @@ export default function DreamSequenceIi() {
           </Tooltip>
         </div>
       </div>
+      <AudioPlayer currentSong={currentSong} />
     </main>
   );
 }
