@@ -1,14 +1,15 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
+  Outlet,
   Scripts,
   ScrollRestoration,
   useRouteError,
-  isRouteErrorResponse,
-  Outlet,
 } from "@remix-run/react";
 import { Header } from "~/components";
+import { AudioProvider } from "./context/AudioContext";
 import NotFound from "./pages/NotFound";
 import "./tailwind.css";
 
@@ -32,20 +33,22 @@ export const links: LinksFunction = () => [
 
 export default function App() {
   return (
-    <html className="h-full scroll-smooth" lang="en">
-      <head>
-        <Meta />
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Links />
-      </head>
-      <body className="h-full bg-romance">
-        <Header />
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+    <AudioProvider>
+      <html className="h-full scroll-smooth" lang="en">
+        <head>
+          <Meta />
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <Links />
+        </head>
+        <body className="h-full bg-romance">
+          <Header />
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </html>
+    </AudioProvider>
   );
 }
 
