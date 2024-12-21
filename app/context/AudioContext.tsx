@@ -9,6 +9,7 @@ interface Song {
 }
 
 interface AudioContextType {
+  audio: HTMLAudioElement | null;
   currentSong: {
     id: string;
     title: string;
@@ -16,16 +17,17 @@ interface AudioContextType {
     cover: string;
     audio: string;
   };
-  currentTime: number;
+  // currentTime: number;
   handlePlay: () => void;
   isPlaying: boolean;
   isPlayerExpanded: boolean;
   setCurrentSong: (song: Song) => void;
-  setCurrentTime: (time: number) => void;
+  // setCurrentTime: (time: number) => void;
   togglePlayerExpanded: () => void;
 }
 
 const AudioContext = createContext<AudioContextType>({
+  audio: null,
   currentSong: {
     id: "1",
     title: "calling currents",
@@ -33,18 +35,17 @@ const AudioContext = createContext<AudioContextType>({
     cover: "/images/webp/cropped-dsii-artwork-1440w.webp",
     audio: "/audio/calling-currents.wav",
   },
-  currentTime: 0,
+  // currentTime: 0,
   handlePlay: () => {},
   isPlaying: false,
   isPlayerExpanded: true,
   setCurrentSong: () => {},
-  setCurrentTime: () => {},
+  // setCurrentTime: () => {},
   togglePlayerExpanded: () => {},
 });
 
 const AudioProvider = ({ children }: { children: ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
   const [isPlayerExpanded, setIsPlayerExpanded] = useState(true);
   const [currentSong, setCurrentSong] = useState({
     id: "1",
@@ -53,7 +54,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     cover: "/images/webp/cropped-dsii-artwork-1440w.webp",
     audio: "/audio/calling-currents.wav",
   });
-  const [audio, setAudio] = useState<HTMLAudioElement | null>();
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const audio = new Audio(currentSong.audio);
@@ -82,12 +83,11 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const value = {
+    audio,
     isPlaying,
     isPlayerExpanded,
     currentSong,
     setCurrentSong,
-    currentTime,
-    setCurrentTime,
     handlePlay,
     togglePlayerExpanded,
   };

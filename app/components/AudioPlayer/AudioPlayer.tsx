@@ -3,18 +3,24 @@ import { AudioContext } from "~/context/AudioContext";
 
 const BaseAudioPlayer = () => {
   const {
+    audio,
     currentSong,
-    currentTime,
     handlePlay,
     isPlayerExpanded,
     isPlaying,
     setCurrentSong,
-    setCurrentTime,
     togglePlayerExpanded,
   } = useContext(AudioContext);
 
+  const handleCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!audio) return;
+
+    audio.currentTime = parseInt(e.target.value, 10);
+  };
+
   return (
     <div className="sticky bottom-0 z-30 flex h-12 w-full items-center justify-evenly border-t-2 border-rich-black-fogra29 bg-romance py-9">
+      {/* play / pause button */}
       <button
         aria-label={isPlaying ? "pause" : "play"}
         // todo: add bg color to set colors in tw config?
@@ -52,12 +58,21 @@ const BaseAudioPlayer = () => {
           </svg>
         )}
       </button>
+      <input
+        type="range"
+        value={audio?.currentTime || 0}
+        min={0}
+        onChange={handleCurrentTime}
+      />
+      {/* track info */}
       <div className="flex items-center space-x-2">
         <span>track — </span>
         <h3 className="text-lg font-semibold tracking-wider">
           {currentSong.title}
         </h3>
       </div>
+
+      {/* album cover */}
       <img className="w-6" src={currentSong.cover} alt={currentSong.title} />
       <button onClick={togglePlayerExpanded}>
         <svg
