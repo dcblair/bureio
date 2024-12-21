@@ -1,52 +1,17 @@
-import { memo, useEffect, useState } from "react";
-
-interface AudioPlayerProps {
-  currentSong: {
-    id: string;
-    title: string;
-    artist: string;
-    cover: string;
-    audio: string;
-  };
-}
+import { memo, useContext, useEffect, useState } from "react";
+import { AudioContext } from "~/context/AudioContext";
 
 const BaseAudioPlayer = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPlayerExpanded, setIsPlayerExpanded] = useState(true);
-  const [currentSong, setCurrentSong] = useState({
-    id: "1",
-    title: "calling currents",
-    artist: "bu.re_",
-    cover: "/images/webp/cropped-dsii-artwork-1440w.webp",
-    audio: "/audio/calling-currents.wav",
-  });
-  const [audio, setAudio] = useState<HTMLAudioElement | null>();
-
-  useEffect(() => {
-    const audio = new Audio(currentSong.audio);
-    setAudio(audio);
-
-    return () => {
-      audio.pause();
-      audio.src = "";
-    };
-  }, [currentSong.audio]);
-
-  const handlePlay = () => {
-    if (!audio) return;
-
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-    } else {
-      audio.play();
-      setIsPlaying(true);
-    }
-  };
-
-  const togglePlayerExpanded = () => {
-    setIsPlayerExpanded(!isPlayerExpanded);
-  };
+  const {
+    currentSong,
+    currentTime,
+    handlePlay,
+    isPlayerExpanded,
+    isPlaying,
+    setCurrentSong,
+    setCurrentTime,
+    togglePlayerExpanded,
+  } = useContext(AudioContext);
 
   return (
     <div className="sticky bottom-0 z-30 flex h-12 w-full items-center justify-evenly border-t-2 border-rich-black-fogra29 bg-romance py-9">
