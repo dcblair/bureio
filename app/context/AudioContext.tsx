@@ -8,6 +8,10 @@ interface Song {
   audio: string;
 }
 
+const playerExpansion = ["collapsed", "standard", "fullscreen"] as const;
+
+type PlayerExpansion = (typeof playerExpansion)[number];
+
 interface AudioContextType {
   audio: HTMLAudioElement | null;
   currentSong: {
@@ -20,7 +24,7 @@ interface AudioContextType {
   currentTime: number;
   handlePlay: () => void;
   isPlaying: boolean;
-  isPlayerExpanded: boolean;
+  playerExpansion: PlayerExpansion;
   setCurrentSong: (song: Song) => void;
   setCurrentTime: (time: number) => void;
   togglePlayerExpanded: () => void;
@@ -38,7 +42,7 @@ const AudioContext = createContext<AudioContextType>({
   currentTime: 0,
   handlePlay: () => {},
   isPlaying: false,
-  isPlayerExpanded: true,
+  playerExpansion: "standard",
   setCurrentSong: () => {},
   setCurrentTime: () => {},
   togglePlayerExpanded: () => {},
@@ -46,7 +50,8 @@ const AudioContext = createContext<AudioContextType>({
 
 const AudioProvider = ({ children }: { children: ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isPlayerExpanded, setIsPlayerExpanded] = useState(true);
+  const [playerExpansion, setPlayerExpansion] =
+    useState<PlayerExpansion>("standard");
   const [currentTime, setCurrentTime] = useState(0);
   const [currentSong, setCurrentSong] = useState({
     id: "1",
@@ -102,7 +107,13 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
 
   // handles expanding and collapsing the player
   const togglePlayerExpanded = () => {
-    setIsPlayerExpanded(!isPlayerExpanded);
+    if (playerExpansion === "collapsed") {
+      setPlayerExpansion("standard");
+    } else if (playerExpansion === "standard") {
+      setPlayerExpansion("fullscreen");
+    } else {
+      setPlayerExpansion("collapsed");
+    }
   };
 
   const value = {
@@ -110,7 +121,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     currentSong,
     currentTime,
     handlePlay,
-    isPlayerExpanded,
+    playerExpansion,
     isPlaying,
     setCurrentSong,
     setCurrentTime: (time: number) => {
