@@ -17,12 +17,12 @@ interface AudioContextType {
     cover: string;
     audio: string;
   };
-  // currentTime: number;
+  currentTime: number;
   handlePlay: () => void;
   isPlaying: boolean;
   isPlayerExpanded: boolean;
   setCurrentSong: (song: Song) => void;
-  // setCurrentTime: (time: number) => void;
+  setCurrentTime: (time: number) => void;
   togglePlayerExpanded: () => void;
 }
 
@@ -35,18 +35,19 @@ const AudioContext = createContext<AudioContextType>({
     cover: "/images/webp/cropped-dsii-artwork-1440w.webp",
     audio: "/audio/calling-currents.wav",
   },
-  // currentTime: 0,
+  currentTime: 0,
   handlePlay: () => {},
   isPlaying: false,
   isPlayerExpanded: true,
   setCurrentSong: () => {},
-  // setCurrentTime: () => {},
+  setCurrentTime: () => {},
   togglePlayerExpanded: () => {},
 });
 
 const AudioProvider = ({ children }: { children: ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPlayerExpanded, setIsPlayerExpanded] = useState(true);
+  const [currentTime, setCurrentTime] = useState(0);
   const [currentSong, setCurrentSong] = useState({
     id: "1",
     title: "calling currents",
@@ -56,16 +57,37 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   });
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
+  // establishes audio element
   useEffect(() => {
-    const audio = new Audio(currentSong.audio);
-    setAudio(audio);
+    const audioElement = new Audio(currentSong.audio);
+    setAudio(audioElement);
+
+    const updateCurrentTime = () => setCurrentTime(audioElement.currentTime);
+    audioElement.addEventListener("timeupdate", updateCurrentTime);
 
     return () => {
-      audio.pause();
-      audio.src = "";
+      audioElement.pause();
+      audioElement.src = "";
+      audioElement.removeEventListener("timeupdate", updateCurrentTime);
     };
   }, [currentSong.audio]);
 
+  // handles audio ending
+  useEffect(() => {
+    if (!audio) return;
+
+    audio.addEventListener("ended", () => {
+      setIsPlaying(false);
+    });
+
+    return () => {
+      audio.removeEventListener("ended", () => {
+        setIsPlaying(false);
+      });
+    };
+  });
+
+  // handles audio playing and pausing
   const handlePlay = () => {
     if (!audio) return;
 
@@ -78,17 +100,25 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // handles expanding and collapsing the player
   const togglePlayerExpanded = () => {
     setIsPlayerExpanded(!isPlayerExpanded);
   };
 
   const value = {
     audio,
-    isPlaying,
-    isPlayerExpanded,
     currentSong,
-    setCurrentSong,
+    currentTime,
     handlePlay,
+    isPlayerExpanded,
+    isPlaying,
+    setCurrentSong,
+    setCurrentTime: (time: number) => {
+      if (audio) {
+        audio.currentTime = time;
+        setCurrentTime(time);
+      }
+    },
     togglePlayerExpanded,
   };
 

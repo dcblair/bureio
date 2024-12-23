@@ -1,21 +1,39 @@
 import { memo, useContext, useEffect, useState } from "react";
 import { AudioContext } from "~/context/AudioContext";
+import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
+import { Overlay } from "../Overlay/Overlay";
 
 const BaseAudioPlayer = () => {
   const {
     audio,
     currentSong,
+    currentTime,
     handlePlay,
     isPlayerExpanded,
     isPlaying,
     setCurrentSong,
+    setCurrentTime,
     togglePlayerExpanded,
   } = useContext(AudioContext);
+  const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
+  const [searchParams, setSearchParams] = useState<URLSearchParams>();
 
   const handleCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!audio) return;
+    setCurrentTime(parseInt(e.target.value, 10));
+  };
 
-    audio.currentTime = parseInt(e.target.value, 10);
+  const handleDurationDisplay = () => {
+    setIsDurationIncreasing(!isDurationIncreasing);
+  };
+
+  const isModalOpen = searchParams?.get("albumArtworkModal") === "true";
+
+  const handleOpenModal = () => {
+    setSearchParams(new URLSearchParams({ albumArtworkModal: "true" }));
+  };
+
+  const handleCloseModal = () => {
+    setSearchParams(new URLSearchParams({ albumArtworkModal: "false" }));
   };
 
   return (
@@ -58,12 +76,32 @@ const BaseAudioPlayer = () => {
           </svg>
         )}
       </button>
-      <input
-        type="range"
-        value={audio?.currentTime || 0}
-        min={0}
-        onChange={handleCurrentTime}
-      />
+
+      {/* track duration slider and duration */}
+      <div className="flex items-center space-x-3">
+        <button onClick={handleDurationDisplay}>
+          <span className="inline-block w-12 leading-6">
+            {calculateSecondsToMinutesAndSeconds(currentTime ?? 0)}
+          </span>
+        </button>
+        <input
+          name="trackDurationSlider"
+          type="range"
+          value={currentTime ?? 0}
+          min={0}
+          max={audio?.duration ?? 0}
+          onChange={handleCurrentTime}
+        />
+        <label htmlFor="trackDurationSlider" className="sr-only">
+          track duration
+        </label>
+        <button onClick={handleDurationDisplay}>
+          <span>
+            {calculateSecondsToMinutesAndSeconds(audio?.duration ?? 0)}
+          </span>
+        </button>
+      </div>
+
       {/* track info */}
       <div className="flex items-center space-x-2">
         <span>track — </span>
@@ -73,7 +111,50 @@ const BaseAudioPlayer = () => {
       </div>
 
       {/* album cover */}
-      <img className="w-6" src={currentSong.cover} alt={currentSong.title} />
+      <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
+        <div className="relative flex flex-col items-center justify-center">
+          {/* <picture>
+          <source
+            srcSet={currentSong.cover}
+            type="image/webp"
+            className="w-96 h-96"
+          />
+          <img
+            className="w-96 h-96"
+            src={currentSong.cover}
+            alt={currentSong.title}
+          />
+        </picture> */}
+          <button
+            className="focus-visible:outline-offset-8 focus-visible:outline-white"
+            onClick={handleCloseModal}
+          >
+            <img
+              className="aspect-9/16 h-[calc(100vh-60px)] max-w-[calc(100vw-20px)] cursor-auto object-cover sm:h-[calc(100vh-100px)] md:max-h-[calc(100vh-80px)] md:w-auto"
+              src={currentSong.cover}
+              alt={currentSong.title}
+            />
+          </button>
+          <button
+            className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
+            onClick={handleCloseModal}
+          >
+            <svg
+              aria-label="close modal"
+              className="rounded-full fill-romance md:size-16"
+              viewBox="1 0 22 22"
+            >
+              <path d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z" />
+            </svg>
+          </button>
+        </div>
+      </Overlay>
+
+      <button onClick={handleOpenModal}>
+        <img className="w-6" src={currentSong.cover} alt={currentSong.title} />
+      </button>
+
+      {/* player toggle button */}
       <button onClick={togglePlayerExpanded}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
