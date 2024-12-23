@@ -11,7 +11,7 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export default function DreamSequenceIi() {
+export default function DreamSequenceii() {
   const imgRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLDivElement | null>(null);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
@@ -21,23 +21,23 @@ export default function DreamSequenceIi() {
     rootMargin: "10px",
   };
 
-  const {
-    // hasAnimated: hasImgAnimated,
-    intersectionRatio: imgIntersectionRatio,
-  } = useIntersectionObserver(imgRef, intersectionOptions);
-  const {
-    // hasAnimated: hasVideoAnimated,
-    intersectionRatio: videoIntersectionRatio,
-  } = useIntersectionObserver(videoRef, intersectionOptions);
+  const { intersectionRatio: imgIntersectionRatio } = useIntersectionObserver(
+    imgRef,
+    intersectionOptions,
+  );
+  const { intersectionRatio: videoIntersectionRatio } = useIntersectionObserver(
+    videoRef,
+    intersectionOptions,
+  );
 
-  const isModalOpen = searchParams?.get("modal") === "true";
+  const isModalOpen = searchParams?.get("dsiiModal") === "true";
 
   const handleOpenModal = () => {
-    setSearchParams(new URLSearchParams({ modal: "true" }));
+    setSearchParams(new URLSearchParams({ dsiiModal: "true" }));
   };
 
   const handleCloseModal = () => {
-    setSearchParams(new URLSearchParams({ modal: "false" }));
+    setSearchParams(new URLSearchParams({ dsiiModal: "false" }));
   };
 
   const setOpacityRange = (value: string | number) =>
@@ -91,12 +91,14 @@ export default function DreamSequenceIi() {
               />
               <img
                 alt="dream sequence ii album artwork"
-                className="aspect-9/16 max-h-[calc(100vh-60px)] max-w-[calc(100vw-20px)] cursor-auto object-cover md:max-h-[calc(100vh-80px)] md:w-auto"
+                className="aspect-9/16 h-[calc(100vh-60px)] max-w-[calc(100vw-20px)] cursor-auto object-cover sm:h-[calc(100vh-100px)] md:max-h-[calc(100vh-80px)] md:w-auto"
                 src="/images/webp/cropped-dsii-artwork-1440w.webp"
                 fetchPriority="high"
               />
             </picture>
           </button>
+
+          {/* close icon button */}
           <button
             className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
             onClick={handleCloseModal}
