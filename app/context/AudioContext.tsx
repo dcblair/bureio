@@ -49,7 +49,13 @@ const AudioContext = createContext<AudioContextType>({
   togglePlayerExpanded: () => {},
 });
 
-const AudioProvider = ({ children }: { children: ReactNode }) => {
+const AudioProvider = ({
+  children,
+  songUrl,
+}: {
+  children: ReactNode;
+  songUrl: string;
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playerExpansion, setPlayerExpansion] =
     useState<PlayerExpansion>("standard");
@@ -92,6 +98,25 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       });
     };
   });
+
+  // fetches presigned url for audio => see app/routes/api.s3-signed-url.ts
+  useEffect(() => {
+    async function fetchAudioUrl() {
+      const res = await fetch(`/api/s3-signed-url?key=${songUrl}`);
+      const audioUrl = res.url;
+
+      console.log("audioUrl", audioUrl);
+      if (!res.ok) {
+        const error = await res.text();
+        console.error("Failed to fetch audio url", error);
+        return;
+      }
+
+      setCurrentSong({ ...currentSong, audio: audioUrl });
+    }
+
+    fetchAudioUrl();
+  }, [songUrl]);
 
   // handles audio playing and pausing
   const handlePlay = () => {

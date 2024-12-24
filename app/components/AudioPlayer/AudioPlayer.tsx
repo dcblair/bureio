@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { AudioContext } from "~/context/AudioContext";
 import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
 import { Overlay } from "../Overlay/Overlay";

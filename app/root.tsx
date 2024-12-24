@@ -1,4 +1,8 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type {
+  LinksFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/node";
 import {
   isRouteErrorResponse,
   Links,
@@ -6,6 +10,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useRouteError,
 } from "@remix-run/react";
 import { Header } from "~/components";
@@ -31,9 +36,22 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export async function loader({}: LoaderFunctionArgs) {
+  const res = await fetch(`${process.env.API_BASE_URL}/api/s3-song`);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch songs");
+  }
+
+  const songs = await res.json();
+  return { songs };
+}
+
 export default function App() {
+  const data = useLoaderData<typeof loader>();
+
   return (
-    <AudioProvider>
+    <AudioProvider songUrl={data.songs[1].Key}>
       <html className="h-full scroll-smooth" lang="en">
         <head>
           <Meta />
