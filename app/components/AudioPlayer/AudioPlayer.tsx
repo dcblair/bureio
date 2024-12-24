@@ -22,9 +22,10 @@ const BaseAudioPlayer = () => {
     setCurrentTime(parseInt(e.target.value, 10));
   };
 
-  const handleDurationDisplay = () => {
-    setIsDurationIncreasing(!isDurationIncreasing);
-  };
+  // todo: nice-to-have add this in later
+  // const handleDurationDisplay = () => {
+  //   setIsDurationIncreasing(!isDurationIncreasing);
+  // };
 
   const isModalOpen = searchParams?.get("albumArtworkModal") === "true";
 
@@ -45,16 +46,16 @@ const BaseAudioPlayer = () => {
           height:
             playerExpansion === "standard"
               ? "3rem"
-              : playerExpansion === "fullscreen"
-                ? "3rem"
-                : 0,
+              : // : playerExpansion === "fullscreen"
+                //   ? "3rem"
+                0,
         }}
       >
         {/* play / pause button */}
         <button
           aria-label={isPlaying ? "pause" : "play"}
           // todo: add bg color to set colors in tw config?
-          className="flex size-12 items-center justify-center rounded-sm p-1.5 transition duration-2000 ease-in-out hover:shadow-3xl focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-rich-black-fogra29"
+          className="flex size-12 items-center justify-center rounded-sm p-1.5 transition duration-2000 ease-in-out hover:shadow-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rich-black-fogra29"
           onClick={handlePlay}
         >
           {isPlaying ? (
@@ -62,7 +63,7 @@ const BaseAudioPlayer = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              className="size-20 stroke-rich-black-fogra29 transition-all duration-2000 focus-within:stroke-[#769FB8] hover:stroke-[#769FB8]"
+              className="size-fit stroke-rich-black-fogra29 transition-all duration-2000 focus-within:stroke-[#769FB8] hover:stroke-[#769FB8]"
             >
               <path
                 strokeLinecap="round"
@@ -91,12 +92,11 @@ const BaseAudioPlayer = () => {
 
         {/* track duration slider and duration */}
         <div className="flex items-center space-x-3">
-          <button onClick={handleDurationDisplay}>
-            <span className="inline-block w-12 leading-6">
-              {calculateSecondsToMinutesAndSeconds(currentTime ?? 0)}
-            </span>
-          </button>
+          <span className="inline-block w-12 leading-6">
+            {calculateSecondsToMinutesAndSeconds(currentTime ?? 0)}
+          </span>
           <input
+            className="h-0.5 w-48 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
             name="trackDurationSlider"
             type="range"
             value={currentTime ?? 0}
@@ -107,11 +107,9 @@ const BaseAudioPlayer = () => {
           <label htmlFor="trackDurationSlider" className="sr-only">
             track duration
           </label>
-          <button onClick={handleDurationDisplay}>
-            <span>
-              {calculateSecondsToMinutesAndSeconds(audio?.duration ?? 0)}
-            </span>
-          </button>
+          <span>
+            {calculateSecondsToMinutesAndSeconds(audio?.duration ?? 0)}
+          </span>
         </div>
 
         {/* track info */}
@@ -174,9 +172,9 @@ const BaseAudioPlayer = () => {
       {/* player toggle button */}
       {/* todo: create expanded, standard, and fullscreen svgs */}
       <div
-        className="right-[6%] top-1/2 z-30 flex items-center justify-center"
+        className="bottom-5 right-[6%] z-30 flex items-center justify-center"
         style={{
-          position: playerExpansion === "collapsed" ? "absolute" : "fixed",
+          position: "fixed",
           left: playerExpansion === "collapsed" ? "50%" : "auto",
           // margin: playerExpansion === "collapsed" ? "auto 0" : 0,
         }}
@@ -186,13 +184,7 @@ const BaseAudioPlayer = () => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke={
-              playerExpansion === "collapsed"
-                ? "blue"
-                : playerExpansion === "standard"
-                  ? "black"
-                  : "red"
-            }
+            stroke="currentColor"
             className="h-8 w-8"
           >
             <path

@@ -8,7 +8,8 @@ interface Song {
   audio: string;
 }
 
-const playerExpansion = ["collapsed", "standard", "fullscreen"] as const;
+// todo: add "fullscreen" to playerExpansion
+const playerExpansion = ["collapsed", "standard"] as const;
 
 type PlayerExpansion = (typeof playerExpansion)[number];
 
@@ -109,11 +110,11 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   const togglePlayerExpanded = () => {
     if (playerExpansion === "collapsed") {
       setPlayerExpansion("standard");
-    } else if (playerExpansion === "standard") {
-      setPlayerExpansion("fullscreen");
     } else {
       setPlayerExpansion("collapsed");
     }
+    // else if (playerExpansion === "standard") {
+    //   setPlayerExpansion("fullscreen"); {
   };
 
   const value = {
