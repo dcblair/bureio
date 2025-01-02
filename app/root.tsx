@@ -34,7 +34,7 @@ export const links: LinksFunction = () => [
     as: "font",
     type: "font/ttf",
     crossOrigin: "anonymous",
-    href: "public/fonts/questrial/Questrial-Regular.ttf",
+    href: "/fonts/questrial/Questrial-Regular.ttf",
   },
 ];
 
