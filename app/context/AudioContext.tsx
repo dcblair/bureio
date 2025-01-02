@@ -1,11 +1,19 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface Song {
-  id: string;
+  // id?: string;
   title: string;
   artist: string;
-  cover: string;
+  artwork: string;
   audio: string;
+  album: string;
+  trackNumber: string;
+}
+
+interface S3Song {
+  Key: string;
+  Metadata: Song;
+  ContentType: string;
 }
 
 // todo: add "fullscreen" to playerExpansion
@@ -15,18 +23,12 @@ type PlayerExpansion = (typeof playerExpansion)[number];
 
 interface AudioContextType {
   audio: HTMLAudioElement | null;
-  currentSong: {
-    id: string;
-    title: string;
-    artist: string;
-    cover: string;
-    audio: string;
-  };
+  currentSong: S3Song;
   currentTime: number;
   handlePlay: () => void;
   isPlaying: boolean;
   playerExpansion: PlayerExpansion;
-  setCurrentSong: (song: Song) => void;
+  setCurrentSong: (song: S3Song) => void;
   setCurrentTime: (time: number) => void;
   togglePlayerExpanded: () => void;
 }
@@ -34,11 +36,16 @@ interface AudioContextType {
 const AudioContext = createContext<AudioContextType>({
   audio: null,
   currentSong: {
-    id: "1",
-    title: "calling currents",
-    artist: "bu.re_",
-    cover: "/images/webp/cropped-dsii-artwork-1440w.webp",
-    audio: "/audio/calling-currents.wav",
+    Key: "/audio/calling-currents.wav",
+    Metadata: {
+      title: "calling currents",
+      trackNumber: "3",
+      album: "on letting go",
+      artist: "bu.re_",
+      artwork: "/images/webp/cropped-dsii-artwork-1440w.webp",
+      audio: "/audio/calling-currents.wav",
+    },
+    ContentType: "audio/wav",
   },
   currentTime: 0,
   handlePlay: () => {},
@@ -51,27 +58,21 @@ const AudioContext = createContext<AudioContextType>({
 
 const AudioProvider = ({
   children,
-  songUrl,
+  defaultSong,
 }: {
   children: ReactNode;
-  songUrl: string;
+  defaultSong: S3Song;
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playerExpansion, setPlayerExpansion] =
     useState<PlayerExpansion>("standard");
   const [currentTime, setCurrentTime] = useState(0);
-  const [currentSong, setCurrentSong] = useState({
-    id: "1",
-    title: "calling currents",
-    artist: "bu.re_",
-    cover: "/images/webp/cropped-dsii-artwork-1440w.webp",
-    audio: "/audio/calling-currents.wav",
-  });
+  const [currentSong, setCurrentSong] = useState(defaultSong);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   // establishes audio element
   useEffect(() => {
-    const audioElement = new Audio(currentSong.audio);
+    const audioElement = new Audio(currentSong.Metadata.audio);
     setAudio(audioElement);
 
     const updateCurrentTime = () => setCurrentTime(audioElement.currentTime);
@@ -82,41 +83,63 @@ const AudioProvider = ({
       audioElement.src = "";
       audioElement.removeEventListener("timeupdate", updateCurrentTime);
     };
-  }, [currentSong.audio]);
+  }, [currentSong]);
 
   // handles audio ending
   useEffect(() => {
     if (!audio) return;
 
-    audio.addEventListener("ended", () => {
-      setIsPlaying(false);
-    });
+    const handleEndSong = () => setIsPlaying(false);
+    audio.addEventListener("ended", handleEndSong);
 
     return () => {
-      audio.removeEventListener("ended", () => {
-        setIsPlaying(false);
-      });
+      audio.removeEventListener("ended", handleEndSong);
     };
   });
 
   // fetches presigned url for audio => see app/routes/api.s3-signed-url.ts
   useEffect(() => {
     async function fetchAudioUrl() {
-      const res = await fetch(`/api/s3-signed-url?key=${songUrl}`);
+      const res = await fetch(`/api/s3-signed-url?key=${defaultSong.Key}`);
       const audioUrl = res.url;
 
-      console.log("audioUrl", audioUrl);
       if (!res.ok) {
         const error = await res.text();
         console.error("Failed to fetch audio url", error);
         return;
       }
 
-      setCurrentSong({ ...currentSong, audio: audioUrl });
+      setCurrentSong({
+        ...currentSong,
+        Metadata: { ...defaultSong.Metadata, audio: audioUrl },
+      });
     }
 
     fetchAudioUrl();
-  }, [songUrl]);
+  }, [defaultSong]);
+
+  // fetches presigned url for artwork => see app/routes/api.s3-signed-url.ts
+  useEffect(() => {
+    async function fetchArtworkUrl() {
+      const res = await fetch(
+        `/api/s3-signed-url?key=bureio/${defaultSong.Metadata.artwork}`,
+      );
+      const artworkUrl = res.url;
+
+      if (!res.ok) {
+        const error = await res.text();
+        console.error("Failed to fetch artwork url", error);
+        return;
+      }
+
+      setCurrentSong({
+        ...currentSong,
+        Metadata: { ...defaultSong.Metadata, artwork: artworkUrl },
+      });
+    }
+
+    fetchArtworkUrl();
+  }, [defaultSong]);
 
   // handles audio playing and pausing
   const handlePlay = () => {

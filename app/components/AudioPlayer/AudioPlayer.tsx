@@ -15,6 +15,7 @@ const BaseAudioPlayer = () => {
     setCurrentTime,
     togglePlayerExpanded,
   } = useContext(AudioContext);
+  const { Metadata } = currentSong;
   const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
 
@@ -101,7 +102,7 @@ const BaseAudioPlayer = () => {
             type="range"
             value={currentTime ?? 0}
             min={0}
-            max={audio?.duration ?? 0}
+            max={Number(audio?.duration || 0)}
             onChange={handleCurrentTime}
           />
           <label htmlFor="trackDurationSlider" className="sr-only">
@@ -116,22 +117,22 @@ const BaseAudioPlayer = () => {
         <div className="flex items-center space-x-2">
           <span>track — </span>
           <h3 className="text-lg font-semibold tracking-wider">
-            {currentSong.title}
+            {Metadata.title}
           </h3>
         </div>
 
-        {/* album cover */}
+        {/* album artwork */}
         <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
           <div className="relative flex flex-col items-center justify-center">
             {/* <picture>
             <source
-              srcSet={currentSong.cover}
+              srcSet={currentSong.artwork}
               type="image/webp"
               className="w-96 h-96"
             />
             <img
               className="w-96 h-96"
-              src={currentSong.cover}
+              src={currentSong.artwork}
               alt={currentSong.title}
             />
           </picture> */}
@@ -141,8 +142,8 @@ const BaseAudioPlayer = () => {
             >
               <img
                 className="aspect-9/16 h-[calc(100vh-60px)] max-w-[calc(100vw-20px)] cursor-auto object-cover sm:h-[calc(100vh-100px)] md:max-h-[calc(100vh-80px)] md:w-auto"
-                src={currentSong.cover}
-                alt={currentSong.title}
+                src={Metadata.artwork}
+                alt={Metadata.title}
               />
             </button>
             <button
@@ -161,11 +162,7 @@ const BaseAudioPlayer = () => {
         </Overlay>
 
         <button onClick={handleOpenModal}>
-          <img
-            className="w-6"
-            src={currentSong.cover}
-            alt={currentSong.title}
-          />
+          <img className="w-6" src={Metadata.artwork} alt={Metadata.title} />
         </button>
       </div>
 

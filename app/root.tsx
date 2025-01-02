@@ -17,6 +17,7 @@ import { Header } from "~/components";
 import { AudioProvider } from "./context/AudioContext";
 import NotFound from "./pages/NotFound";
 import "./tailwind.css";
+import { fetchSongs } from "./utils/s3-song";
 
 export const meta: MetaFunction = () => {
   return [
@@ -29,29 +30,50 @@ export const meta: MetaFunction = () => {
 
 export const links: LinksFunction = () => [
   {
-    rel: "preload",
+    rel: "prefetch",
     as: "font",
     type: "font/ttf",
-    href: "/fonts/questrial/Questrial-Regular.ttf",
+    crossOrigin: "anonymous",
+    href: "public/fonts/questrial/Questrial-Regular.ttf",
   },
 ];
 
 export async function loader({}: LoaderFunctionArgs) {
-  const res = await fetch(`${process.env.API_BASE_URL}/api/s3-song`);
+  try {
+    const audioRes = await fetchSongs();
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch songs");
+    if (!audioRes.ok) {
+      throw new Error("Failed to fetch songs");
+    }
+
+    const songs = await audioRes.json();
+    return { songs };
+  } catch (error) {
+    console.error("Failed to fetch songs", error);
+    return { songs: [] };
   }
-
-  const songs = await res.json();
-  return { songs };
 }
 
 export default function App() {
   const data = useLoaderData<typeof loader>();
 
+  console.log(data, "data");
+  // set default song to "calling currents" if no songs are found
+  const defaultSong = data.songs?.[1] || {
+    Key: "/audio/calling-currents.wav",
+    Metadata: {
+      title: "calling currents",
+      trackNumber: "3",
+      album: "on letting go",
+      artist: "bu.re_",
+      artwork: "/images/webp/cropped-dsii-artwork-1440w.webp",
+      audio: "/audio/calling-currents.wav",
+    },
+    ContentType: "audio/wav",
+  };
+
   return (
-    <AudioProvider songUrl={data.songs[1].Key}>
+    <AudioProvider defaultSong={defaultSong}>
       <html className="h-full scroll-smooth" lang="en">
         <head>
           <Meta />
