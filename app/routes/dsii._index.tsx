@@ -5,7 +5,7 @@ import { AudioPlayer, Overlay, Tooltip } from "~/components";
 
 export const links: LinksFunction = () => [
   {
-    rel: "preload",
+    rel: "prefetch",
     as: "image",
     href: "/images/webp/cropped-dsii-artwork-1440w.webp",
   },
@@ -45,7 +45,7 @@ export default function DreamSequenceii() {
 
   return (
     <main className="flex w-full flex-col items-center text-center">
-      {/* image */}
+      {/* dsii album artwork image */}
       <div
         className="mb-4 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:my-10"
         ref={imgRef}
@@ -73,7 +73,7 @@ export default function DreamSequenceii() {
         </button>
       </div>
 
-      {/* modal overlay */}
+      {/* dsii album artwork modal overlay */}
       <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
         <div className="relative flex items-center">
           <button

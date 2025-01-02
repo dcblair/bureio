@@ -1,4 +1,8 @@
-import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
+import {
+  HeadObjectCommand,
+  S3Client,
+  ListObjectsV2Command,
+} from "@aws-sdk/client-s3";
 import { LoaderFunctionArgs } from "@remix-run/node";
 
 const s3 = new S3Client({
@@ -12,11 +16,31 @@ const s3 = new S3Client({
 export async function loader({ request }: LoaderFunctionArgs) {
   const command = new ListObjectsV2Command({
     Bucket: process.env.AWS_BUCKET_NAME!,
-    Prefix: "bureio/",
+    Prefix: "bureio/songs/",
   });
   const { Contents } = await s3.send(command);
 
-  return new Response(JSON.stringify(Contents), {
+  if (!Contents || Contents.length === 0) {
+    return new Response("No songs found", { status: 404 });
+  }
+
+  const metadataPromises = Contents.map(async (song) => {
+    const headCommand = new HeadObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME!,
+      Key: song.Key!,
+    });
+
+    const metadataRes = await s3.send(headCommand);
+    return {
+      Key: song.Key,
+      Metadata: metadataRes.Metadata,
+      ContentType: metadataRes.ContentType,
+    };
+  });
+
+  const songsWithMetadata = await Promise.all(metadataPromises);
+
+  return new Response(JSON.stringify(songsWithMetadata), {
     headers: {
       "Content-Type": "application/json",
     },
