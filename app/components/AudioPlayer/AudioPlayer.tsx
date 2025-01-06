@@ -13,6 +13,7 @@ const BaseAudioPlayer = () => {
     playerExpansion,
     setCurrentSong,
     setCurrentTime,
+    setVolume,
     togglePlayerExpanded,
   } = useContext(AudioContext);
   const { Metadata } = currentSong;
@@ -37,6 +38,14 @@ const BaseAudioPlayer = () => {
   const handleCloseModal = () => {
     setSearchParams(new URLSearchParams({ albumArtworkModal: "false" }));
   };
+
+  const trackDuration = calculateSecondsToMinutesAndSeconds(
+    audio?.duration || 0,
+  );
+
+  const parsedCurrentTime = calculateSecondsToMinutesAndSeconds(
+    currentTime ?? 0,
+  );
 
   return (
     <div className="relative h-12 w-full">
@@ -94,7 +103,7 @@ const BaseAudioPlayer = () => {
         {/* track duration slider and duration */}
         <div className="flex items-center space-x-3">
           <span className="inline-block w-12 leading-6">
-            {calculateSecondsToMinutesAndSeconds(currentTime ?? 0)}
+            {parsedCurrentTime}
           </span>
           <input
             className="h-0.5 w-48 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
@@ -108,9 +117,7 @@ const BaseAudioPlayer = () => {
           <label htmlFor="trackDurationSlider" className="sr-only">
             track duration
           </label>
-          <span>
-            {calculateSecondsToMinutesAndSeconds(audio?.duration ?? 0)}
-          </span>
+          <span>{trackDuration}</span>
         </div>
 
         {/* track info */}

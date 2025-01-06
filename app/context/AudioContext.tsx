@@ -18,7 +18,6 @@ interface S3Song {
 
 // todo: add "fullscreen" to playerExpansion
 const playerExpansion = ["collapsed", "standard"] as const;
-
 type PlayerExpansion = (typeof playerExpansion)[number];
 
 interface AudioContextType {
@@ -30,6 +29,7 @@ interface AudioContextType {
   playerExpansion: PlayerExpansion;
   setCurrentSong: (song: S3Song) => void;
   setCurrentTime: (time: number) => void;
+  setVolume: (volume: number) => void;
   togglePlayerExpanded: () => void;
 }
 
@@ -53,6 +53,7 @@ const AudioContext = createContext<AudioContextType>({
   playerExpansion: "standard",
   setCurrentSong: () => {},
   setCurrentTime: () => {},
+  setVolume: () => {},
   togglePlayerExpanded: () => {},
 });
 
@@ -64,6 +65,7 @@ const AudioProvider = ({
   defaultSong: S3Song;
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.7);
   const [playerExpansion, setPlayerExpansion] =
     useState<PlayerExpansion>("standard");
   const [currentTime, setCurrentTime] = useState(0);
@@ -95,63 +97,53 @@ const AudioProvider = ({
     return () => {
       audio.removeEventListener("ended", handleEndSong);
     };
-  });
+  }, [audio]);
 
-  // fetches presigned url for audio => see app/routes/api.s3-signed-url.ts
-  useEffect(() => {
-    async function fetchAudioUrl() {
-      const res = await fetch(`/api/s3-signed-url?key=${defaultSong.Key}`);
-      const audioUrl = res.url;
+  // todo: fix this!
+  // const fadeOut = (milliseconds = 100) => {
+  //   if (!audio) return;
 
-      if (!res.ok) {
-        const error = await res.text();
-        console.error("Failed to fetch audio url", error);
-        return;
-      }
+  //   const fade = () => {
+  //     if (audio.volume > 0) {
+  //       audio.volume = Math.max(0, audio.volume - 0.05);
+  //       setInterval(fade, milliseconds);
+  //     } else {
+  //       audio.pause();
+  //     }
+  //   };
+  //   fade();
+  // };
 
-      setCurrentSong({
-        ...currentSong,
-        Metadata: { ...defaultSong.Metadata, audio: audioUrl },
-      });
-    }
+  // const fadeIn = (milliseconds = 100) => {
+  //   if (!audio) return;
 
-    fetchAudioUrl();
-  }, [defaultSong]);
+  //   const fade = () => {
+  //     if (audio.volume === 0) {
+  //       audio.play();
+  //     }
 
-  // fetches presigned url for artwork => see app/routes/api.s3-signed-url.ts
-  useEffect(() => {
-    async function fetchArtworkUrl() {
-      const res = await fetch(
-        `/api/s3-signed-url?key=bureio/${defaultSong.Metadata.artwork}`,
-      );
-      const artworkUrl = res.url;
-
-      if (!res.ok) {
-        const error = await res.text();
-        console.error("Failed to fetch artwork url", error);
-        return;
-      }
-
-      setCurrentSong({
-        ...currentSong,
-        Metadata: { ...defaultSong.Metadata, artwork: artworkUrl },
-      });
-    }
-
-    fetchArtworkUrl();
-  }, [defaultSong]);
+  //     if (audio.volume < volume) {
+  //       audio.volume = Math.min(1, audio.volume + 0.05);
+  //       setTimeout(fade, milliseconds);
+  //     } else {
+  //     }
+  //   };
+  //   fade();
+  // };
 
   // handles audio playing and pausing
   const handlePlay = () => {
     if (!audio) return;
 
     if (isPlaying) {
+      // fadeOut(2000);
       audio.pause();
-      setIsPlaying(false);
     } else {
+      // fadeIn();
       audio.play();
-      setIsPlaying(true);
     }
+
+    setIsPlaying(!isPlaying);
   };
 
   // handles expanding and collapsing the player
@@ -169,6 +161,12 @@ const AudioProvider = ({
     audio,
     currentSong,
     currentTime,
+    setVolume: (volume: number) => {
+      if (audio) {
+        audio.volume = volume;
+        setVolume(volume);
+      }
+    },
     handlePlay,
     playerExpansion,
     isPlaying,
