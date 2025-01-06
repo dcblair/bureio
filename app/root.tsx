@@ -18,6 +18,8 @@ import { AudioProvider } from "./context/AudioContext";
 import NotFound from "./pages/NotFound";
 import "./tailwind.css";
 import { fetchSongs } from "./utils/s3-song";
+import { fetchArtwork } from "./utils/s3-artwork";
+import { getSignedS3Url } from "./utils/s3-signed-url";
 
 export const meta: MetaFunction = () => {
   return [
@@ -47,30 +49,59 @@ export async function loader({}: LoaderFunctionArgs) {
     }
 
     const songs = await audioRes.json();
-    return { songs };
+
+    // fetch signed urls for default song
+    const defaultSongRes = await getSignedS3Url(songs?.[1].Key);
+    const artworkRes = await getSignedS3Url(
+      `bureio/${songs?.[1].Metadata.artwork}`,
+    );
+
+    if (!artworkRes.ok) {
+      const error = await artworkRes.text();
+      console.error("Failed to fetch artwork url", error);
+      return { artwork: "", songs: [], defaultSong: "" };
+    }
+
+    if (!defaultSongRes.ok) {
+      const error = await defaultSongRes.text();
+      console.error("Failed to fetch default song url", error);
+      return { artwork: "", songs: [], defaultSong: "" };
+    }
+
+    const artworkUrl = await artworkRes.json();
+    const defaultSong = await defaultSongRes.json();
+    return { artwork: artworkUrl.url, songs, defaultSong: defaultSong.url };
   } catch (error) {
     console.error("Failed to fetch songs", error);
-    return { songs: [] };
+    return { artwork: "", songs: [], defaultSong: "" };
   }
 }
 
 export default function App() {
   const data = useLoaderData<typeof loader>();
 
-  console.log(data, "data");
   // set default song to "calling currents" if no songs are found
-  const defaultSong = data.songs?.[1] || {
-    Key: "/audio/calling-currents.wav",
-    Metadata: {
-      title: "calling currents",
-      trackNumber: "3",
-      album: "on letting go",
-      artist: "bu.re_",
-      artwork: "/images/webp/cropped-dsii-artwork-1440w.webp",
-      audio: "/audio/calling-currents.wav",
-    },
-    ContentType: "audio/wav",
-  };
+  const defaultSong = data.songs?.[1]
+    ? {
+        ...data.songs[1],
+        Metadata: {
+          ...data.songs[1].Metadata,
+          artwork: data.artwork,
+          audio: data.defaultSong,
+        },
+      }
+    : {
+        Key: "/audio/calling-currents.wav",
+        Metadata: {
+          title: "calling currents",
+          trackNumber: "3",
+          album: "on letting go",
+          artist: "bu.re_",
+          artwork: "/images/webp/cropped-dsii-artwork-1440w.webp",
+          audio: "/audio/calling-currents.wav",
+        },
+        ContentType: "audio/wav",
+      };
 
   return (
     <AudioProvider defaultSong={defaultSong}>
