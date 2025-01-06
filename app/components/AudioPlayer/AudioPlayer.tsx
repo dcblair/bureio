@@ -128,7 +128,7 @@ const BaseAudioPlayer = () => {
           </h3>
         </div>
 
-        {/* album artwork */}
+        {/* album artwork overlay */}
         <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
           <div className="relative flex flex-col items-center justify-center">
             {/* <picture>
@@ -148,7 +148,7 @@ const BaseAudioPlayer = () => {
               onClick={handleCloseModal}
             >
               <img
-                className="aspect-9/16 h-[calc(100vh-60px)] max-w-[calc(100vw-20px)] cursor-auto object-cover sm:h-[calc(100vh-100px)] md:max-h-[calc(100vh-80px)] md:w-auto"
+                className="aspect-square w-auto cursor-auto md:h-[calc(100vh-100px)]"
                 src={Metadata.artwork}
                 alt={Metadata.title}
               />
