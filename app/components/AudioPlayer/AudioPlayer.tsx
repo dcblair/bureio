@@ -15,6 +15,7 @@ const BaseAudioPlayer = () => {
     setCurrentTime,
     setVolume,
     togglePlayerExpanded,
+    volume,
   } = useContext(AudioContext);
   const { Metadata } = currentSong;
   const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
@@ -30,6 +31,8 @@ const BaseAudioPlayer = () => {
   // };
 
   const isModalOpen = searchParams?.get("albumArtworkModal") === "true";
+  const duration = (audio && audio.duration) ?? 0;
+  console.log(duration);
 
   const handleOpenModal = () => {
     setSearchParams(new URLSearchParams({ albumArtworkModal: "true" }));
@@ -39,13 +42,9 @@ const BaseAudioPlayer = () => {
     setSearchParams(new URLSearchParams({ albumArtworkModal: "false" }));
   };
 
-  const trackDuration = calculateSecondsToMinutesAndSeconds(
-    audio?.duration || 0,
-  );
+  const trackDuration = calculateSecondsToMinutesAndSeconds(duration);
 
-  const parsedCurrentTime = calculateSecondsToMinutesAndSeconds(
-    currentTime ?? 0,
-  );
+  const parsedCurrentTime = calculateSecondsToMinutesAndSeconds(currentTime);
 
   return (
     <div className="relative h-12 w-full">
@@ -118,6 +117,24 @@ const BaseAudioPlayer = () => {
             track duration
           </label>
           <span>{trackDuration}</span>
+        </div>
+
+        {/* volume control */}
+        <div className="flex items-center space-x-2">
+          <input
+            className="h-0.5 w-12 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+            defaultValue={volume}
+            type="range"
+            min={0}
+            max={1}
+            name="volume"
+            onChange={(e) => setVolume(Number(e.target.value))}
+            step={0.05}
+            value={volume}
+          />
+          <label htmlFor="volume" className="sr-only">
+            volume
+          </label>
         </div>
 
         {/* track info */}

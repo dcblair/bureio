@@ -31,7 +31,19 @@ interface AudioContextType {
   setCurrentTime: (time: number) => void;
   setVolume: (volume: number) => void;
   togglePlayerExpanded: () => void;
+  volume: number;
 }
+
+// think of schema for song
+/**
+ * {
+ *  Key: "bureio/songs/...",
+ * Metadata: {
+ * title: "calling currents",
+ * trackNumber: "3",
+ * bandcamp: 'https://bureio.bandcamp.com/track/calling-currents'
+ * }
+ */
 
 const AudioContext = createContext<AudioContextType>({
   audio: null,
@@ -55,6 +67,7 @@ const AudioContext = createContext<AudioContextType>({
   setCurrentTime: () => {},
   setVolume: () => {},
   togglePlayerExpanded: () => {},
+  volume: 0.7,
 });
 
 const AudioProvider = ({
@@ -178,6 +191,7 @@ const AudioProvider = ({
       }
     },
     togglePlayerExpanded,
+    volume,
   };
 
   return (
