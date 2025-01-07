@@ -64,7 +64,7 @@ const BaseAudioPlayer = () => {
         <button
           aria-label={isPlaying ? "pause" : "play"}
           // todo: add bg color to set colors in tw config?
-          className="flex size-12 items-center justify-center rounded-sm p-1.5 transition duration-2000 ease-in-out hover:shadow-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rich-black-fogra29"
+          className="flex size-12 items-center justify-center rounded-sm p-1.5 transition duration-2000 ease-in-out hover:shadow-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-rich-black-fogra29"
           onClick={handlePlay}
         >
           {isPlaying ? (
@@ -72,13 +72,13 @@ const BaseAudioPlayer = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              className="size-fit stroke-rich-black-fogra29 transition-all duration-2000 focus-within:stroke-[#769FB8] hover:stroke-[#769FB8]"
+              className="stroke-rich-black-fogra29 focus-within:stroke-[#769FB8] hover:stroke-[#769FB8]"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M10 9v6m4-6v6"
+                d="M10 7v10m5 -10v10"
               />
             </svg>
           ) : (
@@ -120,16 +120,36 @@ const BaseAudioPlayer = () => {
         </div>
 
         {/* volume control slider */}
-        <div className="flex items-center space-x-2">
+        <div className="flex space-x-2">
+          <button onClick={() => setVolume(0)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="h-6 w-6"
+            >
+              <g>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M1 2l4 3m2Z"
+                />
+              </g>
+            </svg>
+          </button>
           <Tooltip
-            className="tracking-widest"
+            classNames={{
+              container: "flex items-center justify-center",
+              tooltip: "tracking-widest",
+            }}
             content={`${Math.floor(volume * 100)}`}
             placement="top"
             zIndex={30}
           >
             <input
               className="h-0.5 w-16 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
-              defaultValue={volume}
               type="range"
               min={0}
               max={1}

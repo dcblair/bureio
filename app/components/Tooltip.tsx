@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import {
   arrow,
@@ -17,9 +17,13 @@ import {
 import type { Side } from "@floating-ui/react";
 import { classed } from "@tw-classed/react";
 
+type Classnames = {
+  [key: string]: string;
+};
+
 interface TooltipProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
-  className?: string;
+  classNames?: Classnames;
   content: string;
   isContentHidden?: boolean;
   placement?: Side;
@@ -43,14 +47,14 @@ const StyledContent = classed(
 );
 
 const BaseTooltip = ({
-  className,
+  classNames,
   children,
   content,
   placement = "right",
   zIndex = 20,
 }: TooltipProps) => {
-  const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
-  const arrowRef = React.useRef<HTMLDivElement | null>(null);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const arrowRef = useRef<HTMLDivElement | null>(null);
   const { context, x, y, reference, floating, strategy, middlewareData } =
     useFloating({
       open: isTooltipOpen,
@@ -91,14 +95,19 @@ const BaseTooltip = ({
 
   return (
     <>
-      <div {...getReferenceProps({ ref: reference })}>{children}</div>
+      <div
+        className={classNames?.container}
+        {...getReferenceProps({ ref: reference })}
+      >
+        {children}
+      </div>
       <FloatingPortal>
         {isMounted && (
           <StyledContent
             {...getFloatingProps({
               ref: floating,
             })}
-            className={className}
+            className={classNames?.tooltip}
             style={{
               position: strategy,
               left: x ?? 0,
