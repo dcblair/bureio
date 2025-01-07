@@ -2,6 +2,7 @@ import { memo, useContext, useState } from "react";
 import { AudioContext } from "~/context/AudioContext";
 import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
 import { Overlay } from "../Overlay/Overlay";
+import { Tooltip } from "../Tooltip";
 
 const BaseAudioPlayer = () => {
   const {
@@ -18,7 +19,7 @@ const BaseAudioPlayer = () => {
     volume,
   } = useContext(AudioContext);
   const { Metadata } = currentSong;
-  const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
+  // const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
 
   const handleCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +33,6 @@ const BaseAudioPlayer = () => {
 
   const isModalOpen = searchParams?.get("albumArtworkModal") === "true";
   const duration = (audio && audio.duration) ?? 0;
-  console.log(duration);
 
   const handleOpenModal = () => {
     setSearchParams(new URLSearchParams({ albumArtworkModal: "true" }));
@@ -119,22 +119,29 @@ const BaseAudioPlayer = () => {
           <span>{trackDuration}</span>
         </div>
 
-        {/* volume control */}
+        {/* volume control slider */}
         <div className="flex items-center space-x-2">
-          <input
-            className="h-0.5 w-12 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
-            defaultValue={volume}
-            type="range"
-            min={0}
-            max={1}
-            name="volume"
-            onChange={(e) => setVolume(Number(e.target.value))}
-            step={0.05}
-            value={volume}
-          />
-          <label htmlFor="volume" className="sr-only">
-            volume
-          </label>
+          <Tooltip
+            className="tracking-widest"
+            content={`${Math.floor(volume * 100)}`}
+            placement="top"
+            zIndex={30}
+          >
+            <input
+              className="h-0.5 w-16 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+              defaultValue={volume}
+              type="range"
+              min={0}
+              max={1}
+              name="volume"
+              onChange={(e) => setVolume(Number(e.target.value))}
+              step={0.05}
+              value={volume}
+            />
+            <label htmlFor="volume" className="sr-only">
+              volume
+            </label>
+          </Tooltip>
         </div>
 
         {/* track info */}

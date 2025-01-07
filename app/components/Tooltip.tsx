@@ -1,5 +1,5 @@
-import * as React from 'react';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import * as React from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import {
   arrow,
   autoUpdate,
@@ -13,37 +13,41 @@ import {
   useInteractions,
   useRole,
   useTransitionStyles,
-} from '@floating-ui/react';
-import type { Side } from '@floating-ui/react';
-import { classed } from '@tw-classed/react';
+} from "@floating-ui/react";
+import type { Side } from "@floating-ui/react";
+import { classed } from "@tw-classed/react";
 
-interface TooltipProps extends ComponentPropsWithoutRef<'div'> {
+interface TooltipProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
+  className?: string;
   content: string;
   isContentHidden?: boolean;
   placement?: Side;
+  zIndex?: number;
 }
 
-const StyledArrow = classed('div', '', {
+const StyledArrow = classed("div", "", {
   variants: {
     placement: {
-      left: '-right-1',
-      right: '-left-1',
-      top: '-bottom-1',
-      bottom: '-top-1',
+      left: "-right-1",
+      right: "-left-1",
+      top: "-bottom-1",
+      bottom: "-top-1",
     },
   },
 });
 
 const StyledContent = classed(
-  'div',
-  'rounded-lg bg-black px-2.5 py-1.5 text-xs leading-relaxed text-romance',
+  "div",
+  "rounded-lg bg-black px-2.5 py-2 text-sm font-questrial tracking-wider text-romance",
 );
 
 const BaseTooltip = ({
+  className,
   children,
   content,
-  placement = 'right',
+  placement = "right",
+  zIndex = 20,
 }: TooltipProps) => {
   const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
   const arrowRef = React.useRef<HTMLDivElement | null>(null);
@@ -68,7 +72,7 @@ const BaseTooltip = ({
   const hover = useHover(context, { move: false });
   const focus = useFocus(context);
   const dismiss = useDismiss(context);
-  const role = useRole(context, { role: 'tooltip' });
+  const role = useRole(context, { role: "tooltip" });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     hover,
@@ -80,8 +84,8 @@ const BaseTooltip = ({
   if (middlewareData?.arrow && arrowRef?.current?.style) {
     const { x, y } = middlewareData.arrow;
     Object.assign(arrowRef?.current?.style, {
-      left: x != null ? `${x}px` : '',
-      top: y != null ? `${y}px` : '',
+      left: x != null ? `${x}px` : "",
+      top: y != null ? `${y}px` : "",
     });
   }
 
@@ -94,10 +98,12 @@ const BaseTooltip = ({
             {...getFloatingProps({
               ref: floating,
             })}
+            className={className}
             style={{
               position: strategy,
               left: x ?? 0,
               top: y ?? 0,
+              zIndex: zIndex,
               ...styles,
             }}
           >
@@ -105,10 +111,10 @@ const BaseTooltip = ({
             <StyledArrow
               className="bg-black"
               style={{
-                position: 'absolute',
-                width: '1em',
-                height: '1em',
-                transform: 'rotate(45deg)',
+                position: "absolute",
+                width: "1em",
+                height: "1em",
+                transform: "rotate(45deg)",
               }}
               placement={placement}
               ref={arrowRef}
