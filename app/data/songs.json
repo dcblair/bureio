@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1",
+    "title": "nara (奈良)",
+    "artist": "bu.re_",
+    "album": "passing glances (一瞥) [remastered]",
+    "duration": 91,
+    "artworkS3": "/artwork/passing-glances-remastered.webp",
+    "audioS3": "/songs/nara-remastered.wav",
+    "trackNumber": 5,
+    "bandcamp": "https://bure.bandcamp.com/track/nara"
+  },
+  {
+    "id": "2",
+    "title": "falling into sheer blue",
+    "artist": "bu.re_",
+    "album": "remote rhythms benefit compilation",
+    "duration": 288,
+    "artworkS3": "/artwork/remote-rhythms-benefit-compilation.webp",
+    "audioS3": "/songs/falling-into-sheer-blue.mp3",
+    "trackNumber": 1,
+    "bandcamp": "https://atlanticrhythms.bandcamp.com/album/remote-rhythms-benefit-compilation"
+  },
+  {
+    "id": "3",
+    "title": "floating (preview)",
+    "artist": "bu.re_",
+    "album": "dream sequence ii",
+    "duration": 71460,
+    "artworkS3": "/artwork/dream-sequence-ii.webp",
+    "audioS3": "/songs/floating-preview.wav",
+    "trackNumber": 1,
+    "bandcamp": "https://bu-re.bandcamp.com/album/dream-sequence-ii"
+  },
+  {
+    "id": "6",
+    "title": "calling currents",
+    "artist": "bu.re_",
+    "album": "on letting go",
+    "duration": 288,
+    "artwork": "/images/webp/cropped-dsii-artwork-1440w.webp",
+    "audio": "/audio/calling-currents.wav",
+    "trackNumber": 3,
+    "bandcamp": "https://bure.bandcamp.com/track/calling-currents"
+  }
+]
