@@ -1,5 +1,5 @@
 export * from "./AudioPlayer/AudioPlayer";
-export * from "./Button";
+export * from "./Button/Button";
 export * from "./Header/Header";
 export * from "./Input";
 export * from "./Link/Link";

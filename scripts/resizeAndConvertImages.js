@@ -29,7 +29,7 @@ const resizeAndConvertToWebp = async (inputPath, outputPath, sizes) => {
 
 const resizeAndConvertImages = async () => {
   // edit this to focus on a specific folder or file
-  const images = glob.sync("public/images/*.{jpg,jpeg,png}");
+  const images = glob.sync("public/images/to-convert/*.{jpg,jpeg,png}");
 
   for (const image of images) {
     const outputPath = path.join("public/images", "webp");
