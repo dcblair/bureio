@@ -1,19 +1,17 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 
-interface Song {
-  // id?: string;
+export interface Song {
+  id: string;
   title: string;
   artist: string;
+  album: string;
+  duration: number;
+  artworkS3?: string;
+  audioS3?: string;
   artwork: string;
   audio: string;
-  album: string;
-  trackNumber: string;
-}
-
-interface S3Song {
-  Key: string;
-  Metadata: Song;
-  ContentType: string;
+  trackNumber: number;
+  bandcamp?: string;
 }
 
 // todo: add "fullscreen" to playerExpansion
@@ -22,43 +20,33 @@ type PlayerExpansion = (typeof playerExpansion)[number];
 
 interface AudioContextType {
   audio: HTMLAudioElement | null;
-  currentSong: S3Song;
+  currentSong: Song;
   currentTime: number;
   handlePlay: () => void;
   isPlaying: boolean;
   playerExpansion: PlayerExpansion;
-  setCurrentSong: (song: S3Song) => void;
+  setCurrentSong: (song: Song) => void;
   setCurrentTime: (time: number) => void;
   setVolume: (volume: number) => void;
   togglePlayerExpanded: () => void;
   volume: number;
 }
 
-// think of schema for song
-/**
- * {
- *  Key: "bureio/songs/...",
- * Metadata: {
- * title: "calling currents",
- * trackNumber: "3",
- * bandcamp: 'https://bureio.bandcamp.com/track/calling-currents'
- * }
- */
+export const backupSong = {
+  id: "6",
+  title: "calling currents",
+  trackNumber: 3,
+  album: "on letting go",
+  duration: 288,
+  artist: "bu.re_",
+  artwork: "/images/webp/cropped-dsii-artwork-1440w.webp",
+  audio: "/audio/calling-currents.wav",
+  bandcamp: "https://bure.bandcamp.com/track/calling-currents",
+};
 
 const AudioContext = createContext<AudioContextType>({
   audio: null,
-  currentSong: {
-    Key: "/audio/calling-currents.wav",
-    Metadata: {
-      title: "calling currents",
-      trackNumber: "3",
-      album: "on letting go",
-      artist: "bu.re_",
-      artwork: "/images/webp/cropped-dsii-artwork-1440w.webp",
-      audio: "/audio/calling-currents.wav",
-    },
-    ContentType: "audio/wav",
-  },
+  currentSong: backupSong,
   currentTime: 0,
   handlePlay: () => {},
   isPlaying: false,
@@ -75,7 +63,7 @@ const AudioProvider = ({
   defaultSong,
 }: {
   children: ReactNode;
-  defaultSong: S3Song;
+  defaultSong: Song;
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.7);
@@ -85,9 +73,10 @@ const AudioProvider = ({
   const [currentSong, setCurrentSong] = useState(defaultSong);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
+  console.log(currentSong, audio, "currentSong, audio");
   // establishes audio element
   useEffect(() => {
-    const audioElement = new Audio(currentSong.Metadata.audio);
+    const audioElement = new Audio(currentSong.audio);
     setAudio(audioElement);
 
     const updateCurrentTime = () => setCurrentTime(audioElement.currentTime);

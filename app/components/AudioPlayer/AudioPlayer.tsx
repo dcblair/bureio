@@ -18,7 +18,7 @@ const BaseAudioPlayer = () => {
     togglePlayerExpanded,
     volume,
   } = useContext(AudioContext);
-  const { Metadata } = currentSong;
+  const { artwork, duration, title } = currentSong;
   // const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
 
@@ -32,7 +32,6 @@ const BaseAudioPlayer = () => {
   // };
 
   const isModalOpen = searchParams?.get("albumArtworkModal") === "true";
-  const duration = (audio && audio.duration) ?? 0;
 
   const handleOpenModal = () => {
     setSearchParams(new URLSearchParams({ albumArtworkModal: "true" }));
@@ -43,7 +42,6 @@ const BaseAudioPlayer = () => {
   };
 
   const trackDuration = calculateSecondsToMinutesAndSeconds(duration);
-
   const parsedCurrentTime = calculateSecondsToMinutesAndSeconds(currentTime);
 
   return (
@@ -243,9 +241,7 @@ const BaseAudioPlayer = () => {
         {/* track info */}
         <div className="flex items-center space-x-2">
           <span>track — </span>
-          <h3 className="text-lg font-semibold tracking-wider">
-            {Metadata.title}
-          </h3>
+          <h3 className="text-lg font-semibold tracking-wider">{title}</h3>
         </div>
 
         {/* album artwork overlay */}
@@ -269,8 +265,8 @@ const BaseAudioPlayer = () => {
             >
               <img
                 className="aspect-square w-auto cursor-auto md:h-[calc(100vh-100px)]"
-                src={Metadata.artwork}
-                alt={Metadata.title}
+                src={artwork}
+                alt={title}
               />
             </button>
             <button
@@ -289,7 +285,7 @@ const BaseAudioPlayer = () => {
         </Overlay>
 
         <button onClick={handleOpenModal}>
-          <img className="w-6" src={Metadata.artwork} alt={Metadata.title} />
+          <img className="w-6" src={artwork} alt={title} />
         </button>
       </div>
 
