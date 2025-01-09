@@ -120,25 +120,39 @@ const BaseAudioPlayer = () => {
         </div>
 
         {/* volume control slider */}
-        <div className="flex space-x-2">
-          <button onClick={() => setVolume(0)}>
+        <div className="mx-2 flex h-full items-center space-x-2">
+          {/* mute button */}
+          <button
+            aria-label="mute audio"
+            className="size-10"
+            onClick={() => setVolume(0)}
+          >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              aria-labelledby="mute-audio-title"
+              className="size-10"
               fill="none"
-              viewBox="0 0 24 24"
+              id="svg"
+              role="img"
               stroke="currentColor"
-              className="h-6 w-6"
+              strokeWidth={0.2}
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <g>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M1 2l4 3m2Z"
-                />
-              </g>
+              <title id="mute-audio-title" lang="en">
+                mute audio
+              </title>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={0.2}
+                fill="currentColor"
+                d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z"
+                transform="translate(-2, 0)"
+              />
             </svg>
           </button>
+
+          {/* volume slider */}
           <Tooltip
             classNames={{
               container: "flex items-center justify-center",
@@ -162,6 +176,68 @@ const BaseAudioPlayer = () => {
               volume
             </label>
           </Tooltip>
+
+          {/* volume up button */}
+          <button onClick={() => setVolume(1)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="size-10"
+              aria-labelledby="max-volume-title"
+            >
+              <title id="max-volume-title" lang="en">
+                max volume
+              </title>
+              <g id="g1">
+                <path d="M2,11H14" strokeWidth={1.5} />
+                {/* <path
+                  style={{
+                    fill: "#000000",
+                    strokeWidth: 0.692069,
+                    stroke: "#000000",
+                    strokeDasharray: "none",
+                  }}
+                  d="M 92.169938,26.071788 C 70.723313,28.202993 49.276687,30.334199 27.830062,32.465404 49.276687,30.334199 70.723313,28.202993 92.169938,26.071788 Z"
+                  id="path9"
+                />
+                <path
+                  style={{
+                    fill: "none",
+                    stroke: "#000000",
+                    strokeWidth: 2.11667,
+                    strokeLinecap: "round",
+                    strokeDasharray: "none",
+                    strokeOpacity: 1,
+                  }}
+                  d="M 29.531441,41.175446 C 49.843814,34.041313 70.156186,26.907181 90.468559,19.773048"
+                  id="path10"
+                />
+                <path
+                  style={{
+                    fill: "#000000",
+                    stroke: "#000000",
+                    strokeWidth: 2.11667,
+                    strokeLinecap: "round",
+                    strokeDasharray: "none",
+                    strokeOpacity: 1,
+                  }}
+                  d="M 23.069273,58.761202 C 51.727865,58.589327 80.386458,58.417453 109.04505,58.245578"
+                  id="path12"
+                />
+                <path
+                  style={{
+                    fill: "#000000",
+                    stroke: "#000000",
+                    strokeWidth: 0.692069,
+                    strokeDasharray: "none",
+                  }}
+                  d="M 92.169938,96.113766 C 70.723313,93.982561 49.276687,91.851355 27.830062,89.72015 c 21.446625,2.131205 42.893251,4.262411 64.339876,6.393616 z"
+                  id="path30"
+                /> */}
+              </g>
+            </svg>
+          </button>
         </div>
 
         {/* track info */}
