@@ -91,7 +91,7 @@ export default function DreamSequenceii() {
               />
               <img
                 alt="dream sequence ii album artwork"
-                className="aspect-9/16 h-[calc(100vh-60px)] max-w-[calc(100vw-20px)] cursor-auto object-cover sm:h-[calc(100vh-100px)] md:max-h-[calc(100vh-80px)] md:w-auto"
+                className="aspect-9/16 h-[calc(100dvh-60px)] max-w-[calc(100dvw-20px)] cursor-auto object-cover sm:h-[calc(100dvh-100px)] md:max-h-[calc(85dvh)] md:w-auto"
                 src="/images/webp/cropped-dsii-artwork-1440w.webp"
                 fetchPriority="high"
               />
