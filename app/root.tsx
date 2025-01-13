@@ -1,4 +1,5 @@
 import type {
+  HeadersFunction,
   LinksFunction,
   LoaderFunctionArgs,
   MetaFunction,
@@ -19,6 +20,12 @@ import NotFound from "./pages/NotFound";
 import "./tailwind.css";
 import { getSignedS3Url } from "./utils/s3-signed-url";
 import songs from "./data/songs.json";
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -39,8 +46,16 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const headers: HeadersFunction = () => {
+  return {
+    "Cache-Control": "public, max-age=300, s-maxage=300",
+  };
+};
+
 export async function loader({}: LoaderFunctionArgs) {
   try {
+    const queryClient = new QueryClient();
+
     // fetch signed urls for default song
     const defaultSongRes = await getSignedS3Url(
       `${process.env.BUCKET_BASE}${songs[0].audioS3}`,
@@ -70,9 +85,13 @@ export async function loader({}: LoaderFunctionArgs) {
       artwork: artworkUrl.url,
     };
 
+    const headers: HeadersInit = new Headers();
+    headers.append("Content-Type", "application/json");
+
     return {
       songs,
       defaultSong,
+      headers,
     };
   } catch (error) {
     console.error("Failed to fetch songs", error);
@@ -82,26 +101,44 @@ export async function loader({}: LoaderFunctionArgs) {
 
 export default function App() {
   const data = useLoaderData<typeof loader>();
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 5,
+          },
+        },
+      }),
+  );
 
-  const defaultSong = data?.defaultSong ? data.defaultSong : backupSong;
+  queryClient.setQueryData(["songs"], data.songs);
+  queryClient.setQueryData(["defaultSong"], data.defaultSong ?? backupSong);
 
   return (
-    <AudioProvider defaultSong={defaultSong}>
-      <html className="h-full scroll-smooth" lang="en">
-        <head>
-          <Meta />
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <Links />
-        </head>
-        <body className="h-full bg-romance">
-          <Header />
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-        </body>
-      </html>
-    </AudioProvider>
+    <QueryClientProvider client={queryClient}>
+      <HydrationBoundary>
+        <AudioProvider>
+          <html className="h-full scroll-smooth" lang="en">
+            <head>
+              <Meta />
+              <meta charSet="utf-8" />
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1"
+              />
+              <Links />
+            </head>
+            <body className="h-full bg-romance">
+              <Header />
+              <Outlet />
+              <ScrollRestoration />
+              <Scripts />
+            </body>
+          </html>
+        </AudioProvider>
+      </HydrationBoundary>
+    </QueryClientProvider>
   );
 }
 
