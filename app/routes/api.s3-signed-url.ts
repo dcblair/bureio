@@ -15,20 +15,25 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const key = url.searchParams.get("key");
 
   if (!key) {
-    return new Response("Bad Request", { status: 400 });
+    return new Response("Bad Request: Missing key parameter", { status: 400 });
   }
 
-  const signedUrl = await getSignedUrl(
-    s3,
-    new GetObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME!,
-      Key: key,
-    }),
-    { expiresIn: 3600 },
-  );
+  try {
+    const signedUrl = await getSignedUrl(
+      s3,
+      new GetObjectCommand({
+        Bucket: process.env.AWS_BUCKET_NAME!,
+        Key: key,
+      }),
+      { expiresIn: 3600 },
+    );
 
-  return new Response(JSON.stringify({ url: signedUrl }), {
-    status: 302,
-    headers: { "Content-Type": "application/json", Location: signedUrl },
-  });
+    return new Response(JSON.stringify({ url: signedUrl }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Failed to fetch signed url:", error);
+    return new Response("Failed to fetch signed url", { status: 500 });
+  }
 }

@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getSignedS3Url } from "~/utils/s3-signed-url";
 import initialSongs from "~/data/songs.json";
 
 export interface Song {
@@ -63,6 +62,25 @@ const AudioContext = createContext<AudioContextType>({
   volume: 0.7,
 });
 
+async function getSignedS3UrlFromApi(key: string): Promise<string> {
+  try {
+    const response = await fetch(
+      `/api/s3-signed-url?key=${encodeURIComponent(key)}`,
+    );
+
+    console.log(key, response, "response from signed url");
+
+    if (!response.ok) {
+      throw new Error("failed to fetch signed url");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Failed to fetch signed url:", error);
+    throw error;
+  }
+}
+
 const AudioProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient();
   const [isPlaying, setIsPlaying] = useState(false);
@@ -95,8 +113,14 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       if (selectedSong && selectedSong.audio && selectedSong.artwork)
         return selectedSong;
 
-      const selectedSongAudio = await getSignedS3Url(selectedSong.audioS3!);
-      const selectedSongArtwork = await getSignedS3Url(selectedSong.artworkS3!);
+      const selectedSongAudio = await getSignedS3UrlFromApi(
+        selectedSong.audioS3!,
+      );
+      const selectedSongArtwork = await getSignedS3UrlFromApi(
+        selectedSong.artworkS3!,
+      );
+
+      console.log(selectedSongAudio, selectedSongArtwork, "signed urls");
 
       return {
         ...selectedSong,

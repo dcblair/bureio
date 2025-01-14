@@ -14,18 +14,18 @@ import {
   useLoaderData,
   useRouteError,
 } from "@remix-run/react";
-import { Header } from "~/components";
-import { AudioProvider, backupSong, Song } from "./context/AudioContext";
-import NotFound from "./pages/NotFound";
-import "./tailwind.css";
-import { getSignedS3Url } from "./utils/s3-signed-url";
-import songs from "./data/songs.json";
 import {
   HydrationBoundary,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { useState } from "react";
+import { Header } from "~/components";
+import { AudioProvider, Song } from "./context/AudioContext";
+import songs from "./data/songs.json";
+import NotFound from "./pages/NotFound";
+import "./tailwind.css";
+import { getSignedS3Url } from "./utils/s3-signed-url";
 
 export const meta: MetaFunction = () => {
   return [
@@ -54,9 +54,7 @@ export const headers: HeadersFunction = () => {
 
 export async function loader({}: LoaderFunctionArgs) {
   try {
-    const queryClient = new QueryClient();
-
-    // fetch signed urls for default song
+    // fetch signed urls for audio and artwork for default song
     const defaultSongRes = await getSignedS3Url(
       `${process.env.BUCKET_BASE}${songs[0].audioS3}`,
     );
@@ -89,13 +87,7 @@ export async function loader({}: LoaderFunctionArgs) {
       } else return song;
     });
 
-    const headers: HeadersInit = new Headers();
-    headers.append("Content-Type", "application/json");
-
-    return {
-      updatedSongs,
-      headers,
-    };
+    return { updatedSongs };
   } catch (error) {
     console.error("Failed to fetch songs", error);
     return { updatedSongs: [] };
