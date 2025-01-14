@@ -1,4 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getSignedS3Url } from "~/utils/s3-signed-url";
+import initialSongs from "~/data/songs.json";
 
 export interface Song {
   id: string;
@@ -22,10 +25,11 @@ interface AudioContextType {
   audio: HTMLAudioElement | null;
   currentSong: Song;
   currentTime: number;
+  handleNextSong: () => void;
   handlePlay: () => void;
+  handlePrevSong: () => void;
   isPlaying: boolean;
   playerExpansion: PlayerExpansion;
-  setCurrentSong: (song: Song) => void;
   setCurrentTime: (time: number) => void;
   setVolume: (volume: number) => void;
   togglePlayerExpanded: () => void;
@@ -48,34 +52,100 @@ const AudioContext = createContext<AudioContextType>({
   audio: null,
   currentSong: backupSong,
   currentTime: 0,
+  handleNextSong: () => {},
   handlePlay: () => {},
+  handlePrevSong: () => {},
   isPlaying: false,
   playerExpansion: "standard",
-  setCurrentSong: () => {},
   setCurrentTime: () => {},
   setVolume: () => {},
   togglePlayerExpanded: () => {},
   volume: 0.7,
 });
 
-const AudioProvider = ({
-  children,
-  defaultSong,
-}: {
-  children: ReactNode;
-  defaultSong: Song;
-}) => {
+const AudioProvider = ({ children }: { children: ReactNode }) => {
+  const queryClient = useQueryClient();
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.7);
   const [playerExpansion, setPlayerExpansion] =
     useState<PlayerExpansion>("standard");
   const [currentTime, setCurrentTime] = useState(0);
-  const [currentSong, setCurrentSong] = useState(defaultSong);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const {
+    data: currentSong,
+    error: currentSongError,
+    isLoading: isCurrentSongLoading,
+  } = useQuery<Song>({
+    queryKey: ["currentSong"],
+    initialData: backupSong,
+  });
 
-  console.log(currentSong, audio, "currentSong, audio");
+  const {
+    data: songs,
+    error: songsError,
+    isLoading: areSongsLoading,
+  } = useQuery<Song[]>({ queryKey: ["songs"], initialData: initialSongs });
+
+  const { mutateAsync: updateSong } = useMutation({
+    mutationFn: async (id: string) => {
+      const selectedSong = songs.find((song: Song) => song.id === id);
+      if (!selectedSong) throw new Error("song not found");
+
+      // return song if audio and artwork are already fetched
+      if (selectedSong && selectedSong.audio && selectedSong.artwork)
+        return selectedSong;
+
+      const selectedSongAudio = await getSignedS3Url(selectedSong.audioS3!);
+      const selectedSongArtwork = await getSignedS3Url(selectedSong.artworkS3!);
+
+      return {
+        ...selectedSong,
+        artwork: selectedSongArtwork,
+        audio: selectedSongAudio,
+      };
+    },
+    onSuccess: (updatedSong) => {
+      queryClient.setQueryData(["songs"], (oldSongs: Song[]) => {
+        oldSongs?.map((song) => {
+          song.id === updatedSong.id ? updatedSong : song;
+        });
+      });
+    },
+  });
+
+  const handleSongChange = async (id: string) => {
+    if (areSongsLoading || isCurrentSongLoading) return;
+
+    try {
+      const updatedSong = await updateSong(id);
+      queryClient.setQueryData(["currentSong"], updatedSong);
+    } catch (error) {
+      console.error("Failed to update: ", error);
+    }
+  };
+
+  const handleNextSong = () => {
+    const currentSongIndex = songs.findIndex(
+      (song) => song.id === currentSong.id,
+    );
+    const nextSong = songs[(currentSongIndex + 1) % songs.length];
+    nextSong ? handleSongChange(nextSong.id) : handleSongChange(songs[0].id);
+  };
+
+  const handlePrevSong = () => {
+    const currentSongIndex = songs.findIndex(
+      (song) => song.id === currentSong.id,
+    );
+    const prevSong = songs[(currentSongIndex - 1) % songs.length];
+    prevSong
+      ? handleSongChange(prevSong.id)
+      : handleSongChange(songs[songs.length - 1].id);
+  };
+
   // establishes audio element
   useEffect(() => {
+    if (!currentSong?.audio) return;
+
     const audioElement = new Audio(currentSong.audio);
     setAudio(audioElement);
 
@@ -169,10 +239,11 @@ const AudioProvider = ({
         setVolume(volume);
       }
     },
+    handleNextSong,
     handlePlay,
+    handlePrevSong,
     playerExpansion,
     isPlaying,
-    setCurrentSong,
     setCurrentTime: (time: number) => {
       if (audio) {
         audio.currentTime = time;

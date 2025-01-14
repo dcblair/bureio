@@ -67,35 +67,38 @@ export async function loader({}: LoaderFunctionArgs) {
     if (!artworkRes.ok) {
       const error = await artworkRes.text();
       console.error("Failed to fetch artwork url", error);
-      return { songs: [], defaultSong: null };
+      return { updatedSongs: [] };
     }
 
     if (!defaultSongRes.ok) {
       const error = await defaultSongRes.text();
       console.error("Failed to fetch default song url", error);
-      return { songs: [], defaultSong: null };
+      return { updatedSongs: [] };
     }
 
     const artworkUrl = await artworkRes.json();
     const defaultSongUrl = await defaultSongRes.json();
 
-    const defaultSong: Song = {
-      ...songs[0],
-      audio: defaultSongUrl.url,
-      artwork: artworkUrl.url,
-    };
+    const updatedSongs: Song[] = songs.map((song, index) => {
+      if (index === 0) {
+        return {
+          ...songs[0],
+          audio: defaultSongUrl.url,
+          artwork: artworkUrl.url,
+        };
+      } else return song;
+    });
 
     const headers: HeadersInit = new Headers();
     headers.append("Content-Type", "application/json");
 
     return {
-      songs,
-      defaultSong,
+      updatedSongs,
       headers,
     };
   } catch (error) {
     console.error("Failed to fetch songs", error);
-    return { songs: [], defaultSong: null };
+    return { updatedSongs: [] };
   }
 }
 
@@ -112,8 +115,8 @@ export default function App() {
       }),
   );
 
-  queryClient.setQueryData(["songs"], data.songs);
-  queryClient.setQueryData(["defaultSong"], data.defaultSong ?? backupSong);
+  queryClient.setQueryData(["songs"], data.updatedSongs);
+  queryClient.setQueryData(["currentSong"], data.updatedSongs[0]);
 
   return (
     <QueryClientProvider client={queryClient}>
