@@ -71,6 +71,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     useState<PlayerExpansion>("standard");
   const [currentTime, setCurrentTime] = useState(0);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+
   const {
     data: currentSong,
     error: currentSongError,
@@ -102,10 +103,14 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
         selectedSong.artworkS3!,
       );
 
+      if (!selectedSongAudio || !selectedSongArtwork) {
+        throw new Error("failed to fetch audio or artwork");
+      }
+
       return {
         ...selectedSong,
-        artwork: selectedSongArtwork,
-        audio: selectedSongAudio,
+        artwork: selectedSongArtwork.url,
+        audio: selectedSongAudio.url,
       };
     },
     onSuccess: (updatedSong) => {
@@ -147,35 +152,28 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // todo: add fade in and out & fix clean track change
-
   // establishes audio element
   useEffect(() => {
     if (!currentSong?.audio) return;
 
     const audioElement = new Audio(currentSong.audio);
+    audioElement.volume = volume;
     setAudio(audioElement);
 
-    const updateCurrentTime = () => setCurrentTime(audioElement.currentTime);
+    const updateCurrentTime = () => {
+      setCurrentTime(audioElement.currentTime);
+    };
     audioElement.addEventListener("timeupdate", updateCurrentTime);
+    const handleEndSong = () => setIsPlaying(false);
+    audioElement.addEventListener("ended", handleEndSong);
 
     return () => {
       audioElement.pause();
       audioElement.src = "";
       audioElement.removeEventListener("timeupdate", updateCurrentTime);
+      audioElement.removeEventListener("ended", handleEndSong);
     };
-  }, [currentSong]);
-
-  // handles audio ending
-  useEffect(() => {
-    if (!audio) return;
-
-    const handleEndSong = () => setIsPlaying(false);
-    audio.addEventListener("ended", handleEndSong);
-
-    return () => {
-      audio.removeEventListener("ended", handleEndSong);
-    };
-  }, [audio]);
+  }, [currentSong, volume]);
 
   // todo: fix this!
   // const fadeOut = (milliseconds = 100) => {

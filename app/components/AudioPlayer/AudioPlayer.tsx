@@ -158,6 +158,7 @@ const BaseAudioPlayer = () => {
           <input
             className="h-0.5 w-48 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
             name="trackDurationSlider"
+            id="trackDurationSlider"
             type="range"
             value={currentTime ?? 0}
             min={0}
@@ -218,12 +219,13 @@ const BaseAudioPlayer = () => {
               type="range"
               min={0}
               max={1}
-              name="volume"
+              name="volumeSlider"
+              id="volumeSlider"
               onChange={(e) => setVolume(Number(e.target.value))}
               step={0.05}
               value={volume}
             />
-            <label htmlFor="volume" className="sr-only">
+            <label htmlFor="volumeSlider" className="sr-only">
               volume
             </label>
           </Tooltip>
