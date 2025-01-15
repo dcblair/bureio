@@ -120,8 +120,6 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
         selectedSong.artworkS3!,
       );
 
-      console.log(selectedSongAudio, selectedSongArtwork, "signed urls");
-
       return {
         ...selectedSong,
         artwork: selectedSongArtwork,
