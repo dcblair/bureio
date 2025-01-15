@@ -313,7 +313,7 @@ const BaseAudioPlayer = () => {
             />
           </picture> */}
             <button
-              className="focus-visible:outline-offset-8 focus-visible:outline-white"
+              className="focus-visible:outline-offset-8 focus-visible:outline-black"
               onClick={handleCloseModal}
             >
               <img
@@ -338,14 +338,21 @@ const BaseAudioPlayer = () => {
         </Overlay>
 
         <button onClick={handleOpenModal}>
-          <img className="w-6" src={artwork} alt={title} />
+          <img className="size-12" src={artwork} alt={title} />
         </button>
       </StyledPlayerWrapper>
 
       {/* todo: create expanded, standard, and fullscreen svgs */}
       {/* player toggle button */}
-      <div className="fixed bottom-5 right-[6%] z-30 flex items-center justify-center">
-        <button onClick={togglePlayerExpanded}>
+      <div className="fixed bottom-5 right-[2dvw] z-30 flex items-center justify-center">
+        <button
+          aria-label={
+            playerExpansion === "collapsed"
+              ? "expand audio player"
+              : "collapse audio player"
+          }
+          onClick={togglePlayerExpanded}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

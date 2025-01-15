@@ -11,7 +11,7 @@ export default {
         "full-fade-out": "full-fade-out 1s ease-in",
         "gradient-shift": "gradient-shift 3s infinite ease",
         collapse: "collapse 2s both ease-in",
-        expand: "expand 2s both ease-in",
+        expand: "expand 1.7s both ease-in",
       },
       aspectRatio: {
         "9/16": "9 / 16",
