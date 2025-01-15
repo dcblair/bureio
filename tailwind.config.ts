@@ -11,7 +11,7 @@ export default {
         "full-fade-out": "full-fade-out 1s ease-in",
         "gradient-shift": "gradient-shift 3s infinite ease",
         collapse: "collapse 2s both ease-in",
-        expand: "expand 2.6s both ease-in",
+        expand: "expand 2s both ease-in",
       },
       aspectRatio: {
         "9/16": "9 / 16",
@@ -67,13 +67,12 @@ export default {
         },
         collapse: {
           "0%": { transform: "translateY(0%)", opacity: "1" },
-          "50%": { transform: "translateY(50%)", opacity: "0" },
+          "50%": { transform: "translateY(10%)", opacity: "0" },
           "100%": { transform: "translateY(100%)", opacity: "0" },
         },
         expand: {
           "0%": { transform: "translateY(100%)", opacity: "0" },
-          "50%": { opacity: "0" },
-          "75%": { transform: "translateY(0%)", opacity: "0.2" },
+          "50%": { transform: "translateY(10%)", opacity: "0" },
           "100%": {
             transform: "translateY(0%)",
             opacity: "1",
