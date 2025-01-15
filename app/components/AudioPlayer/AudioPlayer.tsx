@@ -3,6 +3,20 @@ import { AudioContext } from "~/context/AudioContext";
 import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
 import { Overlay } from "../Overlay/Overlay";
 import { Tooltip } from "../Tooltip";
+import { classed } from "@tw-classed/react";
+
+const StyledPlayerWrapper = classed(
+  "div",
+  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full items-center justify-evenly border-t-2 border-rich-black-fogra29 bg-romance py-9",
+  {
+    variants: {
+      playerExpansion: {
+        collapsed: "animate-collapse",
+        standard: "animate-expand",
+      },
+    },
+  },
+);
 
 const BaseAudioPlayer = () => {
   const {
@@ -46,57 +60,95 @@ const BaseAudioPlayer = () => {
   const parsedCurrentTime = calculateSecondsToMinutesAndSeconds(currentTime);
 
   return (
-    <div className="relative h-12 w-full">
-      <div
-        className="fixed bottom-0 z-30 flex h-12 w-full items-center justify-evenly border-t-2 border-rich-black-fogra29 bg-romance py-9"
-        style={{
-          visibility: playerExpansion === "collapsed" ? "hidden" : "visible",
-          height:
-            playerExpansion === "standard"
-              ? "3rem"
-              : // : playerExpansion === "fullscreen"
-                //   ? "3rem"
-                0,
-        }}
-      >
-        {/* play / pause button */}
-        <button
-          aria-label={isPlaying ? "pause" : "play"}
-          // todo: add bg color to set colors in tw config?
-          className="flex size-12 items-center justify-center rounded-sm p-1.5 transition duration-2000 ease-in-out hover:shadow-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-rich-black-fogra29"
-          onClick={handlePlay}
-        >
-          {isPlaying ? (
+    <div className="relative hidden h-12 w-full md:flex">
+      <StyledPlayerWrapper playerExpansion={playerExpansion}>
+        <div className="flex items-center space-x-3">
+          {/* previous song button */}
+          <button onClick={handlePrevSong}>
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="stroke-rich-black-fogra29 focus-within:stroke-[#769FB8] hover:stroke-[#769FB8]"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 7v10m5 -10v10"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
+              xmlns="http://www.w3.org/
+              2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
               className="h-6 w-6"
+              aria-labelledby="previous-title"
             >
+              <title id="previous-title">previous song</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M5 3l14 9-14 9V3z"
+                d="M15 19l-7-7 7-7"
               />
             </svg>
-          )}
-        </button>
+          </button>
+
+          {/* play / pause button */}
+          <button
+            aria-label={isPlaying ? "pause" : "play"}
+            // todo: add bg color to set colors in tw config?
+            className="flex size-12 items-center justify-center rounded-sm p-1.5 transition duration-2000 ease-in-out hover:shadow-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-rich-black-fogra29"
+            onClick={handlePlay}
+          >
+            {isPlaying ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="stroke-rich-black-fogra29 focus-within:stroke-[#769FB8] hover:stroke-[#769FB8]"
+                stroke="currentColor"
+                aria-labelledby="pause-title"
+              >
+                <title id="pause-title">pause</title>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 7v10m5 -10v10"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="h-6 w-6"
+                aria-labelledby="play-title"
+              >
+                <title id="play-title">play</title>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 3l14 9-14 9V3z"
+                />
+              </svg>
+            )}
+          </button>
+
+          {/* next song button */}
+          <button onClick={handleNextSong}>
+            <svg
+              xmlns="http://www.w3.org/
+              2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="h-6 w-6"
+              aria-labelledby="next-title"
+            >
+              <title id="next-title">next song</title>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
 
         {/* track duration slider and duration */}
         <div className="flex items-center space-x-3">
@@ -288,18 +340,11 @@ const BaseAudioPlayer = () => {
         <button onClick={handleOpenModal}>
           <img className="w-6" src={artwork} alt={title} />
         </button>
-      </div>
+      </StyledPlayerWrapper>
 
-      {/* player toggle button */}
       {/* todo: create expanded, standard, and fullscreen svgs */}
-      <div
-        className="bottom-5 right-[6%] z-30 flex items-center justify-center"
-        style={{
-          position: "fixed",
-          left: playerExpansion === "collapsed" ? "50%" : "auto",
-          // margin: playerExpansion === "collapsed" ? "auto 0" : 0,
-        }}
-      >
+      {/* player toggle button */}
+      <div className="fixed bottom-5 right-[6%] z-30 flex items-center justify-center">
         <button onClick={togglePlayerExpanded}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
