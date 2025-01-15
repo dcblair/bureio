@@ -30,7 +30,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
     return new Response(JSON.stringify({ url: signedUrl }), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
     });
   } catch (error) {
     console.error("Failed to fetch signed url:", error);
