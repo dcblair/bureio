@@ -1,6 +1,7 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import initialSongs from "~/data/songs.json";
+import { getSignedS3UrlFromApi } from "~/utils/s3-signed-url";
 
 export interface Song {
   id: string;
@@ -61,25 +62,6 @@ const AudioContext = createContext<AudioContextType>({
   togglePlayerExpanded: () => {},
   volume: 0.7,
 });
-
-async function getSignedS3UrlFromApi(key: string): Promise<string> {
-  try {
-    const response = await fetch(
-      `/api/s3-signed-url?key=${encodeURIComponent(key)}`,
-    );
-
-    console.log(key, response, "response from signed url");
-
-    if (!response.ok) {
-      throw new Error("failed to fetch signed url");
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("Failed to fetch signed url:", error);
-    throw error;
-  }
-}
 
 const AudioProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient();
@@ -163,6 +145,8 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       ? handleSongChange(prevSong.id)
       : handleSongChange(songs[songs.length - 1].id);
   };
+
+  // todo: add fade in and out & fix clean track change
 
   // establishes audio element
   useEffect(() => {
