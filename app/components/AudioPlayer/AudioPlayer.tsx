@@ -7,7 +7,7 @@ import { classed } from "@tw-classed/react";
 
 const StyledPlayerWrapper = classed(
   "div",
-  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full items-center justify-evenly border-t-2 border-rich-black-fogra29 bg-romance py-9",
+  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full space-x-4 justify-evenly items-center md:px-4 lg:px-20 border-t-2 border-rich-black-fogra29 bg-romance py-9",
   {
     variants: {
       playerExpansion: {
@@ -168,7 +168,7 @@ const BaseAudioPlayer = () => {
           <label htmlFor="trackDurationSlider" className="sr-only">
             track duration
           </label>
-          <span>{trackDuration}</span>
+          <span className="inline-block w-12 leading-6">{trackDuration}</span>
         </div>
 
         {/* volume control slider */}
@@ -293,29 +293,27 @@ const BaseAudioPlayer = () => {
           </button>
         </div>
 
+        {/* album artwork button */}
+        <button
+          className="size-fit focus-visible:outline-offset-4 focus-visible:outline-rich-black-fogra29"
+          onClick={handleOpenModal}
+        >
+          <img className="aspect-square size-12" src={artwork} alt={title} />
+        </button>
+
         {/* track info */}
-        <div className="flex items-center space-x-2">
+        <div className="flex w-64 items-center space-x-2 text-left">
           <span>track — </span>
-          <h3 className="text-lg font-semibold tracking-wider">{title}</h3>
+          <h3 className="text-ellipsis text-lg font-semibold tracking-wider">
+            {title}
+          </h3>
         </div>
 
         {/* album artwork overlay */}
         <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
           <div className="relative flex flex-col items-center justify-center">
-            {/* <picture>
-            <source
-              srcSet={currentSong.artwork}
-              type="image/webp"
-              className="w-96 h-96"
-            />
-            <img
-              className="w-96 h-96"
-              src={currentSong.artwork}
-              alt={currentSong.title}
-            />
-          </picture> */}
             <button
-              className="focus-visible:outline-offset-8 focus-visible:outline-black"
+              className="focus-visible:outline-offset-8 focus-visible:outline-white"
               onClick={handleCloseModal}
             >
               <img
@@ -338,39 +336,56 @@ const BaseAudioPlayer = () => {
             </button>
           </div>
         </Overlay>
-
-        <button onClick={handleOpenModal}>
-          <img className="size-12" src={artwork} alt={title} />
-        </button>
       </StyledPlayerWrapper>
 
       {/* todo: create expanded, standard, and fullscreen svgs */}
       {/* player toggle button */}
-      <div className="fixed bottom-5 right-[2dvw] z-30 flex items-center justify-center">
-        <button
-          aria-label={
+      <div className="fixed bottom-5 right-20 z-30 flex items-center justify-center">
+        <Tooltip
+          content={
             playerExpansion === "collapsed"
-              ? "expand audio player"
-              : "collapse audio player"
+              ? "expand player"
+              : "collapse player"
           }
-          onClick={togglePlayerExpanded}
+          placement="top"
+          transitionDuration={[3000, 1600]}
+          zIndex={30}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="h-8 w-8"
+          <button
+            aria-label={
+              playerExpansion === "collapsed"
+                ? "expand audio player"
+                : "collapse audio player"
+            }
+            onClick={togglePlayerExpanded}
           >
-            <path
-              className="linear origin-center transition-transform duration-2000"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2.5}
-              d="M5 15l7-7 7 7"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="size-6"
+            >
+              <polyline
+                points="2 9 12 15 22 9"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+
+              <line
+                x1="0"
+                y1="22"
+                x2="24"
+                y2="22"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+              />
+            </svg>
+          </button>
+        </Tooltip>
       </div>
     </div>
   );

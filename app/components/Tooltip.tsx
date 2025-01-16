@@ -27,6 +27,7 @@ interface TooltipProps extends ComponentPropsWithoutRef<"div"> {
   content: string;
   isContentHidden?: boolean;
   placement?: Side;
+  transitionDuration?: [number, number];
   zIndex?: number;
 }
 
@@ -50,6 +51,7 @@ const BaseTooltip = ({
   classNames,
   children,
   content,
+  transitionDuration = [2000, 1300],
   placement = "right",
   zIndex = 20,
 }: TooltipProps) => {
@@ -64,8 +66,10 @@ const BaseTooltip = ({
       middleware: [shift(), offset(18), arrow({ element: arrowRef })],
     });
   const { isMounted, styles } = useTransitionStyles(context, {
-    duration: 1000,
-
+    duration: {
+      open: transitionDuration[0],
+      close: transitionDuration[1],
+    },
     open: {
       opacity: 1,
     },

@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { LinksFunction } from "@remix-run/node";
 import { useIntersectionObserver } from "~/hooks";
 import { AudioPlayer, Overlay, Tooltip } from "~/components";

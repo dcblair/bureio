@@ -127,7 +127,14 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
 
     try {
       const updatedSong = await updateSong(id);
+      if (!updatedSong) throw new Error("failed to update song");
+
+      setCurrentTime(0);
       queryClient.setQueryData(["currentSong"], updatedSong);
+      // add logic to play song if isplaying is true
+      if (isPlaying && audio) {
+        audio.play();
+      }
     } catch (error) {
       console.error("Failed to update: ", error);
     }
@@ -157,23 +164,25 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     if (!currentSong?.audio) return;
 
     const audioElement = new Audio(currentSong.audio);
-    audioElement.volume = volume;
     setAudio(audioElement);
 
     const updateCurrentTime = () => {
       setCurrentTime(audioElement.currentTime);
     };
+
+    const handleEndSong = () => {
+      handleNextSong();
+    };
+
     audioElement.addEventListener("timeupdate", updateCurrentTime);
-    const handleEndSong = () => setIsPlaying(false);
     audioElement.addEventListener("ended", handleEndSong);
 
     return () => {
-      audioElement.pause();
       audioElement.src = "";
       audioElement.removeEventListener("timeupdate", updateCurrentTime);
       audioElement.removeEventListener("ended", handleEndSong);
     };
-  }, [currentSong, volume]);
+  }, [currentSong]);
 
   // todo: fix this!
   // const fadeOut = (milliseconds = 100) => {
