@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  type MutableRefObject,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import initialSongs from "~/data/songs.json";
 import { getSignedS3UrlFromApi } from "~/utils/s3-signed-url-from-api";
@@ -22,7 +29,7 @@ const playerExpansion = ["collapsed", "standard"] as const;
 type PlayerExpansion = (typeof playerExpansion)[number];
 
 interface AudioContextType {
-  audio: HTMLAudioElement | null;
+  audioRef: MutableRefObject<HTMLAudioElement | null>;
   currentSong: Song;
   currentTime: number;
   handleNextSong: () => void;
@@ -49,7 +56,7 @@ export const backupSong = {
 };
 
 const AudioContext = createContext<AudioContextType>({
-  audio: null,
+  audioRef: { current: null },
   currentSong: backupSong,
   currentTime: 0,
   handleNextSong: () => {},
@@ -70,7 +77,8 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   const [playerExpansion, setPlayerExpansion] =
     useState<PlayerExpansion>("standard");
   const [currentTime, setCurrentTime] = useState(0);
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audio = audioRef.current;
 
   const {
     data: currentSong,
@@ -129,12 +137,14 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       const updatedSong = await updateSong(id);
       if (!updatedSong) throw new Error("failed to update song");
 
-      setCurrentTime(0);
       queryClient.setQueryData(["currentSong"], updatedSong);
-      // add logic to play song if isplaying is true
-      if (isPlaying && audio) {
-        audio.play();
+      if (audioRef.current) {
+        audioRef.current.load();
+        if (isPlaying) {
+          audioRef.current.play();
+        }
       }
+      // add logic to play song if isplaying is true
     } catch (error) {
       console.error("Failed to update: ", error);
     }
@@ -161,28 +171,26 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   // todo: add fade in and out & fix clean track change
   // establishes audio element
   useEffect(() => {
-    if (!currentSong?.audio) return;
-
-    const audioElement = new Audio(currentSong.audio);
-    setAudio(audioElement);
+    if (!audioRef?.current || !currentSong?.audio) return;
 
     const updateCurrentTime = () => {
-      setCurrentTime(audioElement.currentTime);
+      if (!audioRef?.current) return;
+      setCurrentTime(audioRef.current.currentTime);
     };
 
     const handleEndSong = () => {
       handleNextSong();
     };
 
-    audioElement.addEventListener("timeupdate", updateCurrentTime);
-    audioElement.addEventListener("ended", handleEndSong);
+    audioRef.current.addEventListener("timeupdate", updateCurrentTime);
+    audioRef.current.addEventListener("ended", handleEndSong);
 
     return () => {
-      audioElement.src = "";
-      audioElement.removeEventListener("timeupdate", updateCurrentTime);
-      audioElement.removeEventListener("ended", handleEndSong);
+      if (!audioRef?.current) return;
+      audioRef.current.removeEventListener("timeupdate", updateCurrentTime);
+      audioRef.current.removeEventListener("ended", handleEndSong);
     };
-  }, [currentSong]);
+  }, [audioRef?.current, currentSong]);
 
   // todo: fix this!
   // const fadeOut = (milliseconds = 100) => {
@@ -218,14 +226,14 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
 
   // handles audio playing and pausing
   const handlePlay = () => {
-    if (!audio) return;
+    if (!currentSong?.audio || !audioRef?.current) return;
 
     if (isPlaying) {
       // fadeOut(2000);
-      audio.pause();
+      audioRef.current.pause();
     } else {
       // fadeIn();
-      audio.play();
+      audioRef.current.play();
     }
 
     setIsPlaying(!isPlaying);
@@ -243,7 +251,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const value = {
-    audio,
+    audioRef,
     currentSong,
     currentTime,
     setVolume: (volume: number) => {

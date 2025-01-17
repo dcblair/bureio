@@ -20,7 +20,7 @@ const StyledPlayerWrapper = classed(
 
 const BaseAudioPlayer = () => {
   const {
-    audio,
+    audioRef,
     currentSong,
     currentTime,
     handleNextSong,
@@ -63,6 +63,9 @@ const BaseAudioPlayer = () => {
     <div className="relative hidden h-12 w-full md:flex">
       <StyledPlayerWrapper playerExpansion={playerExpansion}>
         <div className="flex items-center space-x-3">
+          <audio preload="auto" ref={audioRef}>
+            <source src={currentSong?.audio} />
+          </audio>
           {/* previous song button */}
           <button onClick={handlePrevSong}>
             <svg
@@ -162,7 +165,7 @@ const BaseAudioPlayer = () => {
             type="range"
             value={currentTime ?? 0}
             min={0}
-            max={Number(audio?.duration || 0)}
+            max={Number((audioRef?.current && audioRef.current.duration) || 0)}
             onChange={handleCurrentTime}
           />
           <label htmlFor="trackDurationSlider" className="sr-only">
