@@ -117,6 +117,7 @@ const BaseTooltip = ({
               left: x ?? 0,
               top: y ?? 0,
               zIndex: zIndex,
+              borderRadius: "0.12em",
               ...styles,
             }}
           >
