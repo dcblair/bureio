@@ -4,10 +4,11 @@ import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
 import { Overlay } from "../Overlay/Overlay";
 import { Tooltip } from "../Tooltip";
 import { classed } from "@tw-classed/react";
+import Button from "../Button/Button";
 
 const StyledPlayerWrapper = classed(
   "div",
-  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full space-x-4 justify-evenly items-center md:px-4 lg:px-20 border-t-2 border-rich-black-fogra29 bg-romance py-9",
+  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full space-x-6 lg:justify-evenly items-center md:px-4 lg:px-8 border-t-2 border-rich-black-fogra29 bg-romance py-9",
   {
     variants: {
       playerExpansion: {
@@ -67,7 +68,7 @@ const BaseAudioPlayer = () => {
             <source src={currentSong?.audio} />
           </audio>
           {/* previous song button */}
-          <button onClick={handlePrevSong}>
+          <Button iconOnly onClick={handlePrevSong}>
             <svg
               xmlns="http://www.w3.org/
               2000/svg"
@@ -85,13 +86,13 @@ const BaseAudioPlayer = () => {
                 d="M15 19l-7-7 7-7"
               />
             </svg>
-          </button>
+          </Button>
 
           {/* play / pause button */}
-          <button
+          <Button
             aria-label={isPlaying ? "pause" : "play"}
-            // todo: add bg color to set colors in tw config?
-            className="flex size-12 items-center justify-center rounded-sm p-1.5 transition duration-2000 ease-in-out hover:shadow-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-rich-black-fogra29"
+            // className="flex size-12 items-center justify-center rounded-sm p-1.5 duration-2000 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-rich-black-fogra29"
+            iconOnly
             onClick={handlePlay}
           >
             {isPlaying ? (
@@ -99,7 +100,7 @@ const BaseAudioPlayer = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="stroke-rich-black-fogra29 focus-within:stroke-[#769FB8] hover:stroke-[#769FB8]"
+                className="stroke-rich-black-fogra29"
                 stroke="currentColor"
                 aria-labelledby="pause-title"
               >
@@ -129,10 +130,10 @@ const BaseAudioPlayer = () => {
                 />
               </svg>
             )}
-          </button>
+          </Button>
 
           {/* next song button */}
-          <button onClick={handleNextSong}>
+          <Button iconOnly onClick={handleNextSong}>
             <svg
               xmlns="http://www.w3.org/
               2000/svg"
@@ -150,7 +151,7 @@ const BaseAudioPlayer = () => {
                 d="M9 5l7 7-7 7"
               />
             </svg>
-          </button>
+          </Button>
         </div>
 
         {/* track duration slider and duration */}
@@ -177,9 +178,10 @@ const BaseAudioPlayer = () => {
         {/* volume control slider */}
         <div className="mx-2 flex h-full items-center space-x-2">
           {/* mute button */}
-          <button
+          <Button
             aria-label="mute audio"
             className="size-10"
+            iconOnly
             onClick={() => setVolume(0)}
           >
             <svg
@@ -205,7 +207,7 @@ const BaseAudioPlayer = () => {
                 transform="translate(-2, 0)"
               />
             </svg>
-          </button>
+          </Button>
 
           {/* volume slider */}
           <Tooltip
@@ -234,7 +236,7 @@ const BaseAudioPlayer = () => {
           </Tooltip>
 
           {/* volume up button */}
-          <button onClick={() => setVolume(1)}>
+          <Button iconOnly onClick={() => setVolume(1)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -293,16 +295,13 @@ const BaseAudioPlayer = () => {
                 /> */}
               </g>
             </svg>
-          </button>
+          </Button>
         </div>
 
         {/* album artwork button */}
-        <button
-          className="size-fit focus-visible:outline-offset-4 focus-visible:outline-rich-black-fogra29"
-          onClick={handleOpenModal}
-        >
+        <Button iconOnly onClick={handleOpenModal}>
           <img className="aspect-square size-12" src={artwork} alt={title} />
-        </button>
+        </Button>
 
         {/* track info */}
         <div className="flex w-64 items-center space-x-2 text-left">
@@ -343,7 +342,7 @@ const BaseAudioPlayer = () => {
 
       {/* todo: create expanded, standard, and fullscreen svgs */}
       {/* player toggle button */}
-      <div className="fixed bottom-5 right-20 z-30 flex items-center justify-center">
+      <div className="fixed bottom-3 z-30 flex items-center justify-center md:right-12 lg:right-20">
         <Tooltip
           content={
             playerExpansion === "collapsed"
@@ -354,12 +353,13 @@ const BaseAudioPlayer = () => {
           transitionDuration={[3000, 1600]}
           zIndex={30}
         >
-          <button
+          <Button
             aria-label={
               playerExpansion === "collapsed"
                 ? "expand audio player"
                 : "collapse audio player"
             }
+            iconOnly
             onClick={togglePlayerExpanded}
           >
             <svg
@@ -387,7 +387,7 @@ const BaseAudioPlayer = () => {
                 strokeWidth="2.5"
               />
             </svg>
-          </button>
+          </Button>
         </Tooltip>
       </div>
     </div>
