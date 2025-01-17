@@ -10,6 +10,17 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import initialSongs from "~/data/songs.json";
 import { getSignedS3UrlFromApi } from "~/utils/s3-signed-url-from-api";
 
+const backupSong = {
+  id: "6",
+  title: "calling currents",
+  trackNumber: 3,
+  album: "on letting go",
+  duration: 288,
+  artist: "bu.re_",
+  artwork: "/images/webp/cropped-dsii-artwork-1440w.webp",
+  audio: "/audio/calling-currents.wav",
+  bandcamp: "https://bure.bandcamp.com/track/calling-currents",
+};
 export interface Song {
   id: string;
   title: string;
@@ -42,18 +53,6 @@ interface AudioContextType {
   togglePlayerExpanded: () => void;
   volume: number;
 }
-
-export const backupSong = {
-  id: "6",
-  title: "calling currents",
-  trackNumber: 3,
-  album: "on letting go",
-  duration: 288,
-  artist: "bu.re_",
-  artwork: "/images/webp/cropped-dsii-artwork-1440w.webp",
-  audio: "/audio/calling-currents.wav",
-  bandcamp: "https://bure.bandcamp.com/track/calling-currents",
-};
 
 const AudioContext = createContext<AudioContextType>({
   audioRef: { current: null },
@@ -138,15 +137,16 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       if (!updatedSong) throw new Error("failed to update song");
 
       queryClient.setQueryData(["currentSong"], updatedSong);
+
+      // load and play updated song if isplaying is true
       if (audioRef.current) {
         audioRef.current.load();
         if (isPlaying) {
           audioRef.current.play();
         }
       }
-      // add logic to play song if isplaying is true
     } catch (error) {
-      console.error("Failed to update: ", error);
+      console.error("failed to update song: ", error);
     }
   };
 
@@ -169,7 +169,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // todo: add fade in and out & fix clean track change
-  // establishes audio element
+  //  handles saving current time in state and ending song
   useEffect(() => {
     if (!audioRef?.current || !currentSong?.audio) return;
 
