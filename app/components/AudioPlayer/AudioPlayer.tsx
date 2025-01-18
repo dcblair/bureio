@@ -8,7 +8,7 @@ import Button from "../Button/Button";
 
 const StyledPlayerWrapper = classed(
   "div",
-  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full space-x-6 lg:justify-evenly items-center md:px-4 lg:px-8 border-t-2 border-rich-black-fogra29 bg-romance py-9",
+  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full lg:space-x-6 lg:justify-evenly items-center md:pl-4 xl:pl-12 pr-16 border-t-2 border-rich-black-fogra29 bg-romance py-9",
   {
     variants: {
       playerExpansion: {
@@ -298,51 +298,53 @@ const BaseAudioPlayer = () => {
           </Button>
         </div>
 
-        {/* album artwork button */}
-        <Button iconOnly onClick={handleOpenModal}>
-          <img className="aspect-square size-12" src={artwork} alt={title} />
-        </Button>
+        <div className="flex items-center space-x-4">
+          {/* album artwork button */}
+          <Button iconOnly onClick={handleOpenModal}>
+            <img className="aspect-square size-12" src={artwork} alt={title} />
+          </Button>
 
-        {/* track info */}
-        <div className="flex w-64 items-center space-x-2 text-left">
-          <span>track — </span>
-          <h3 className="text-ellipsis text-lg font-semibold tracking-wider">
-            {title}
-          </h3>
-        </div>
-
-        {/* album artwork overlay */}
-        <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
-          <div className="relative flex flex-col items-center justify-center">
-            <button
-              className="focus-visible:outline-offset-8 focus-visible:outline-white"
-              onClick={handleCloseModal}
-            >
-              <img
-                className="aspect-square w-auto cursor-auto md:h-[calc(100vh-100px)]"
-                src={artwork}
-                alt={title}
-              />
-            </button>
-            <button
-              className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
-              onClick={handleCloseModal}
-            >
-              <svg
-                aria-label="close modal"
-                className="rounded-full fill-romance md:size-16"
-                viewBox="1 0 22 22"
-              >
-                <path d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z" />
-              </svg>
-            </button>
+          {/* track info */}
+          <div className="flex w-64 items-center space-x-2 text-left">
+            <span>track — </span>
+            <h3 className="text-ellipsis text-lg font-semibold tracking-wider">
+              {title}
+            </h3>
           </div>
-        </Overlay>
+
+          {/* album artwork overlay */}
+          <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
+            <div className="relative flex flex-col items-center justify-center">
+              <button
+                className="focus-visible:outline-offset-8 focus-visible:outline-white"
+                onClick={handleCloseModal}
+              >
+                <img
+                  className="aspect-square w-auto cursor-auto md:h-[calc(100vh-100px)]"
+                  src={artwork}
+                  alt={title}
+                />
+              </button>
+              <button
+                className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
+                onClick={handleCloseModal}
+              >
+                <svg
+                  aria-label="close modal"
+                  className="rounded-full fill-romance md:size-16"
+                  viewBox="1 0 22 22"
+                >
+                  <path d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z" />
+                </svg>
+              </button>
+            </div>
+          </Overlay>
+        </div>
       </StyledPlayerWrapper>
 
       {/* todo: create expanded, standard, and fullscreen svgs */}
       {/* player toggle button */}
-      <div className="fixed bottom-3 z-30 flex items-center justify-center md:right-12 lg:right-20">
+      <div className="fixed bottom-3 z-30 flex items-center justify-center md:right-12 xl:right-28">
         <Tooltip
           content={
             playerExpansion === "collapsed"
