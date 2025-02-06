@@ -37,7 +37,7 @@ export interface Song {
 
 // todo: add "fullscreen" to playerExpansion
 const playerExpansion = ["collapsed", "standard"] as const;
-type PlayerExpansion = (typeof playerExpansion)[number];
+export type PlayerExpansion = (typeof playerExpansion)[number];
 
 interface AudioContextType {
   audioRef: MutableRefObject<HTMLAudioElement | null>;

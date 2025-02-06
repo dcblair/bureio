@@ -66,7 +66,7 @@ export default function DreamSequenceii() {
             />
             <img
               alt="dream sequence ii album artwork"
-              className="aspect-9/16 w-[calc(100vw-5rem)] min-w-[310px] sm:h-auto sm:w-[325px] lg:h-[737px] lg:w-[420px]"
+              className="lg:w-325px aspect-9/16 w-[calc(100vw-5rem)] min-w-[310px] sm:h-auto sm:w-[325px]"
               src="/images/webp/cropped-dsii-artwork-420w.webp"
             />
           </picture>
@@ -91,7 +91,7 @@ export default function DreamSequenceii() {
               />
               <img
                 alt="dream sequence ii album artwork"
-                className="aspect-9/16 h-[calc(100dvh-60px)] max-w-[calc(100dvw-20px)] cursor-auto object-cover sm:h-[calc(100dvh-100px)] md:max-h-[calc(85dvh)] md:w-auto"
+                className="aspect-9/16 h-[calc(100dvh-70px)] max-w-[calc(100dvw-30px)] cursor-auto object-cover sm:h-[calc(100dvh-100px)] md:max-h-[calc(85dvh)] md:w-auto"
                 src="/images/webp/cropped-dsii-artwork-1440w.webp"
                 fetchPriority="high"
               />
@@ -121,7 +121,7 @@ export default function DreamSequenceii() {
         style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
       >
         <video
-          className="aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-[310px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 sm:h-auto sm:w-[325px] lg:h-[737px] lg:w-[420px]"
+          className="aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-[310px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 sm:h-auto sm:w-[325px] lg:h-auto lg:w-[325px]"
           controls
           controlsList="nodownload noplaybackrate"
           preload="auto"
