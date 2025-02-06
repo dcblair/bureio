@@ -2,18 +2,32 @@ import { PlayerExpansion } from "~/context/AudioContext";
 import { Button } from "../Button/Button";
 import { Tooltip } from "../Tooltip";
 import { memo } from "react";
+import { classed } from "@tw-classed/react";
 
 interface PlayerExpansionButtonProps {
   playerExpansion: PlayerExpansion;
   togglePlayerExpanded: () => void;
 }
 
+const StyledButtonWrapper = classed(
+  "div",
+  "fixed bottom-3 z-30 md:bottom-20 md:right-8 lg:bottom-3.5 xl:right-28 flex items-center justify-center",
+  {
+    variants: {
+      playerExpansion: {
+        collapsed: "",
+        standard: "",
+      },
+    },
+  },
+);
+
 const BasePlayerExpansionButton = ({
   playerExpansion,
   togglePlayerExpanded,
 }: PlayerExpansionButtonProps) => {
   return (
-    <div className="fixed bottom-3 z-30 flex items-center justify-center md:right-12 xl:right-28">
+    <StyledButtonWrapper playerExpansion={playerExpansion}>
       <Tooltip
         content={
           playerExpansion === "collapsed" ? "expand player" : "collapse player"
@@ -58,7 +72,7 @@ const BasePlayerExpansionButton = ({
           </svg>
         </Button>
       </Tooltip>
-    </div>
+    </StyledButtonWrapper>
   );
 };
 

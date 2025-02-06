@@ -8,7 +8,7 @@
     "artworkS3": "/artwork/passing-glances-remastered.webp",
     "audioS3": "/songs/nara-remastered.wav",
     "trackNumber": 5,
-    "bandcamp": "https://bure.bandcamp.com/track/nara",
+    "bandcamp": "https://bu-re.bandcamp.com/track/nara",
     "audio": "",
     "artwork": ""
   },
@@ -47,6 +47,6 @@
     "artwork": "/images/webp/cropped-dsii-artwork-1440w.webp",
     "audio": "/audio/calling-currents.wav",
     "trackNumber": 3,
-    "bandcamp": "https://bure.bandcamp.com/track/calling-currents"
+    "bandcamp": "https://bu-re.bandcamp.com/track/calling-currents"
   }
 ]

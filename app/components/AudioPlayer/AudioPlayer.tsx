@@ -6,10 +6,11 @@ import { Tooltip } from "../Tooltip";
 import { classed } from "@tw-classed/react";
 import { PlayerExpansionButton } from "./PlayerExpansionButton";
 import { Button } from "../Button/Button";
+import { useIntersectionObserver } from "~/hooks";
 
 const StyledPlayerWrapper = classed(
   "div",
-  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full lg:space-x-6 lg:justify-evenly items-center md:pl-4 xl:pl-12 pr-16 border-t-2 border-rich-black-fogra29 bg-romance py-9",
+  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full gap-4 xl:gap-24 justify-center items-center border-t-2 border-rich-black-fogra29 bg-romance py-9",
   {
     variants: {
       playerExpansion: {
@@ -35,7 +36,7 @@ const BaseAudioPlayer = () => {
     togglePlayerExpanded,
     volume,
   } = useContext(AudioContext);
-  const { artwork, duration, title } = currentSong;
+  const { artwork, duration, title, bandcamp } = currentSong;
   // const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
 
@@ -192,7 +193,7 @@ const BaseAudioPlayer = () => {
               id="svg"
               role="img"
               stroke="currentColor"
-              viewBox="0 0 20 20"
+              viewBox="0 1 18 18"
               xmlns="http://www.w3.org/2000/svg"
             >
               <title id="mute-audio-title" lang="en">
@@ -201,7 +202,7 @@ const BaseAudioPlayer = () => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={0.5}
+                strokeWidth={0.2}
                 fill="currentColor"
                 d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z"
                 transform="translate(-2, 0)"
@@ -241,7 +242,6 @@ const BaseAudioPlayer = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="-5 -20 40 40"
               stroke="currentColor"
-              // className="size-10"
               aria-labelledby="max-volume-title"
             >
               <title id="max-volume-title" lang="en">
@@ -254,53 +254,9 @@ const BaseAudioPlayer = () => {
                   fill="none"
                   strokeWidth={2.5}
                 />
-                <path d="M 11 -8 H23" strokeWidth={2.5} />
-                <path d="M 11 0 H27" strokeWidth={2.5} />
-                <path d="M 11 8 H23" strokeWidth={2.5} />
-                {/* <path
-                  style={{
-                    fill: "#000000",
-                    strokeWidth: 0.692069,
-                    stroke: "#000000",
-                    strokeDasharray: "none",
-                  }}
-                  d="M 92.169938,26.071788 C 70.723313,28.202993 49.276687,30.334199 27.830062,32.465404 49.276687,30.334199 70.723313,28.202993 92.169938,26.071788 Z"
-                  id="path9"
-                />
-                <path
-                  style={{
-                    fill: "none",
-                    stroke: "#000000",
-                    strokeWidth: 2.11667,
-                    strokeLinecap: "round",
-                    strokeDasharray: "none",
-                    strokeOpacity: 1,
-                  }}
-                  d="M 29.531441,41.175446 C 49.843814,34.041313 70.156186,26.907181 90.468559,19.773048"
-                  id="path10"
-                />
-                <path
-                  style={{
-                    fill: "#000000",
-                    stroke: "#000000",
-                    strokeWidth: 2.11667,
-                    strokeLinecap: "round",
-                    strokeDasharray: "none",
-                    strokeOpacity: 1,
-                  }}
-                  d="M 23.069273,58.761202 C 51.727865,58.589327 80.386458,58.417453 109.04505,58.245578"
-                  id="path12"
-                />
-                <path
-                  style={{
-                    fill: "#000000",
-                    stroke: "#000000",
-                    strokeWidth: 0.692069,
-                    strokeDasharray: "none",
-                  }}
-                  d="M 92.169938,96.113766 C 70.723313,93.982561 49.276687,91.851355 27.830062,89.72015 c 21.446625,2.131205 42.893251,4.262411 64.339876,6.393616 z"
-                  id="path30"
-                /> */}
+                <path d="M 11 -8 L 21 -12" strokeWidth={2.5} />
+                <path d="M 11 0 H 27" strokeWidth={2.5} />
+                <path d="M 11 8 L 21 12" strokeWidth={2.5} />
               </g>
             </svg>
           </Button>
@@ -308,16 +264,43 @@ const BaseAudioPlayer = () => {
 
         <div className="flex items-center space-x-4">
           {/* album artwork button */}
-          <Button iconOnly onClick={handleOpenModal}>
-            <img className="aspect-square size-12" src={artwork} alt={title} />
+          <Button className="p-0" iconOnly onClick={handleOpenModal}>
+            <img className="size-18 aspect-square" src={artwork} alt={title} />
           </Button>
 
           {/* track info */}
-          <div className="flex w-64 items-center space-x-2 text-left">
+          <div className="flex items-center space-x-4 text-left">
             <span>track — </span>
-            <h3 className="text-ellipsis text-lg font-semibold tracking-wider">
-              {title}
-            </h3>
+            <a href={bandcamp ? bandcamp : "https://bu-re.bandcamp.com"}>
+              <h3 className="text-ellipsis text-lg font-semibold tracking-wider">
+                {title}
+              </h3>
+            </a>
+            {/* bandcamp link */}
+            {/* <Tooltip
+              classNames={{
+                container: "flex items-center justify-center",
+                tooltip: "tracking-widest",
+              }}
+              content="bandcamp"
+              placement="top"
+              zIndex={30}
+            >
+              <a
+                aria-label="bu.re_ dream sequence ii bandcamp"
+                href={bandcamp ? bandcamp : "https://bu-re.bandcamp.com/"}
+                className="rounded-none focus:outline-2 focus:outline-offset-8 focus:outline-black"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="bandcamp logo"
+                  className="size-8"
+                  loading="lazy"
+                  src="/images/bandcamp-button-bc-circle-black.png"
+                />
+              </a>
+            </Tooltip> */}
           </div>
 
           {/* album artwork overlay */}
