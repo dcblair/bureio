@@ -5,7 +5,7 @@ import { Overlay } from "../Overlay/Overlay";
 import { Tooltip } from "../Tooltip";
 import { classed } from "@tw-classed/react";
 import { PlayerExpansionButton } from "./PlayerExpansionButton";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 
 const StyledPlayerWrapper = classed(
   "div",

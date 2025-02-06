@@ -1,9 +1,7 @@
 import { PlayerExpansion } from "~/context/AudioContext";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 import { Tooltip } from "../Tooltip";
-import { createPortal } from "react-dom";
-import { ClientOnly } from "remix-utils/client-only";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 
 interface PlayerExpansionButtonProps {
   playerExpansion: PlayerExpansion;

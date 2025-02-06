@@ -39,7 +39,7 @@ const StyledButton = classed("button", "", {
   ],
 });
 
-const Button = ({
+const BaseButton = ({
   children,
   iconOnly,
   size = "sm",
@@ -53,4 +53,4 @@ const Button = ({
   );
 };
 
-export default memo(Button);
+export const Button = memo(BaseButton);
