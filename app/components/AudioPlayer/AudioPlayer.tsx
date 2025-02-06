@@ -192,7 +192,6 @@ const BaseAudioPlayer = () => {
               id="svg"
               role="img"
               stroke="currentColor"
-              strokeWidth={0.2}
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -202,7 +201,7 @@ const BaseAudioPlayer = () => {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={0.2}
+                strokeWidth={0.5}
                 fill="currentColor"
                 d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z"
                 transform="translate(-2, 0)"
@@ -240,16 +239,24 @@ const BaseAudioPlayer = () => {
           <Button iconOnly onClick={() => setVolume(1)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
+              viewBox="-5 -20 40 40"
               stroke="currentColor"
-              className="size-10"
+              // className="size-10"
               aria-labelledby="max-volume-title"
             >
               <title id="max-volume-title" lang="en">
                 max volume
               </title>
               <g id="g1">
-                <path d="M2,11H14" strokeWidth={1.5} />
+                <path
+                  d="M 0 -10 A 5 9 0 0 1 0 10"
+                  stroke="black"
+                  fill="none"
+                  strokeWidth={2.5}
+                />
+                <path d="M 11 -8 H23" strokeWidth={2.5} />
+                <path d="M 11 0 H27" strokeWidth={2.5} />
+                <path d="M 11 8 H23" strokeWidth={2.5} />
                 {/* <path
                   style={{
                     fill: "#000000",
@@ -327,6 +334,7 @@ const BaseAudioPlayer = () => {
                 />
               </button>
               <button
+                // todo: create icononly variation for button component and use here
                 className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
                 onClick={handleCloseModal}
               >
