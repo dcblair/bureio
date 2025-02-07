@@ -11,7 +11,7 @@ interface PlayerExpansionButtonProps {
 
 const StyledButtonWrapper = classed(
   "div",
-  "fixed bottom-3 z-30 md:bottom-20 md:right-8 lg:bottom-3.5 xl:right-28 flex items-center justify-center",
+  "fixed z-30 bottom-3.5 right-10 xl:right-24 2xl:right-32 flex items-center justify-center",
   {
     variants: {
       playerExpansion: {

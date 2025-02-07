@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from "react";
+import { type ChangeEvent, memo, useContext, useState } from "react";
 import { AudioContext } from "~/context/AudioContext";
 import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
 import { Overlay } from "../Overlay/Overlay";
@@ -6,11 +6,10 @@ import { Tooltip } from "../Tooltip";
 import { classed } from "@tw-classed/react";
 import { PlayerExpansionButton } from "./PlayerExpansionButton";
 import { Button } from "../Button/Button";
-import { useIntersectionObserver } from "~/hooks";
 
 const StyledPlayerWrapper = classed(
   "div",
-  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full gap-4 xl:gap-24 justify-center items-center border-t-2 border-rich-black-fogra29 bg-romance py-9",
+  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full gap-4 xl:gap-6 2xl:gap-24 md:pl-8 lg:pl-12 xl:pl-32 items-center border-t-2 border-rich-black-fogra29 bg-romance py-9",
   {
     variants: {
       playerExpansion: {
@@ -39,8 +38,7 @@ const BaseAudioPlayer = () => {
   const { artwork, duration, title, bandcamp } = currentSong;
   // const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
-
-  const handleCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCurrentTime = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentTime(parseInt(e.target.value, 10));
   };
 
@@ -63,9 +61,9 @@ const BaseAudioPlayer = () => {
   const parsedCurrentTime = calculateSecondsToMinutesAndSeconds(currentTime);
 
   return (
-    <div className="relative hidden h-12 w-full md:flex">
+    <div className="relative hidden h-12 w-full lg:flex">
       <StyledPlayerWrapper playerExpansion={playerExpansion}>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-1">
           <audio preload="auto" ref={audioRef}>
             <source src={currentSong?.audio} />
           </audio>
@@ -162,7 +160,7 @@ const BaseAudioPlayer = () => {
             {parsedCurrentTime}
           </span>
           <input
-            className="h-0.5 w-48 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+            className="h-0.5 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 md:w-24 xl:w-48 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
             name="trackDurationSlider"
             id="trackDurationSlider"
             type="range"
@@ -221,7 +219,7 @@ const BaseAudioPlayer = () => {
             zIndex={30}
           >
             <input
-              className="h-0.5 w-16 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+              className="h-0.5 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 md:w-10 xl:w-16 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
               type="range"
               min={0}
               max={1}
@@ -269,15 +267,10 @@ const BaseAudioPlayer = () => {
           </Button>
 
           {/* track info */}
-          <div className="flex items-center space-x-4 text-left">
+          <div className="w-70 flex items-center space-x-4 text-left">
             <span>track — </span>
-            <a href={bandcamp ? bandcamp : "https://bu-re.bandcamp.com"}>
-              <h3 className="text-ellipsis text-lg font-semibold tracking-wider">
-                {title}
-              </h3>
-            </a>
             {/* bandcamp link */}
-            {/* <Tooltip
+            <Tooltip
               classNames={{
                 container: "flex items-center justify-center",
                 tooltip: "tracking-widest",
@@ -287,20 +280,14 @@ const BaseAudioPlayer = () => {
               zIndex={30}
             >
               <a
-                aria-label="bu.re_ dream sequence ii bandcamp"
-                href={bandcamp ? bandcamp : "https://bu-re.bandcamp.com/"}
-                className="rounded-none focus:outline-2 focus:outline-offset-8 focus:outline-black"
-                rel="noreferrer"
-                target="_blank"
+                className="focus-visible:outline-offset-8 focus-visible:outline-black"
+                href={bandcamp ? bandcamp : "https://bu-re.bandcamp.com"}
               >
-                <img
-                  alt="bandcamp logo"
-                  className="size-8"
-                  loading="lazy"
-                  src="/images/bandcamp-button-bc-circle-black.png"
-                />
+                <h3 className="text-balance text-lg font-semibold tracking-wider">
+                  {title}
+                </h3>
               </a>
-            </Tooltip> */}
+            </Tooltip>
           </div>
 
           {/* album artwork overlay */}
