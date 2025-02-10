@@ -51,6 +51,7 @@ const BasePlayerExpansionButton = ({
         content={
           playerExpansion === "collapsed" ? "expand player" : "collapse player"
         }
+        delay={{ open: 1500, close: 0 }}
         placement="top"
         tooltipOffset={5}
         transitionDuration={[3000, 1600]}
