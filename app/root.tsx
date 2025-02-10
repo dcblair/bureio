@@ -20,7 +20,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { useState } from "react";
-import { Header } from "~/components";
+import { AudioPlayer, Header } from "~/components";
 import { AudioProvider, Song } from "./context/AudioContext";
 import songs from "./data/songs.json";
 import NotFound from "./pages/NotFound";
@@ -127,6 +127,7 @@ export default function App() {
             <body className="h-full bg-romance">
               <Header />
               <Outlet />
+              <AudioPlayer />
               <ScrollRestoration />
               <Scripts />
             </body>

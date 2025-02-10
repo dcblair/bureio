@@ -1,7 +1,17 @@
 import { useRef, useState } from "react";
-import { LinksFunction } from "@remix-run/node";
+import { LinksFunction, MetaFunction } from "@remix-run/node";
 import { useIntersectionObserver } from "~/hooks";
-import { AudioPlayer, Overlay, Tooltip } from "~/components";
+import { Overlay, Tooltip } from "~/components";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "dream sequence ii" },
+    {
+      description:
+        "dream sequence ii is bu.re's first full-length release— an expansively droning ambient experience.",
+    },
+  ];
+};
 
 export const links: LinksFunction = () => [
   {
@@ -197,7 +207,6 @@ export default function DreamSequenceii() {
           </Tooltip>
         </div>
       </div>
-      <AudioPlayer />
     </main>
   );
 }
