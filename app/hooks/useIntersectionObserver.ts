@@ -1,14 +1,14 @@
-import * as React from 'react';
+import { useEffect, type RefObject, useState } from "react";
 
 export const useIntersectionObserver = (
-  ref: React.RefObject<Element>,
+  ref: RefObject<Element>,
   options?: IntersectionObserverInit,
 ) => {
-  const [isIntersecting, setIsIntersecting] = React.useState(false);
-  const [hasAnimated, setHasAnimated] = React.useState(false);
-  const [intersectionRatio, setIntersectionRatio] = React.useState(0);
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [intersectionRatio, setIntersectionRatio] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       setIntersectionRatio(entry.intersectionRatio);
       if (entry.isIntersecting) {

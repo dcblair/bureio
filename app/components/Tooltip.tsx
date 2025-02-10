@@ -1,5 +1,5 @@
-import * as React from 'react';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import React, { useRef, useState } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import {
   arrow,
   autoUpdate,
@@ -13,51 +13,69 @@ import {
   useInteractions,
   useRole,
   useTransitionStyles,
-} from '@floating-ui/react';
-import type { Side } from '@floating-ui/react';
-import { classed } from '@tw-classed/react';
+} from "@floating-ui/react";
+import type { Side } from "@floating-ui/react";
+import { classed } from "@tw-classed/react";
 
-interface TooltipProps extends ComponentPropsWithoutRef<'div'> {
+type Classnames = {
+  [key: string]: string;
+};
+
+interface TooltipProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
+  classNames?: Classnames;
   content: string;
   isContentHidden?: boolean;
   placement?: Side;
+  tooltipOffset?: number;
+  transitionDuration?: [number, number];
+  zIndex?: number;
 }
 
-const StyledArrow = classed('div', '', {
+const StyledArrow = classed("div", "", {
   variants: {
     placement: {
-      left: '-right-1',
-      right: '-left-1',
-      top: '-bottom-1',
-      bottom: '-top-1',
+      left: "-right-1",
+      right: "-left-1",
+      top: "-bottom-1",
+      bottom: "-top-1",
     },
   },
 });
 
 const StyledContent = classed(
-  'div',
-  'rounded-lg bg-black px-2.5 py-1.5 text-xs leading-relaxed text-romance',
+  "div",
+  "rounded-lg bg-rich-black-fogra29 px-2.5 py-2 text-sm font-questrial tracking-wider text-romance",
 );
 
 const BaseTooltip = ({
+  classNames,
   children,
   content,
-  placement = 'right',
+  transitionDuration = [2000, 1300],
+  placement = "right",
+  tooltipOffset = 18,
+  zIndex = 20,
 }: TooltipProps) => {
-  const [isTooltipOpen, setIsTooltipOpen] = React.useState(false);
-  const arrowRef = React.useRef<HTMLDivElement | null>(null);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const arrowRef = useRef<HTMLDivElement | null>(null);
   const { context, x, y, reference, floating, strategy, middlewareData } =
     useFloating({
       open: isTooltipOpen,
       onOpenChange: setIsTooltipOpen,
       placement: placement,
       whileElementsMounted: autoUpdate,
-      middleware: [shift(), offset(18), arrow({ element: arrowRef })],
+      middleware: [
+        shift(),
+        offset(tooltipOffset),
+        arrow({ element: arrowRef }),
+      ],
     });
   const { isMounted, styles } = useTransitionStyles(context, {
-    duration: 1000,
-
+    duration: {
+      open: transitionDuration[0],
+      close: transitionDuration[1],
+    },
     open: {
       opacity: 1,
     },
@@ -68,7 +86,7 @@ const BaseTooltip = ({
   const hover = useHover(context, { move: false });
   const focus = useFocus(context);
   const dismiss = useDismiss(context);
-  const role = useRole(context, { role: 'tooltip' });
+  const role = useRole(context, { role: "tooltip" });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     hover,
@@ -80,35 +98,43 @@ const BaseTooltip = ({
   if (middlewareData?.arrow && arrowRef?.current?.style) {
     const { x, y } = middlewareData.arrow;
     Object.assign(arrowRef?.current?.style, {
-      left: x != null ? `${x}px` : '',
-      top: y != null ? `${y}px` : '',
+      left: x != null ? `${x}px` : "",
+      top: y != null ? `${y}px` : "",
     });
   }
 
   return (
     <>
-      <div {...getReferenceProps({ ref: reference })}>{children}</div>
+      <div
+        className={classNames?.container}
+        {...getReferenceProps({ ref: reference })}
+      >
+        {children}
+      </div>
       <FloatingPortal>
         {isMounted && (
           <StyledContent
             {...getFloatingProps({
               ref: floating,
             })}
+            className={classNames?.tooltip}
             style={{
               position: strategy,
               left: x ?? 0,
               top: y ?? 0,
+              zIndex: zIndex,
+              borderRadius: "0.12em",
               ...styles,
             }}
           >
             {content}
             <StyledArrow
-              className="bg-black"
+              className="bg-rich-black-fogra29"
               style={{
-                position: 'absolute',
-                width: '1em',
-                height: '1em',
-                transform: 'rotate(45deg)',
+                position: "absolute",
+                width: "1em",
+                height: "1em",
+                transform: "rotate(45deg)",
               }}
               placement={placement}
               ref={arrowRef}

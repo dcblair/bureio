@@ -1,6 +1,6 @@
+import React, { memo } from "react";
 import { NavLink } from "@remix-run/react";
 import { Link } from "~/components";
-import * as React from "react";
 import { useIntersectionObserver } from "~/hooks";
 
 const BaseHeader = () => {
@@ -46,4 +46,4 @@ const BaseHeader = () => {
   );
 };
 
-export const Header = React.memo(BaseHeader);
+export const Header = memo(BaseHeader);
