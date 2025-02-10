@@ -1,22 +1,24 @@
 import { PlayerExpansion } from "~/context/AudioContext";
 import { Button } from "../Button/Button";
 import { Tooltip } from "../Tooltip";
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { classed } from "@tw-classed/react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface PlayerExpansionButtonProps {
   playerExpansion: PlayerExpansion;
   togglePlayerExpanded: () => void;
 }
 
-const StyledButtonWrapper = classed(
-  "div",
-  "fixed z-30 bottom-3.5 right-10 xl:right-24 2xl:right-32 flex items-center justify-center",
+const StyledPolyline = classed(
+  "polyline",
+  "transition-transform duration-3000 ease-in-out",
   {
     variants: {
       playerExpansion: {
-        collapsed: "",
-        standard: "",
+        collapsed: "group-hover:-translate-y-0.5",
+        standard: "group-hover:translate-y-1",
       },
     },
   },
@@ -26,13 +28,31 @@ const BasePlayerExpansionButton = ({
   playerExpansion,
   togglePlayerExpanded,
 }: PlayerExpansionButtonProps) => {
+  const polylineRef = useRef<SVGPolylineElement | null>(null);
+
+  const defaultChevronPoints = "3 8 12 14 20 8";
+
+  useGSAP(() => {
+    gsap.to(polylineRef?.current, {
+      duration: 2.2,
+      attr: {
+        points:
+          playerExpansion === "collapsed"
+            ? "3 12 12 12 20 12"
+            : defaultChevronPoints,
+      },
+      ease: "power2.inOut",
+    });
+  }, [playerExpansion]);
+
   return (
-    <StyledButtonWrapper playerExpansion={playerExpansion}>
+    <div className="fixed bottom-3.5 right-10 z-30 flex items-center justify-center xl:right-24 2xl:right-32">
       <Tooltip
         content={
           playerExpansion === "collapsed" ? "expand player" : "collapse player"
         }
         placement="top"
+        tooltipOffset={5}
         transitionDuration={[3000, 1600]}
         zIndex={30}
       >
@@ -46,33 +66,35 @@ const BasePlayerExpansionButton = ({
           onClick={togglePlayerExpanded}
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+            className="group size-6"
             fill="none"
-            viewBox="0 0 24 24"
             stroke="currentColor"
-            className="size-6"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <polyline
-              points="2 9 12 15 22 9"
+            <StyledPolyline
+              playerExpansion={playerExpansion}
+              points={defaultChevronPoints}
+              ref={polylineRef}
               stroke="currentColor"
-              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
+              strokeWidth="2.5"
             />
 
             <line
-              x1="0"
-              y1="22"
-              x2="24"
-              y2="22"
               stroke="currentColor"
               strokeLinecap="round"
               strokeWidth="2.5"
+              x1="0"
+              x2="24"
+              y1="22"
+              y2="22"
             />
           </svg>
         </Button>
       </Tooltip>
-    </StyledButtonWrapper>
+    </div>
   );
 };
 

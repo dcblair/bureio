@@ -91,7 +91,6 @@ const BaseAudioPlayer = () => {
           {/* play / pause button */}
           <Button
             aria-label={isPlaying ? "pause" : "play"}
-            // className="flex size-12 items-center justify-center rounded-sm p-1.5 duration-2000 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-rich-black-fogra29"
             iconOnly
             onClick={handlePlay}
           >
@@ -215,6 +214,7 @@ const BaseAudioPlayer = () => {
               tooltip: "tracking-widest",
             }}
             content={`${Math.floor(volume * 100)}`}
+            tooltipOffset={25}
             placement="top"
             zIndex={30}
           >
@@ -277,11 +277,14 @@ const BaseAudioPlayer = () => {
               }}
               content="bandcamp"
               placement="top"
+              tooltipOffset={15}
               zIndex={30}
             >
               <a
                 className="focus-visible:outline-offset-8 focus-visible:outline-black"
                 href={bandcamp ? bandcamp : "https://bu-re.bandcamp.com"}
+                referrerPolicy="no-referrer"
+                target="_blank"
               >
                 <h3 className="text-balance text-lg font-semibold tracking-wider">
                   {title}

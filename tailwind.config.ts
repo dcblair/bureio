@@ -9,7 +9,7 @@ export default {
         "fade-out": "fade-out 1.2s ease-in",
         "full-fade-in": "full-fade-in 1s ease-in-out",
         "full-fade-out": "full-fade-out 1s ease-in",
-        "gradient-shift": "gradient-shift 3s infinite ease",
+        float: "float 3s infinite ease",
         collapse: "collapse 2s both ease-in",
         expand: "expand 1.7s both ease-in",
       },
@@ -55,14 +55,12 @@ export default {
           "50%": { opacity: "0.6" },
           "100%": { opacity: "0" },
         },
-        "gradient-shift": {
+        float: {
           "0%, 100%": {
-            "background-position": "left center",
-            "background-size": "200% 200%",
+            transform: "translateY(0%)",
           },
           "50%": {
-            "background-position": "right center",
-            "background-size": "200% 200%",
+            transform: "translateY(2%)",
           },
         },
         collapse: {
