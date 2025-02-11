@@ -25,6 +25,7 @@ interface TooltipProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
   classNames?: Classnames;
   content: string;
+  delay?: { open: number; close: number };
   isContentHidden?: boolean;
   placement?: Side;
   tooltipOffset?: number;
@@ -52,6 +53,7 @@ const BaseTooltip = ({
   classNames,
   children,
   content,
+  delay = { open: 500, close: 0 },
   transitionDuration = [2000, 1300],
   placement = "right",
   tooltipOffset = 18,
@@ -83,7 +85,13 @@ const BaseTooltip = ({
       opacity: 0,
     },
   });
-  const hover = useHover(context, { move: false });
+  const hover = useHover(context, {
+    move: false,
+    delay: {
+      open: delay.open,
+      close: delay.close,
+    },
+  });
   const focus = useFocus(context);
   const dismiss = useDismiss(context);
   const role = useRole(context, { role: "tooltip" });

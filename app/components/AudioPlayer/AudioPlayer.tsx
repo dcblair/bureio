@@ -64,9 +64,11 @@ const BaseAudioPlayer = () => {
     <div className="relative hidden h-12 w-full lg:flex">
       <StyledPlayerWrapper playerExpansion={playerExpansion}>
         <div className="flex items-center gap-1">
+          {/* audio ref & src */}
           <audio preload="auto" ref={audioRef}>
             <source src={currentSong?.audio} />
           </audio>
+
           {/* previous song button */}
           <Button iconOnly onClick={handlePrevSong}>
             <svg
@@ -190,7 +192,7 @@ const BaseAudioPlayer = () => {
               id="svg"
               role="img"
               stroke="currentColor"
-              viewBox="0 1 18 18"
+              viewBox="1 1 18 18"
               xmlns="http://www.w3.org/2000/svg"
             >
               <title id="mute-audio-title" lang="en">
@@ -238,7 +240,7 @@ const BaseAudioPlayer = () => {
           <Button iconOnly onClick={() => setVolume(1)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="-5 -20 40 40"
+              viewBox="-7 -20 40 40"
               stroke="currentColor"
               aria-labelledby="max-volume-title"
             >
@@ -277,7 +279,7 @@ const BaseAudioPlayer = () => {
               }}
               content="bandcamp"
               placement="top"
-              tooltipOffset={15}
+              tooltipOffset={20}
               zIndex={30}
             >
               <a
@@ -286,7 +288,7 @@ const BaseAudioPlayer = () => {
                 referrerPolicy="no-referrer"
                 target="_blank"
               >
-                <h3 className="text-balance text-lg font-semibold tracking-wider">
+                <h3 className="text-balance text-lg font-semibold leading-7 tracking-wider">
                   {title}
                 </h3>
               </a>
