@@ -53,7 +53,7 @@ const BasePlayerExpansionButton = ({
         }
         delay={{ open: 1500, close: 0 }}
         placement="top"
-        tooltipOffset={5}
+        tooltipOffset={12}
         transitionDuration={[3000, 1600]}
         zIndex={30}
       >
