@@ -6,6 +6,7 @@ import { Tooltip } from "../Tooltip";
 import { classed } from "@tw-classed/react";
 import { PlayerExpansionButton } from "./PlayerExpansionButton";
 import { Button } from "../Button/Button";
+import { CloseIcon, MaxVolumeIcon, NextIcon, PreviousIcon } from "../Icons";
 
 const StyledPlayerWrapper = classed(
   "div",
@@ -71,18 +72,7 @@ const BaseAudioPlayer = () => {
 
           {/* previous song button */}
           <Button iconOnly onClick={handlePrevSong}>
-            <svg
-              xmlns="http://www.w3.org/
-              2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-              aria-labelledby="previous-title"
-            >
-              <title id="previous-title">previous song</title>
-              <path strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
+            <PreviousIcon />
           </Button>
 
           {/* play / pause button */}
@@ -120,40 +110,31 @@ const BaseAudioPlayer = () => {
 
           {/* next song button */}
           <Button iconOnly onClick={handleNextSong}>
-            <svg
-              xmlns="http://www.w3.org/
-              2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="h-6 w-6"
-              aria-labelledby="next-title"
-            >
-              <title id="next-title">next song</title>
-              <path strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            <NextIcon />
           </Button>
         </div>
 
         {/* track duration slider and duration */}
         <div className="flex items-center space-x-3">
-          <span className="inline-block w-12 leading-6">
+          <span className="inline-block w-12 font-questrial text-lg leading-6 tracking-wider">
             {parsedCurrentTime}
           </span>
           <input
             className="h-0.5 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 md:w-24 xl:w-48 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
-            name="trackDurationSlider"
             id="trackDurationSlider"
+            max={Number((audioRef?.current && audioRef.current.duration) || 0)}
+            min={0}
+            name="trackDurationSlider"
+            onChange={handleCurrentTime}
             type="range"
             value={currentTime ?? 0}
-            min={0}
-            max={Number((audioRef?.current && audioRef.current.duration) || 0)}
-            onChange={handleCurrentTime}
           />
           <label htmlFor="trackDurationSlider" className="sr-only">
             track duration
           </label>
-          <span className="inline-block w-12 leading-6">{trackDuration}</span>
+          <span className="inline-block w-12 font-questrial text-lg leading-6 tracking-wider">
+            {trackDuration}
+          </span>
         </div>
 
         {/* volume control slider */}
@@ -179,9 +160,9 @@ const BaseAudioPlayer = () => {
                 mute audio
               </title>
               <path
-                strokeWidth={0.2}
-                fill="currentColor"
                 d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z"
+                fill="currentColor"
+                strokeWidth={0.2}
                 transform="translate(-2, 0)"
               />
             </svg>
@@ -194,19 +175,19 @@ const BaseAudioPlayer = () => {
               tooltip: "tracking-widest",
             }}
             content={`${Math.floor(volume * 100)}`}
-            tooltipOffset={25}
             placement="top"
+            tooltipOffset={25}
             zIndex={30}
           >
             <input
               className="h-0.5 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 md:w-10 xl:w-16 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
-              type="range"
-              min={0}
-              max={1}
-              name="volumeSlider"
               id="volumeSlider"
+              max={1}
+              min={0}
+              name="volumeSlider"
               onChange={(e) => setVolume(Number(e.target.value))}
               step={0.05}
+              type="range"
               value={volume}
             />
             <label htmlFor="volumeSlider" className="sr-only">
@@ -216,27 +197,7 @@ const BaseAudioPlayer = () => {
 
           {/* volume up button */}
           <Button iconOnly onClick={() => setVolume(1)}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="-7 -20 40 40"
-              stroke="currentColor"
-              aria-labelledby="max-volume-title"
-            >
-              <title id="max-volume-title" lang="en">
-                max volume
-              </title>
-              <g id="g1">
-                <path
-                  d="M 0 -10 A 5 9 0 0 1 0 10"
-                  stroke="black"
-                  fill="none"
-                  strokeWidth={2.5}
-                />
-                <path d="M 11 -8 L 21 -12" strokeWidth={2.5} />
-                <path d="M 11 0 H 27" strokeWidth={2.5} />
-                <path d="M 11 8 L 21 12" strokeWidth={2.5} />
-              </g>
-            </svg>
+            <MaxVolumeIcon />
           </Button>
         </div>
 
@@ -248,7 +209,7 @@ const BaseAudioPlayer = () => {
 
           {/* track info */}
           <div className="w-70 flex items-center space-x-4 text-left">
-            <span>track — </span>
+            <span className="font-questrial text-lg">track — </span>
             {/* bandcamp link */}
             <Tooltip
               classNames={{
@@ -266,7 +227,7 @@ const BaseAudioPlayer = () => {
                 referrerPolicy="no-referrer"
                 target="_blank"
               >
-                <h3 className="text-balance text-lg font-semibold leading-7 tracking-wider">
+                <h3 className="font-questrial text-lg font-semibold tracking-wider">
                   {title}
                 </h3>
               </a>
@@ -276,7 +237,7 @@ const BaseAudioPlayer = () => {
           {/* album artwork overlay */}
           <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
             <div className="relative flex flex-col items-center justify-center">
-              <button
+              <Button
                 className="focus-visible:outline-offset-8 focus-visible:outline-white"
                 onClick={handleCloseModal}
               >
@@ -285,20 +246,14 @@ const BaseAudioPlayer = () => {
                   src={artwork}
                   alt={title}
                 />
-              </button>
-              <button
-                // todo: create icononly variation for button component and use here
+              </Button>
+              <Button
                 className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
+                iconOnly
                 onClick={handleCloseModal}
               >
-                <svg
-                  aria-label="close modal"
-                  className="rounded-full fill-romance md:size-16"
-                  viewBox="1 0 22 22"
-                >
-                  <path d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z" />
-                </svg>
-              </button>
+                <CloseIcon />
+              </Button>
             </div>
           </Overlay>
         </div>
