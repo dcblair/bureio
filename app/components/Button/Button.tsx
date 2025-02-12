@@ -5,7 +5,7 @@ interface ButtonProps
   extends ButtonHTMLAttributes<Omit<HTMLButtonElement, "children">> {
   children: ReactNode;
   iconOnly?: boolean;
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   variant?: "primary" | "secondary";
 }
 
@@ -13,29 +13,69 @@ const StyledButton = classed("button", "", {
   variants: {
     variant: {
       primary:
-        "focus-visible:outline text-rich-black-fogra29 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29",
-      secondary: "bg-gray-500 text-white",
+        "focus-visible:outline-offset-4 text-rich-black-fogra29 focus-visible:outline-rich-black-fogra29",
+      secondary:
+        "focus-visible:outline-white focus-visible:outline-offset-8 text-white",
     },
     size: {
+      xs: "p-0",
       sm: "p-1.5",
-      md: "p-3",
-      lg: "p-4",
+      md: "p-2",
+      lg: "p-2",
     },
     iconOnly: {
-      true: "flex size-12 items-center text-black justify-center rounded-sm transition-opacity duration-2000 ease-in-out",
+      true: "flex items-center justify-center transition-opacity duration-2000 ease-in-out",
     },
   },
   compoundVariants: [
     {
       variant: "primary",
-      size: "sm",
+      size: "xs",
+      iconOnly: "true",
+      class: "size-12",
     },
-    // {
-    //   variant: "primary",
-    //   size: "sm",
-    //   iconOnly: "true",
-    //   class: "",
-    // },
+    {
+      variant: "primary",
+      size: "sm",
+      iconOnly: "true",
+      class: "size-12",
+    },
+    {
+      variant: "primary",
+      size: "md",
+      iconOnly: "true",
+      class: "size-14",
+    },
+    {
+      variant: "primary",
+      size: "lg",
+      iconOnly: "true",
+      class: "size-16",
+    },
+    {
+      variant: "secondary",
+      size: "xs",
+      iconOnly: "true",
+      class: "size-12",
+    },
+    {
+      variant: "secondary",
+      size: "sm",
+      iconOnly: "true",
+      class: "size-12",
+    },
+    {
+      variant: "secondary",
+      size: "md",
+      iconOnly: "true",
+      class: "size-14",
+    },
+    {
+      variant: "secondary",
+      size: "lg",
+      iconOnly: "true",
+      class: "size-16",
+    },
   ],
 });
 

@@ -3,6 +3,7 @@ import { SVGProps } from "react";
 export const MaxVolumeIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     aria-labelledby="max-volume-title"
+    className="size-9"
     stroke="currentColor"
     viewBox="-7 -20 40 40"
     xmlns="http://www.w3.org/2000/svg"
