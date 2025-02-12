@@ -182,8 +182,8 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       handleNextSong();
     };
 
-    audioRef?.current.addEventListener("timeupdate", updateCurrentTime);
-    audioRef?.current.addEventListener("ended", handleEndSong);
+    audioRef.current.addEventListener("timeupdate", updateCurrentTime);
+    audioRef.current.addEventListener("ended", handleEndSong);
 
     return () => {
       if (!audioRef?.current) return;
