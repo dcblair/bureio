@@ -53,7 +53,7 @@ const BasePlayerExpansionButton = ({
         }
         delay={{ open: 1500, close: 0 }}
         placement="top"
-        tooltipOffset={12}
+        tooltipOffset={15}
         transitionDuration={[3000, 1600]}
         zIndex={30}
       >
@@ -64,14 +64,15 @@ const BasePlayerExpansionButton = ({
               : "collapse audio player"
           }
           iconOnly
+          size="md"
           onClick={togglePlayerExpanded}
         >
           <svg
             aria-labelledby="player-expansion-title"
-            className="size-6"
+            className="size-7"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24"
+            viewBox="0 4 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <title id="player-expansion-title" lang="en">
