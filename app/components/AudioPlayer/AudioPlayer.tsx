@@ -10,7 +10,7 @@ import { CloseIcon, MaxVolumeIcon, NextIcon, PreviousIcon } from "../Icons";
 
 const StyledPlayerWrapper = classed(
   "div",
-  "fixed bottom-0 z-30 flex transition h-12 duration-3000 w-full gap-4 xl:gap-6 2xl:gap-24 md:pl-8 lg:pl-12 xl:pl-32 items-center border-t-2 border-rich-black-fogra29 bg-romance py-9",
+  "fixed bottom-0 z-30 transition h-12 flex duration-3000 w-full gap-4 xl:gap-6 2xl:gap-24 md:pl-8 lg:pl-12 xl:pl-32 items-center border-t-2 border-rich-black-fogra29 bg-romance py-9",
   {
     variants: {
       playerExpansion: {
