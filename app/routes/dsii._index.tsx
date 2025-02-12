@@ -1,14 +1,14 @@
 import { useRef, useState } from "react";
 import { LinksFunction, MetaFunction } from "@remix-run/node";
 import { useIntersectionObserver } from "~/hooks";
-import { Overlay, Tooltip } from "~/components";
+import { Button, Overlay, Tooltip } from "~/components";
 
 export const meta: MetaFunction = () => {
   return [
     { title: "dream sequence ii" },
     {
       description:
-        "dream sequence ii is bu.re's first full-length release— an expansively droning ambient experience.",
+        "dream sequence ii is bu.re's first full-length release— an expansive, droning ambient experience.",
     },
   ];
 };
@@ -54,98 +54,86 @@ export default function DreamSequenceii() {
     Math.max(0.25, Number(value));
 
   return (
-    <main className="flex w-full flex-col items-center text-center">
-      {/* dsii album artwork image */}
-      <div
-        className="mb-4 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:my-10"
-        ref={imgRef}
-        style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
-      >
-        <button
-          className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
-          onClick={handleOpenModal}
+    <div className="flex w-full flex-col items-center text-center">
+      <main className="flex w-full flex-col items-center">
+        {/* dsii album artwork image */}
+        <div
+          className="mb-4 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:my-10"
+          ref={imgRef}
+          style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
-          <picture>
-            <source
-              media="(max-width: 720px)"
-              srcSet="/images/webp/cropped-dsii-artwork-325w.webp 360w, /images/webp/cropped-dsii-artwork-420w.webp 1440w"
-            />
-            <source
-              media="(min-width: 721px)"
-              srcSet="/images/webp/cropped-dsii-artwork-420w.webp 1440w"
-            />
-            <img
-              alt="dream sequence ii album artwork"
-              className="lg:w-325px aspect-9/16 w-[calc(100vw-5rem)] min-w-[310px] sm:h-auto sm:w-[325px]"
-              src="/images/webp/cropped-dsii-artwork-420w.webp"
-            />
-          </picture>
-        </button>
-      </div>
-
-      {/* dsii album artwork modal overlay */}
-      <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
-        <div className="relative flex items-center">
           <button
-            className="focus-visible:outline-offset-8 focus-visible:outline-white"
-            onClick={handleCloseModal}
+            className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
+            onClick={handleOpenModal}
           >
             <picture>
               <source
                 media="(max-width: 720px)"
-                srcSet="/images/webp/cropped-dsii-artwork-280w.webp 360w, /images/webp/cropped-dsii-artwork-720w.webp 720w"
+                srcSet="/images/webp/cropped-dsii-artwork-325w.webp 360w, /images/webp/cropped-dsii-artwork-420w.webp 1440w"
               />
               <source
-                media="(max-width: 1440px)"
-                srcSet="/images/webp/cropped-dsii-artwork-1440w.webp 1440w"
+                media="(min-width: 721px)"
+                srcSet="/images/webp/cropped-dsii-artwork-420w.webp 1440w"
               />
               <img
                 alt="dream sequence ii album artwork"
-                className="aspect-9/16 h-[calc(100dvh-70px)] max-w-[calc(100dvw-30px)] cursor-auto object-cover sm:h-[calc(100dvh-100px)] md:max-h-[calc(85dvh)] md:w-auto"
-                src="/images/webp/cropped-dsii-artwork-1440w.webp"
-                fetchPriority="high"
+                className="lg:w-325px aspect-9/16 w-[calc(100vw-5rem)] min-w-[310px] sm:h-auto sm:w-[325px]"
+                src="/images/webp/cropped-dsii-artwork-420w.webp"
               />
             </picture>
           </button>
-
-          {/* close icon button */}
-          <button
-            className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
-            onClick={handleCloseModal}
-          >
-            <svg
-              aria-label="close modal"
-              className="rounded-full fill-romance md:size-16"
-              viewBox="1 0 22 22"
-            >
-              <path d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z" />
-            </svg>
-          </button>
         </div>
-      </Overlay>
 
-      {/* video */}
-      <div
-        className="mb-8 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:mb-14"
-        ref={videoRef}
-        style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
-      >
-        <video
-          className="aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-[310px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 sm:h-auto sm:w-[325px] lg:h-auto lg:w-[325px]"
-          controls
-          controlsList="nodownload noplaybackrate"
-          preload="auto"
-          poster="/images/webp/floating-still-3-960w.webp"
-          title="floating"
+        {/* dsii album artwork modal overlay */}
+        <Overlay
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          title="dream sequence ii album artwork overlay"
         >
-          <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
-          <p>no browser support.</p>
-        </video>
-      </div>
+          <div className="relative flex items-center">
+            <Button variant="secondary" onClick={handleCloseModal}>
+              <picture>
+                <source
+                  media="(max-width: 720px)"
+                  srcSet="/images/webp/cropped-dsii-artwork-280w.webp 360w, /images/webp/cropped-dsii-artwork-720w.webp 720w"
+                />
+                <source
+                  media="(max-width: 1440px)"
+                  srcSet="/images/webp/cropped-dsii-artwork-1440w.webp 1440w"
+                />
+                <img
+                  alt="dream sequence ii album artwork"
+                  className="aspect-9/16 h-[calc(100dvh-60px)] max-w-[calc(100dvw-30px)] cursor-auto object-cover sm:h-[calc(100dvh-100px)] md:max-h-[calc(90dvh)] md:w-auto"
+                  src="/images/webp/cropped-dsii-artwork-1440w.webp"
+                  fetchPriority="high"
+                />
+              </picture>
+            </Button>
+          </div>
+        </Overlay>
+
+        {/* video */}
+        <div
+          className="mb-8 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:mb-14"
+          ref={videoRef}
+          style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
+        >
+          <video
+            className="aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-[310px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 sm:h-auto sm:w-[325px] lg:h-auto lg:w-[325px]"
+            controls
+            controlsList="nodownload noplaybackrate"
+            preload="auto"
+            poster="/images/webp/floating-still-3-960w.webp"
+            title="floating"
+          >
+            <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
+            <p>no browser support.</p>
+          </video>
+        </div>
+      </main>
 
       {/* footer */}
-      {/* todo: add footer tag if this ends up being actual footer */}
-      <div className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
+      <footer className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
         {/* right-positioned divider */}
         <div className="absolute -top-3 right-0 h-0.5 w-1/2 rounded-l-sm rounded-r-sm bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/40 md:-top-8" />
 
@@ -206,7 +194,7 @@ export default function DreamSequenceii() {
             </a>
           </Tooltip>
         </div>
-      </div>
-    </main>
+      </footer>
+    </div>
   );
 }

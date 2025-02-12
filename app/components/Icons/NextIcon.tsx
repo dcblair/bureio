@@ -3,7 +3,7 @@ import { SVGProps } from "react";
 export const NextIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     aria-labelledby="next-title"
-    className="h-6 w-6"
+    className="size-7"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"

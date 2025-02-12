@@ -36,7 +36,7 @@ const BaseAudioPlayer = () => {
     togglePlayerExpanded,
     volume,
   } = useContext(AudioContext);
-  const { artwork, duration, title, bandcamp } = currentSong;
+  const { album, artwork, duration, title, bandcamp } = currentSong;
   // const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
   const handleCurrentTime = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,14 +64,14 @@ const BaseAudioPlayer = () => {
   return (
     <div className="relative hidden h-12 w-full lg:flex">
       <StyledPlayerWrapper playerExpansion={playerExpansion}>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-3">
           {/* audio ref & src */}
           <audio preload="auto" ref={audioRef}>
             <source src={currentSong?.audio} />
           </audio>
 
           {/* previous song button */}
-          <Button iconOnly onClick={handlePrevSong}>
+          <Button iconOnly onClick={handlePrevSong} size="md">
             <PreviousIcon />
           </Button>
 
@@ -79,6 +79,7 @@ const BaseAudioPlayer = () => {
           <Button
             aria-label={isPlaying ? "pause" : "play"}
             iconOnly
+            size="md"
             onClick={handlePlay}
           >
             {isPlaying ? (
@@ -86,20 +87,20 @@ const BaseAudioPlayer = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="stroke-rich-black-fogra29"
+                className="size-7 stroke-rich-black-fogra29"
                 stroke="currentColor"
                 aria-labelledby="pause-title"
               >
                 <title id="pause-title">pause</title>
-                <path strokeWidth={2} d="M10 7v10m5 -10v10" />
+                <path strokeWidth={2} d="M10 5v12m5 -12v12" />
               </svg>
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                viewBox="-1 0 24 24"
+                viewBox="-1 0 25 25"
                 stroke="currentColor"
-                className="size-6"
+                className="size-7"
                 aria-labelledby="play-title"
               >
                 <title id="play-title">play</title>
@@ -109,13 +110,13 @@ const BaseAudioPlayer = () => {
           </Button>
 
           {/* next song button */}
-          <Button iconOnly onClick={handleNextSong}>
+          <Button iconOnly onClick={handleNextSong} size="md">
             <NextIcon />
           </Button>
         </div>
 
         {/* track duration slider and duration */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-3">
           <span className="inline-block w-12 font-questrial text-lg leading-6 tracking-wider">
             {parsedCurrentTime}
           </span>
@@ -138,34 +139,15 @@ const BaseAudioPlayer = () => {
         </div>
 
         {/* volume control slider */}
-        <div className="mx-2 flex h-full items-center space-x-2">
+        <div className="mx-2 flex h-full items-center gap-3">
           {/* mute button */}
           <Button
             aria-label="mute audio"
-            className="size-10"
+            size="sm"
             iconOnly
             onClick={() => setVolume(0)}
           >
-            <svg
-              aria-labelledby="mute-audio-title"
-              className="size-10"
-              fill="none"
-              id="svg"
-              role="img"
-              stroke="currentColor"
-              viewBox="1 1 18 18"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title id="mute-audio-title" lang="en">
-                mute audio
-              </title>
-              <path
-                d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z"
-                fill="currentColor"
-                strokeWidth={0.2}
-                transform="translate(-2, 0)"
-              />
-            </svg>
+            <CloseIcon className="size-9" />
           </Button>
 
           {/* volume slider */}
@@ -203,8 +185,8 @@ const BaseAudioPlayer = () => {
 
         <div className="flex items-center space-x-4">
           {/* album artwork button */}
-          <Button className="p-0" iconOnly onClick={handleOpenModal}>
-            <img className="size-18 aspect-square" src={artwork} alt={title} />
+          <Button iconOnly size="xs" onClick={handleOpenModal}>
+            <img className="aspect-square size-12" src={artwork} alt={title} />
           </Button>
 
           {/* track info */}
@@ -235,24 +217,18 @@ const BaseAudioPlayer = () => {
           </div>
 
           {/* album artwork overlay */}
-          <Overlay isOpen={isModalOpen} onClose={handleCloseModal}>
+          <Overlay
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            title={`${album} album artwork overlay`}
+          >
             <div className="relative flex flex-col items-center justify-center">
-              <Button
-                className="focus-visible:outline-offset-8 focus-visible:outline-white"
-                onClick={handleCloseModal}
-              >
+              <Button variant="secondary" onClick={handleCloseModal}>
                 <img
                   className="aspect-square w-auto cursor-auto md:h-[calc(100vh-100px)]"
                   src={artwork}
                   alt={title}
                 />
-              </Button>
-              <Button
-                className="absolute -right-8 top-0 hidden items-center justify-center rounded-full focus-visible:outline-offset-2 focus-visible:outline-white md:-right-20 md:flex"
-                iconOnly
-                onClick={handleCloseModal}
-              >
-                <CloseIcon />
               </Button>
             </div>
           </Overlay>
