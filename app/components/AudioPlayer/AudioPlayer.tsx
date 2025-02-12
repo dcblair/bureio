@@ -81,12 +81,7 @@ const BaseAudioPlayer = () => {
               aria-labelledby="previous-title"
             >
               <title id="previous-title">previous song</title>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
+              <path strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </Button>
 
@@ -106,29 +101,19 @@ const BaseAudioPlayer = () => {
                 aria-labelledby="pause-title"
               >
                 <title id="pause-title">pause</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 7v10m5 -10v10"
-                />
+                <path strokeWidth={2} d="M10 7v10m5 -10v10" />
               </svg>
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                viewBox="0 0 24 24"
+                viewBox="-1 0 24 24"
                 stroke="currentColor"
-                className="h-6 w-6"
+                className="size-6"
                 aria-labelledby="play-title"
               >
                 <title id="play-title">play</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 3l14 9-14 9V3z"
-                />
+                <path strokeWidth={2} d="M5 3l14 9-14 9V3z" />
               </svg>
             )}
           </Button>
@@ -145,12 +130,7 @@ const BaseAudioPlayer = () => {
               aria-labelledby="next-title"
             >
               <title id="next-title">next song</title>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
+              <path strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Button>
         </div>
@@ -199,8 +179,6 @@ const BaseAudioPlayer = () => {
                 mute audio
               </title>
               <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
                 strokeWidth={0.2}
                 fill="currentColor"
                 d="M7.757 6.343a0.5 0.5 0 01.707 0L12 9.879l3.536-3.536a0.5 0.5 0 11.707.707L12.707 10.586l3.536 3.536a0.5 0.5 0 01-.707.707L12 11.293l-3.536 3.536a0.5 0.5 0 01-.707-.707L11.293 10.586 7.757 7.05a0.5 0.5 0 010-.707z"

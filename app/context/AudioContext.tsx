@@ -139,7 +139,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       queryClient.setQueryData(["currentSong"], updatedSong);
 
       // load and play updated song if isplaying is true
-      if (audioRef.current) {
+      if (audioRef?.current) {
         audioRef.current.load();
         if (isPlaying) {
           audioRef.current.play();
@@ -182,8 +182,8 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       handleNextSong();
     };
 
-    audioRef.current.addEventListener("timeupdate", updateCurrentTime);
-    audioRef.current.addEventListener("ended", handleEndSong);
+    audioRef?.current.addEventListener("timeupdate", updateCurrentTime);
+    audioRef?.current.addEventListener("ended", handleEndSong);
 
     return () => {
       if (!audioRef?.current) return;

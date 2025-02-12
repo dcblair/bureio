@@ -17,8 +17,8 @@ const StyledPolyline = classed(
   {
     variants: {
       playerExpansion: {
-        collapsed: "group-hover:-translate-y-0.5",
-        standard: "group-hover:translate-y-1",
+        collapsed: "group-hover:-translate-y-[0.3rem]",
+        standard: "group-hover:translate-y-[0.18rem]",
       },
     },
   },
@@ -46,7 +46,7 @@ const BasePlayerExpansionButton = ({
   }, [playerExpansion]);
 
   return (
-    <div className="fixed bottom-3.5 right-10 z-30 flex items-center justify-center xl:right-24 2xl:right-32">
+    <div className="group fixed bottom-3.5 right-10 z-30 flex items-center justify-center xl:right-24 2xl:right-32">
       <Tooltip
         content={
           playerExpansion === "collapsed" ? "expand player" : "collapse player"
@@ -67,25 +67,26 @@ const BasePlayerExpansionButton = ({
           onClick={togglePlayerExpanded}
         >
           <svg
-            className="group size-6"
+            aria-labelledby="player-expansion-title"
+            className="size-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <title id="player-expansion-title" lang="en">
+              player expansion
+            </title>
             <StyledPolyline
               playerExpansion={playerExpansion}
               points={defaultChevronPoints}
               ref={polylineRef}
               stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
               strokeWidth="2.5"
             />
 
             <line
               stroke="currentColor"
-              strokeLinecap="round"
               strokeWidth="2.5"
               x1="0"
               x2="24"
