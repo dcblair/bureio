@@ -65,7 +65,11 @@ export default {
         },
         collapse: {
           "0%": { transform: "translateY(0%)", opacity: "1" },
-          "50%": { transform: "translateY(10%)", opacity: "0" },
+          "50%": {
+            transform: "translateY(10%)",
+            opacity: "0",
+            display: "none",
+          },
           "100%": {
             transform: "translateY(100%)",
             opacity: "0",
@@ -81,7 +85,6 @@ export default {
           "100%": {
             transform: "translateY(0%)",
             opacity: "1",
-            display: "flex",
           },
         },
       },

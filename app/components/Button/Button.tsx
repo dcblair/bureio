@@ -25,6 +25,7 @@ const StyledButton = classed("button", "", {
     },
     iconOnly: {
       true: "flex items-center justify-center transition-opacity duration-2000 ease-in-out",
+      false: "",
     },
   },
   compoundVariants: [
@@ -81,7 +82,7 @@ const StyledButton = classed("button", "", {
 
 const BaseButton = ({
   children,
-  iconOnly,
+  iconOnly = false,
   size = "sm",
   variant = "primary",
   ...rest
