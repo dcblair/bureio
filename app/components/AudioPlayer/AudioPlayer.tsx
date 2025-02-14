@@ -1,25 +1,12 @@
 import { type ChangeEvent, memo, useContext, useState } from "react";
 import { AudioContext } from "~/context/AudioContext";
 import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
+import { filterClasses } from "~/utils/filterClasses";
 import { Overlay } from "../Overlay/Overlay";
 import { Tooltip } from "../Tooltip";
-import { classed } from "@tw-classed/react";
 import { PlayerExpansionButton } from "./PlayerExpansionButton";
 import { Button } from "../Button/Button";
 import { CloseIcon, MaxVolumeIcon, NextIcon, PreviousIcon } from "../Icons";
-
-const StyledPlayerWrapper = classed(
-  "div",
-  "fixed bottom-0 z-30 transition h-12 flex duration-3000 w-full gap-4 xl:gap-6 2xl:gap-24 md:pl-8 lg:pl-12 xl:pl-32 items-center border-t-2 border-rich-black-fogra29 bg-romance py-9",
-  {
-    variants: {
-      playerExpansion: {
-        collapsed: "animate-collapse",
-        standard: "animate-expand",
-      },
-    },
-  },
-);
 
 const BaseAudioPlayer = () => {
   const {
@@ -63,7 +50,14 @@ const BaseAudioPlayer = () => {
 
   return (
     <div className="relative hidden h-12 w-full lg:flex">
-      <StyledPlayerWrapper playerExpansion={playerExpansion}>
+      <div
+        className={filterClasses(
+          "fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 border-t-2 border-rich-black-fogra29 bg-romance py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
+          playerExpansion === "collapsed"
+            ? "animate-collapse"
+            : "animate-expand",
+        )}
+      >
         <div className="flex items-center gap-3">
           {/* audio ref & src */}
           <audio preload="auto" ref={audioRef}>
@@ -233,7 +227,7 @@ const BaseAudioPlayer = () => {
             </div>
           </Overlay>
         </div>
-      </StyledPlayerWrapper>
+      </div>
 
       {/* todo: create expanded, standard, and fullscreen svgs */}
       {/* player toggle button */}
