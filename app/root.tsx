@@ -1,25 +1,27 @@
 import type {
   HeadersFunction,
   LinksFunction,
-  LoaderFunctionArgs,
   MetaFunction,
-} from "@remix-run/node";
+} from "react-router";
+import { Route } from "./+types/root";
 import {
+  data,
   isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
   useRouteError,
-} from "@remix-run/react";
+} from "react-router";
 import {
   HydrationBoundary,
   QueryClient,
   QueryClientProvider,
+  isServer,
 } from "@tanstack/react-query";
-import { useState } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { StrictMode, useEffect, useState } from "react";
 import { AudioPlayer, Header } from "~/components";
 import { AudioProvider, Song } from "./context/AudioContext";
 import songs from "./data/songs.json";
@@ -52,7 +54,7 @@ export const headers: HeadersFunction = () => {
   };
 };
 
-export async function loader({}: LoaderFunctionArgs) {
+export async function loader({}: Route.LoaderArgs) {
   try {
     // fetch signed urls for audio and artwork for default song
     const defaultSongRes = await getSignedS3Url(
@@ -65,13 +67,13 @@ export async function loader({}: LoaderFunctionArgs) {
     if (!artworkRes.ok) {
       const error = await artworkRes.text();
       console.error("Failed to fetch artwork url", error);
-      return { updatedSongs: [] };
+      return data({ updatedSongs: [] });
     }
 
     if (!defaultSongRes.ok) {
       const error = await defaultSongRes.text();
       console.error("Failed to fetch default song url", error);
-      return { updatedSongs: [] };
+      return data({ updatedSongs: [] });
     }
 
     const artworkUrl = await artworkRes.json();
@@ -87,15 +89,36 @@ export async function loader({}: LoaderFunctionArgs) {
       } else return song;
     });
 
-    return { updatedSongs };
+    return data({ updatedSongs });
   } catch (error) {
     console.error("Failed to fetch songs", error);
-    return { updatedSongs: [] };
+    return data({ updatedSongs: [] });
   }
 }
 
-export default function App() {
-  const data = useLoaderData<typeof loader>();
+export function Layout() {
+  return (
+    <html className="min-h-screen scroll-smooth" lang="en">
+      <head>
+        <Meta />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Links />
+      </head>
+      <body className="bg-romance">
+        <Outlet />
+        <AudioProvider>
+          <AudioPlayer />
+        </AudioProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+export default function App({ loaderData }: Route.ComponentProps) {
+  const { updatedSongs } = loaderData;
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -107,33 +130,16 @@ export default function App() {
       }),
   );
 
-  queryClient.setQueryData(["songs"], data.updatedSongs);
-  queryClient.setQueryData(["currentSong"], data.updatedSongs[0]);
+  queryClient.setQueryData(["songs"], updatedSongs);
+  queryClient.setQueryData(["currentSong"], updatedSongs[0]);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <HydrationBoundary>
-        <AudioProvider>
-          <html className="h-full scroll-smooth" lang="en">
-            <head>
-              <Meta />
-              <meta charSet="utf-8" />
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1"
-              />
-              <Links />
-            </head>
-            <body className="h-full bg-romance">
-              <Header />
-              <Outlet />
-              <AudioPlayer />
-              <ScrollRestoration />
-              <Scripts />
-            </body>
-          </html>
-        </AudioProvider>
-      </HydrationBoundary>
+      <AudioProvider>
+        <HydrationBoundary>
+          <Outlet />
+        </HydrationBoundary>
+      </AudioProvider>
     </QueryClientProvider>
   );
 }
