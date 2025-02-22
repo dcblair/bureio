@@ -3,7 +3,7 @@ import {
   S3Client,
   ListObjectsV2Command,
 } from "@aws-sdk/client-s3";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs } from "react-router";
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
