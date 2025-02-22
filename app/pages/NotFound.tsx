@@ -1,4 +1,4 @@
-import { Link } from '@remix-run/react';
+import { NavLink } from "react-router";
 
 export default function NotFound() {
   return (
@@ -7,12 +7,12 @@ export default function NotFound() {
         <div className="mb-8">
           <span className="text-nowrap text-3xl">something went wrong</span>
         </div>
-        <Link
+        <NavLink
           className="text-base font-bold text-rich-black-fogra29/80 underline"
           to="/"
         >
           come back
-        </Link>
+        </NavLink>
       </div>
     </div>
   );

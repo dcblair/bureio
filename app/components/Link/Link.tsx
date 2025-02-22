@@ -1,13 +1,11 @@
 import { memo } from "react";
-import { Link as RemixLink } from "@remix-run/react";
+import { NavLink, NavLinkProps } from "react-router";
 import { classed } from "@tw-classed/react";
-import { RemixLinkProps } from "@remix-run/react/dist/components";
-
-interface LinkProps extends RemixLinkProps {
+interface LinkProps extends NavLinkProps {
   variant?: "icon" | "primary";
 }
 
-const StyledLink = classed(RemixLink, "", {
+const StyledLink = classed(NavLink, "", {
   variants: {
     variant: {
       primary:

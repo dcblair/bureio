@@ -1,7 +1,5 @@
 import React, { memo } from "react";
-import { NavLink } from "@remix-run/react";
 import { Link } from "~/components";
-import { useIntersectionObserver } from "~/hooks";
 
 const BaseHeader = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
