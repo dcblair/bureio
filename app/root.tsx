@@ -18,10 +18,9 @@ import {
   HydrationBoundary,
   QueryClient,
   QueryClientProvider,
-  isServer,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { StrictMode, useEffect, useState } from "react";
+import { useState } from "react";
 import { AudioPlayer, Header } from "~/components";
 import { AudioProvider, Song } from "./context/AudioContext";
 import songs from "./data/songs.json";
@@ -96,27 +95,6 @@ export async function loader({}: Route.LoaderArgs) {
   }
 }
 
-export function Layout() {
-  return (
-    <html className="min-h-screen scroll-smooth" lang="en">
-      <head>
-        <Meta />
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Links />
-      </head>
-      <body className="bg-romance">
-        <Outlet />
-        <AudioProvider>
-          <AudioPlayer />
-        </AudioProvider>
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-
 export default function App({ loaderData }: Route.ComponentProps) {
   const { updatedSongs } = loaderData;
   const [queryClient] = useState(
@@ -134,13 +112,30 @@ export default function App({ loaderData }: Route.ComponentProps) {
   queryClient.setQueryData(["currentSong"], updatedSongs[0]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AudioProvider>
-        <HydrationBoundary>
-          <Outlet />
-        </HydrationBoundary>
-      </AudioProvider>
-    </QueryClientProvider>
+    <html className="min-h-screen scroll-smooth" lang="en">
+      <head>
+        <Meta />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Links />
+      </head>
+      <body className="bg-romance">
+        <QueryClientProvider client={queryClient}>
+          <AudioProvider>
+            <HydrationBoundary>
+              <Header />
+              <Outlet />
+              <AudioProvider>
+                <AudioPlayer />
+              </AudioProvider>
+            </HydrationBoundary>
+          </AudioProvider>
+          <ReactQueryDevtools buttonPosition="top-left" initialIsOpen={false} />
+        </QueryClientProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 
