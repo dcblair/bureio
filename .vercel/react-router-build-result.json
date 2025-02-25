@@ -1,0 +1,114 @@
+{
+  "buildManifest": {
+    "serverBundles": {
+      "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0": {
+        "id": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+        "file": "build/server/nodejs-eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    },
+    "routeIdToServerBundleId": {
+      "routes/api.s3-signed-url": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/api.s3-song": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/dsii._index": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/_index": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0"
+    },
+    "routes": {
+      "root": {
+        "path": "",
+        "id": "root",
+        "file": "app/root.tsx",
+        "config": {}
+      },
+      "routes/api.s3-signed-url": {
+        "id": "routes/api.s3-signed-url",
+        "parentId": "root",
+        "file": "app/routes/api.s3-signed-url.ts",
+        "path": "api/s3-signed-url",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/api.s3-song": {
+        "id": "routes/api.s3-song",
+        "parentId": "root",
+        "file": "app/routes/api.s3-song.ts",
+        "path": "api/s3-song",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/dsii._index": {
+        "id": "routes/dsii._index",
+        "parentId": "root",
+        "file": "app/routes/dsii._index.tsx",
+        "path": "dsii",
+        "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/_index": {
+        "id": "routes/_index",
+        "parentId": "root",
+        "file": "app/routes/_index.tsx",
+        "index": true,
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    }
+  },
+  "reactRouterConfig": {
+    "appDirectory": "/Volumes/repos/bureio/bureio/app",
+    "basename": "/",
+    "buildDirectory": "/Volumes/repos/bureio/bureio/build",
+    "future": {
+      "unstable_optimizeDeps": false,
+      "unstable_splitRouteModules": false,
+      "unstable_viteEnvironmentApi": false
+    },
+    "routes": {
+      "root": {
+        "path": "",
+        "id": "root",
+        "file": "root.tsx"
+      },
+      "routes/api.s3-signed-url": {
+        "id": "routes/api.s3-signed-url",
+        "parentId": "root",
+        "file": "routes/api.s3-signed-url.ts",
+        "path": "api/s3-signed-url"
+      },
+      "routes/api.s3-song": {
+        "id": "routes/api.s3-song",
+        "parentId": "root",
+        "file": "routes/api.s3-song.ts",
+        "path": "api/s3-song"
+      },
+      "routes/dsii._index": {
+        "id": "routes/dsii._index",
+        "parentId": "root",
+        "file": "routes/dsii._index.tsx",
+        "path": "dsii",
+        "index": true
+      },
+      "routes/_index": {
+        "id": "routes/_index",
+        "parentId": "root",
+        "file": "routes/_index.tsx",
+        "index": true
+      }
+    },
+    "serverBuildFile": "index.js",
+    "serverModuleFormat": "esm",
+    "ssr": true
+  },
+  "viteConfig": {
+    "build": {
+      "assetsDir": "assets"
+    }
+  }
+}
