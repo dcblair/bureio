@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { LinksFunction, MetaFunction } from "@remix-run/node";
+import { LinksFunction, MetaFunction } from "react-router";
 import { useIntersectionObserver } from "~/hooks";
 import { Button, Overlay, Tooltip } from "~/components";
 

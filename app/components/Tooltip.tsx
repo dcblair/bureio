@@ -61,18 +61,13 @@ const BaseTooltip = ({
 }: TooltipProps) => {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const arrowRef = useRef<HTMLDivElement | null>(null);
-  const { context, x, y, reference, floating, strategy, middlewareData } =
-    useFloating({
-      open: isTooltipOpen,
-      onOpenChange: setIsTooltipOpen,
-      placement: placement,
-      whileElementsMounted: autoUpdate,
-      middleware: [
-        shift(),
-        offset(tooltipOffset),
-        arrow({ element: arrowRef }),
-      ],
-    });
+  const { context, x, y, refs, strategy, middlewareData } = useFloating({
+    open: isTooltipOpen,
+    onOpenChange: setIsTooltipOpen,
+    placement: placement,
+    whileElementsMounted: autoUpdate,
+    middleware: [shift(), offset(tooltipOffset), arrow({ element: arrowRef })],
+  });
   const { isMounted, styles } = useTransitionStyles(context, {
     duration: {
       open: transitionDuration[0],
@@ -115,7 +110,7 @@ const BaseTooltip = ({
     <>
       <div
         className={classNames?.container}
-        {...getReferenceProps({ ref: reference })}
+        {...getReferenceProps({ ref: refs.setReference })}
       >
         {children}
       </div>
@@ -123,7 +118,7 @@ const BaseTooltip = ({
         {isMounted && (
           <StyledContent
             {...getFloatingProps({
-              ref: floating,
+              ref: refs.setFloating,
             })}
             className={classNames?.tooltip}
             style={{
