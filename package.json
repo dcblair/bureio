@@ -59,9 +59,9 @@
     "sharp": "0.33.5",
     "tailwindcss": "3.4.14",
     "typescript": "5.6.3",
-    "vite": "5.4.10",
-    "vite-tsconfig-paths": "5.0.1",
-    "vitest": "2.1.4"
+    "vite": "6.2.0",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.0.7"
   },
   "engines": {
     "node": ">=20"
