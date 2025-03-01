@@ -12,6 +12,7 @@ const BaseAudioPlayer = () => {
   const {
     audioRef,
     currentSong,
+    currentSongStatus,
     currentTime,
     handleNextSong,
     handlePlay,
@@ -180,7 +181,14 @@ const BaseAudioPlayer = () => {
         <div className="flex items-center space-x-4">
           {/* album artwork button */}
           <Button iconOnly size="xs" onClick={handleOpenModal}>
-            <img className="aspect-square size-12" src={artwork} alt={title} />
+            <img
+              className={filterClasses(
+                "aspect-square size-12",
+                currentSong.artwork && "animate-fade-in",
+              )}
+              src={artwork}
+              alt={title}
+            />
           </Button>
 
           {/* track info */}
@@ -219,7 +227,7 @@ const BaseAudioPlayer = () => {
             <div className="relative flex flex-col items-center justify-center">
               <Button variant="secondary" onClick={handleCloseModal}>
                 <img
-                  className="aspect-square w-auto cursor-auto md:h-[calc(100vh-100px)]"
+                  className="aspect-square w-auto cursor-auto md:h-[calc(100dvh-100px)]"
                   src={artwork}
                   alt={title}
                 />

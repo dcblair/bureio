@@ -13,7 +13,7 @@ interface PlayerExpansionButtonProps {
 
 const StyledPolyline = classed(
   "polyline",
-  "transition-transform duration-3000 ease-in-out",
+  "transition-transform motion-reduce:transition-none duration-3000 ease-in-out",
   {
     variants: {
       playerExpansion: {

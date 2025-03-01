@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import {
   arrow,
@@ -149,4 +149,4 @@ const BaseTooltip = ({
   );
 };
 
-export const Tooltip = React.memo(BaseTooltip);
+export const Tooltip = memo(BaseTooltip);
