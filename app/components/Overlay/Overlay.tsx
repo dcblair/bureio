@@ -7,6 +7,7 @@ import {
 import { memo, type ReactNode } from "react";
 import { CloseIcon } from "../Icons";
 import { Button } from "../Button/Button";
+import { filterClasses } from "~/utils/filterClasses";
 
 interface OverlayProps {
   children: ReactNode;
@@ -24,8 +25,19 @@ const BaseOverlay = ({ children, isOpen, onClose, title }: OverlayProps) => {
       open={isOpen}
     >
       <DialogTitle className="sr-only">{title}</DialogTitle>
-      <DialogBackdrop className="fixed inset-0 -z-10 bg-gradient-to-t from-slate-950/70 to-slate-600/70 backdrop-blur-lg" />
-      <DialogPanel className="flex size-full flex-col items-center justify-center">
+      {/* todo: build seamless fade-out */}
+      <DialogBackdrop
+        className={filterClasses(
+          "fixed inset-0 -z-10 bg-gradient-to-t from-slate-950/70 to-slate-600/70 backdrop-blur-lg",
+          isOpen ? "animate-full-fade-in-fast" : "animate-full-fade-out-fast",
+        )}
+      />
+      <DialogPanel
+        className={filterClasses(
+          "flex size-full flex-col items-center justify-center",
+          isOpen ? "animate-full-fade-in-fast" : "animate-full-fade-out-fast",
+        )}
+      >
         <div className="relative flex flex-col items-center justify-center">
           {children}
           <Button

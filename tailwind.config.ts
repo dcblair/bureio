@@ -9,6 +9,8 @@ export default {
         "fade-out": "fade-out 1.2s ease-in",
         "full-fade-in": "full-fade-in 1s ease-in-out",
         "full-fade-out": "full-fade-out 1s ease-in",
+        "full-fade-in-fast": "full-fade-in 0.4s ease-in-out",
+        "full-fade-out-fast": "full-fade-out 0.5s ease-in",
         float: "float 3s infinite ease",
         collapse: "collapse 2s both ease-in",
         expand: "expand 1.7s both ease-in",
