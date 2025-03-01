@@ -42,6 +42,7 @@ export type PlayerExpansion = (typeof playerExpansion)[number];
 interface AudioContextType {
   audioRef: MutableRefObject<HTMLAudioElement | null>;
   currentSong: Song;
+  currentSongStatus: "success" | "error";
   currentTime: number;
   handleNextSong: () => void;
   handlePlay: () => void;
@@ -57,6 +58,7 @@ interface AudioContextType {
 const AudioContext = createContext<AudioContextType>({
   audioRef: { current: null },
   currentSong: backupSong,
+  currentSongStatus: "success",
   currentTime: 0,
   handleNextSong: () => {},
   handlePlay: () => {},
@@ -81,8 +83,8 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
 
   const {
     data: currentSong,
-    error: currentSongError,
     isLoading: isCurrentSongLoading,
+    status: currentSongStatus,
   } = useQuery<Song>({
     queryKey: ["currentSong"],
     initialData: backupSong,
@@ -91,7 +93,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   const {
     data: songs,
     error: songsError,
-    isLoading: areSongsLoading,
+    isPending: areSongsLoading,
   } = useQuery<Song[]>({ queryKey: ["songs"], initialData: initialSongs });
 
   const { mutateAsync: updateSong } = useMutation({
@@ -253,6 +255,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   const value = {
     audioRef,
     currentSong,
+    currentSongStatus: currentSongStatus,
     currentTime,
     setVolume: (volume: number) => {
       if (audio) {
