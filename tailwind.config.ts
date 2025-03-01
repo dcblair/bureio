@@ -9,8 +9,6 @@ export default {
         "fade-out": "fade-out 1.2s ease-in",
         "full-fade-in": "full-fade-in 1s ease-in-out",
         "full-fade-out": "full-fade-out 1s ease-in",
-        "full-fade-in-fast": "full-fade-in 0.4s ease-in-out",
-        "full-fade-out-fast": "full-fade-out 0.5s ease-in",
         float: "float 3s infinite ease",
         collapse: "collapse 2s both ease-in",
         expand: "expand 1.7s both ease-in",
@@ -91,6 +89,8 @@ export default {
         },
       },
       transitionDuration: {
+        "400": "400ms",
+        "1200": "1200ms",
         "2000": "2000ms",
         "3000": "3000ms",
         "4000": "4000ms",
