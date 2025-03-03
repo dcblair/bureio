@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @font-face {
   font-family: "Questrial";
@@ -22,6 +20,101 @@
   font-display: "swap";
   src: url("../fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Regular.ttf")
     format("truetype");
+}
+
+@theme {
+  --color-rich-black-fogra29: "#0D1F2D";
+  --color-romance: "#f2efe8";
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: "0.5";
+  }
+  50% {
+    opacity: "0.7";
+  }
+  100% {
+    opacity: "1";
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: "1";
+  }
+  50% {
+    opacity: "0.7";
+  }
+  100% {
+    opacity: "0.5";
+  }
+}
+
+@keyframes full-fade-in {
+  0% {
+    opacity: "0";
+  }
+  50% {
+    opacity: "0.5";
+  }
+  100% {
+    opacity: "1";
+  }
+}
+
+@keyframes full-fade-out {
+  0% {
+    opacity: "1";
+  }
+  50% {
+    opacity: "0.6";
+  }
+  100% {
+    opacity: "0";
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: "translateY(0%)";
+  }
+  50% {
+    transform: "translateY(2%)";
+  }
+}
+
+@keyframes collapse {
+  0% {
+    transform: "translateY(0%)";
+    opacity: "1";
+  }
+  50% {
+    transform: "translateY(10%)";
+    opacity: "0";
+    display: "none";
+  }
+  100% {
+    transform: "translateY(100%)";
+    opacity: "0";
+    display: "none";
+  }
+}
+
+@keyframes expand {
+  0% {
+    transform: "translateY(100%)";
+    opacity: "0";
+  }
+  50% {
+    transform: "translateY(10%)";
+    opacity: "0";
+  }
+  100% {
+    transform: "translateY(0%)";
+    opacity: "1";
+  }
 }
 
 @layer utilities {

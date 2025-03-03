@@ -1,9 +1,15 @@
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useState } from "react";
 import type {
   HeadersFunction,
   LinksFunction,
   MetaFunction,
 } from "react-router";
-import { Route } from "./+types/root";
 import {
   data,
   isRouteErrorResponse,
@@ -14,14 +20,8 @@ import {
   ScrollRestoration,
   useRouteError,
 } from "react-router";
-import {
-  HydrationBoundary,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState } from "react";
 import { AudioPlayer, Header } from "~/components";
+import { Route } from "./+types/root";
 import { AudioProvider, Song } from "./context/AudioContext";
 import songs from "./data/songs.json";
 import NotFound from "./pages/NotFound";
@@ -153,7 +153,7 @@ export function ErrorBoundary() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full bg-romance">
+      <body className="bg-romance h-full">
         <Header />
         <NotFound />
         <Scripts />
