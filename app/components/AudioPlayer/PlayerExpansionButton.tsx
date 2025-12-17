@@ -66,9 +66,6 @@ const BasePlayerExpansionButton = ({
             viewBox="0 4 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <title id="player-expansion-title" lang="en">
-              player expansion
-            </title>
             <StyledPolyline
               playerExpansion={playerExpansion}
               points={defaultChevronPoints}
