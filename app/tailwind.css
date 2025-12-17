@@ -1,27 +1,109 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Zen+Kaku+Gothic+Antique&display=swap");
+@import "tailwindcss";
 
-@font-face {
-  font-family: "Questrial";
-  font-style: "normal";
-  font-display: "swap";
-  src: url("../fonts/questrial/Questrial-Regular.ttf") format("truetype");
+@theme {
+  --color-rich-black-fogra29: #0d1f2d;
+  --color-romance: #f2efe8;
+  --color-dark-cyan: #363f43;
+  --color-blanched-almond: #ffebcd;
+  --color-ivory: #fcfaee;
+
+  --font-sans: "Zen Kaku Gothic Antique", sans-serif;
+  --font-questrial: "Questrial", sans-serif;
+
+  --shadow-3xl: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+  --shadow-4xl: 0 50px 100px -20px rgba(0, 0, 0, 0.3);
+  --shadow-5xl: 0 50px 100px -20px rgba(0, 0, 0, 0.6);
 }
 
-@font-face {
-  font-family: "M Plus 1";
-  font-style: "normal";
-  font-display: "swap";
-  src: url("../fonts/M_PLUS_1/MPLUS1-VariableFont_wght.ttf") format("truetype");
+@keyframes fade-in {
+  0% {
+    opacity: "0.5";
+  }
+  50% {
+    opacity: "0.7";
+  }
+  100% {
+    opacity: "1";
+  }
 }
 
-@font-face {
-  font-family: "Zen Kaku Gothic Antique";
-  font-style: "normal";
-  font-display: "swap";
-  src: url("../fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Regular.ttf")
-    format("truetype");
+@keyframes fade-out {
+  0% {
+    opacity: "1";
+  }
+  50% {
+    opacity: "0.7";
+  }
+  100% {
+    opacity: "0.5";
+  }
+}
+
+@keyframes full-fade-in {
+  0% {
+    opacity: "0";
+  }
+  50% {
+    opacity: "0.5";
+  }
+  100% {
+    opacity: "1";
+  }
+}
+
+@keyframes full-fade-out {
+  0% {
+    opacity: "1";
+  }
+  50% {
+    opacity: "0.6";
+  }
+  100% {
+    opacity: "0";
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: "translateY(0%)";
+  }
+  50% {
+    transform: "translateY(2%)";
+  }
+}
+
+@keyframes collapse {
+  0% {
+    transform: "translateY(0%)";
+    opacity: "1";
+  }
+  50% {
+    transform: "translateY(10%)";
+    opacity: "0";
+    display: "none";
+  }
+  100% {
+    transform: "translateY(100%)";
+    opacity: "0";
+    display: "none";
+  }
+}
+
+@keyframes expand {
+  0% {
+    transform: "translateY(100%)";
+    opacity: "0";
+  }
+  50% {
+    transform: "translateY(10%)";
+    opacity: "0";
+  }
+  100% {
+    transform: "translateY(0%)";
+    opacity: "1";
+  }
 }
 
 @layer utilities {

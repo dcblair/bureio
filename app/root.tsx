@@ -1,9 +1,11 @@
-import type {
-  HeadersFunction,
-  LinksFunction,
-  MetaFunction,
-} from "react-router";
-import { Route } from "./+types/root";
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useState } from "react";
+import type { HeadersFunction, MetaFunction } from "react-router";
 import {
   data,
   isRouteErrorResponse,
@@ -14,18 +16,11 @@ import {
   ScrollRestoration,
   useRouteError,
 } from "react-router";
-import {
-  HydrationBoundary,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState } from "react";
 import { AudioPlayer, Header } from "~/components";
+import { Route } from "./+types/root";
 import { AudioProvider, Song } from "./context/AudioContext";
 import songs from "./data/songs.json";
 import NotFound from "./pages/NotFound";
-import "./tailwind.css";
 import { getSignedS3Url } from "./utils/s3-signed-url";
 
 export const meta: MetaFunction = () => {
@@ -36,16 +31,6 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
-
-export const links: LinksFunction = () => [
-  {
-    rel: "prefetch",
-    as: "font",
-    type: "font/ttf",
-    crossOrigin: "anonymous",
-    href: "/fonts/questrial/Questrial-Regular.ttf",
-  },
-];
 
 export const headers: HeadersFunction = () => {
   return {
@@ -125,9 +110,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
             <HydrationBoundary>
               <Header />
               <Outlet />
-              <AudioProvider>
-                <AudioPlayer />
-              </AudioProvider>
+              <AudioPlayer />
             </HydrationBoundary>
           </AudioProvider>
           <ReactQueryDevtools buttonPosition="top-left" initialIsOpen={false} />
@@ -153,7 +136,7 @@ export function ErrorBoundary() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full bg-romance">
+      <body className="bg-romance h-full">
         <Header />
         <NotFound />
         <Scripts />
