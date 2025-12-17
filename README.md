@@ -1,4 +1,4 @@
-# bu.re\_
+# bu.re
 
 ## Development
 
