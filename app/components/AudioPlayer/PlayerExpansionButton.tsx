@@ -46,7 +46,7 @@ const BasePlayerExpansionButton = ({
   }, [playerExpansion]);
 
   return (
-    <div className="group fixed bottom-3.5 right-10 z-30 flex items-center justify-center xl:right-24 2xl:right-32">
+    <div className="group fixed right-10 bottom-3.5 z-30 flex items-center justify-center xl:right-24 2xl:right-32">
       <Tooltip
         content={
           playerExpansion === "collapsed" ? "expand player" : "collapse player"
@@ -57,16 +57,7 @@ const BasePlayerExpansionButton = ({
         transitionDuration={[3000, 1600]}
         zIndex={30}
       >
-        <Button
-          aria-label={
-            playerExpansion === "collapsed"
-              ? "expand audio player"
-              : "collapse audio player"
-          }
-          iconOnly
-          size="md"
-          onClick={togglePlayerExpanded}
-        >
+        <Button iconOnly size="md" onClick={togglePlayerExpanded}>
           <svg
             aria-labelledby="player-expansion-title"
             className="size-7"
