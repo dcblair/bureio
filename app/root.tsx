@@ -25,8 +25,8 @@ import { Route } from "./+types/root";
 import { AudioProvider, Song } from "./context/AudioContext";
 import songs from "./data/songs.json";
 import NotFound from "./pages/NotFound";
-import "./tailwind.css";
 import { getSignedS3Url } from "./utils/s3-signed-url";
+import "./tailwind.css";
 
 export const meta: MetaFunction = () => {
   return [
@@ -125,9 +125,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
             <HydrationBoundary>
               <Header />
               <Outlet />
-              <AudioProvider>
-                <AudioPlayer />
-              </AudioProvider>
+              <AudioPlayer />
             </HydrationBoundary>
           </AudioProvider>
           <ReactQueryDevtools buttonPosition="top-left" initialIsOpen={false} />
