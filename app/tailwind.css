@@ -23,8 +23,11 @@
 }
 
 @theme {
-  --color-rich-black-fogra29: "#0D1F2D";
-  --color-romance: "#f2efe8";
+  --color-rich-black-fogra29: #0d1f2d;
+  --color-romance: #f2efe8;
+
+  --font-sans: "Zen Kaku Gothic Antique, sans-serif";
+  --font-questrial: "Questrial, sans-serif";
 }
 
 @keyframes fade-in {
