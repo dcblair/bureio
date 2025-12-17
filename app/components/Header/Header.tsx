@@ -16,7 +16,7 @@ const BaseHeader = () => {
             </h1>
 
             {/* underscore */}
-            <div className="from-rich-black-fogra29 to-rich-black-fogra29/45 absolute right-0 bottom-1.5 hidden h-1 w-14 rounded-sm bg-gradient-to-l to-70% transition-transform duration-2000 group-hover:scale-x-200 motion-reduce:transition-none md:flex" />
+            <div className="from-rich-black-fogra29 to-rich-black-fogra29/45 absolute right-0 bottom-1.5 hidden h-1 w-14 origin-right rounded-sm bg-gradient-to-l to-70% transition-transform duration-2000 group-hover:scale-x-200 motion-reduce:transition-none md:flex" />
           </div>
         </Link>
 

@@ -5,11 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
-import type {
-  HeadersFunction,
-  LinksFunction,
-  MetaFunction,
-} from "react-router";
+import type { HeadersFunction, MetaFunction } from "react-router";
 import {
   data,
   isRouteErrorResponse,
@@ -26,7 +22,6 @@ import { AudioProvider, Song } from "./context/AudioContext";
 import songs from "./data/songs.json";
 import NotFound from "./pages/NotFound";
 import { getSignedS3Url } from "./utils/s3-signed-url";
-import "./tailwind.css";
 
 export const meta: MetaFunction = () => {
   return [
@@ -36,16 +31,6 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
-
-export const links: LinksFunction = () => [
-  {
-    rel: "prefetch",
-    as: "font",
-    type: "font/ttf",
-    crossOrigin: "anonymous",
-    href: "/fonts/questrial/Questrial-Regular.ttf",
-  },
-];
 
 export const headers: HeadersFunction = () => {
   return {

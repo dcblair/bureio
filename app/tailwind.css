@@ -1,33 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Zen+Kaku+Gothic+Antique&display=swap");
 @import "tailwindcss";
-
-@font-face {
-  font-family: "Questrial";
-  font-style: "normal";
-  font-display: "swap";
-  src: url("../fonts/questrial/Questrial-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "M Plus 1";
-  font-style: "normal";
-  font-display: "swap";
-  src: url("../fonts/M_PLUS_1/MPLUS1-VariableFont_wght.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Zen Kaku Gothic Antique";
-  font-style: "normal";
-  font-display: "swap";
-  src: url("../fonts/Zen_Kaku_Gothic_Antique/ZenKakuGothicAntique-Regular.ttf")
-    format("truetype");
-}
 
 @theme {
   --color-rich-black-fogra29: #0d1f2d;
   --color-romance: #f2efe8;
 
-  --font-sans: "Zen Kaku Gothic Antique, sans-serif";
-  --font-questrial: "Questrial, sans-serif";
+  --font-sans: "Zen Kaku Gothic Antique", sans-serif;
+  --font-questrial: "Questrial", sans-serif;
 }
 
 @keyframes fade-in {
