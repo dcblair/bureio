@@ -4,9 +4,16 @@
 @theme {
   --color-rich-black-fogra29: #0d1f2d;
   --color-romance: #f2efe8;
+  --color-dark-cyan: #363f43;
+  --color-blanched-almond: #ffebcd;
+  --color-ivory: #fcfaee;
 
   --font-sans: "Zen Kaku Gothic Antique", sans-serif;
   --font-questrial: "Questrial", sans-serif;
+
+  --shadow-3xl: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+  --shadow-4xl: 0 50px 100px -20px rgba(0, 0, 0, 0.3);
+  --shadow-5xl: 0 50px 100px -20px rgba(0, 0, 0, 0.6);
 }
 
 @keyframes fade-in {
