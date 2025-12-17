@@ -1,18 +1,5 @@
 [
   {
-    "id": "ec43a174-b942-4dfb-af23-059da7659747",
-    "title": "nara (奈良)",
-    "artist": "bu.re_",
-    "album": "passing glances (一瞥) [remastered]",
-    "duration": 91,
-    "artworkS3": "/artwork/passing-glances-remastered.webp",
-    "audioS3": "/songs/nara-remastered.wav",
-    "trackNumber": 5,
-    "bandcamp": "https://bu-re.bandcamp.com/track/nara",
-    "audio": "",
-    "artwork": ""
-  },
-  {
     "id": "7de7ebca-20c1-4e5e-83fb-5c672ac81c82",
     "title": "falling into sheer blue",
     "artist": "bu.re_",
@@ -47,6 +34,19 @@
     "artwork": "/images/webp/on-grieving-1200w.webp",
     "audio": "/audio/calling-currents.wav",
     "trackNumber": 3,
-    "bandcamp": "https://bu-re.bandcamp.com/track/calling-currents"
+    "bandcamp": "https://elmrecords.bandcamp.com/album/on-grieving"
+  },
+  {
+    "id": "ec43a174-b942-4dfb-af23-059da7659747",
+    "title": "nara (奈良)",
+    "artist": "bu.re_",
+    "album": "passing glances (一瞥) [remastered]",
+    "duration": 91,
+    "artworkS3": "/artwork/passing-glances-remastered.webp",
+    "audioS3": "/songs/nara-remastered.wav",
+    "trackNumber": 5,
+    "bandcamp": "https://bu-re.bandcamp.com/album/passing-glances-remastered",
+    "audio": "",
+    "artwork": ""
   }
 ]
