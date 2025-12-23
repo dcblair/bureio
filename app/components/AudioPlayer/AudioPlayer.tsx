@@ -53,7 +53,7 @@ const BaseAudioPlayer = () => {
     <div className="relative hidden h-12 w-full lg:flex">
       <div
         className={filterClasses(
-          "fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 border-t-2 border-rich-black-fogra29 bg-romance py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
+          "border-rich-black-fogra29 bg-romance fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 border-t-2 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
           playerExpansion === "collapsed"
             ? "animate-collapse"
             : "animate-expand",
@@ -82,7 +82,7 @@ const BaseAudioPlayer = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="size-7 stroke-rich-black-fogra29"
+                className="stroke-rich-black-fogra29 size-7"
                 stroke="currentColor"
                 aria-labelledby="pause-title"
               >
@@ -112,11 +112,11 @@ const BaseAudioPlayer = () => {
 
         {/* track duration slider and duration */}
         <div className="flex items-center gap-3">
-          <span className="inline-block w-12 font-questrial text-lg leading-6 tracking-wider">
+          <span className="font-questrial inline-block w-12 text-lg leading-6 tracking-wider">
             {parsedCurrentTime}
           </span>
           <input
-            className="h-0.5 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 md:w-24 xl:w-48 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+            className="from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 focus-visible:outline-2 md:w-24 xl:w-48 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
             id="trackDurationSlider"
             max={Number((audioRef?.current && audioRef.current.duration) || 0)}
             min={0}
@@ -128,7 +128,7 @@ const BaseAudioPlayer = () => {
           <label htmlFor="trackDurationSlider" className="sr-only">
             track duration
           </label>
-          <span className="inline-block w-12 font-questrial text-lg leading-6 tracking-wider">
+          <span className="font-questrial inline-block w-12 text-lg leading-6 tracking-wider">
             {trackDuration}
           </span>
         </div>
@@ -157,7 +157,7 @@ const BaseAudioPlayer = () => {
             zIndex={30}
           >
             <input
-              className="h-0.5 cursor-pointer appearance-none bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 focus-visible:outline-rich-black-fogra29 md:w-10 xl:w-16 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+              className="from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 md:w-10 xl:w-16 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
               id="volumeSlider"
               max={1}
               min={0}
@@ -192,7 +192,7 @@ const BaseAudioPlayer = () => {
           </Button>
 
           {/* track info */}
-          <div className="w-70 flex items-center space-x-4 text-left">
+          <div className="flex w-70 items-center space-x-4 text-left">
             <span className="font-questrial text-lg">track — </span>
             {/* bandcamp link */}
             <Tooltip
