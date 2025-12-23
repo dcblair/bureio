@@ -24,95 +24,95 @@
   --animate-full-fade-in: full-fade-in 0.5s ease-in forwards;
   --animate-full-fade-out: full-fade-out 0.5s ease-in forwards;
   --animate-float: float 3s ease-in-out infinite;
-  --animate-collapse: collapse 0.5s ease-in forwards;
-  --animate-expand: expand 0.5s ease-in forwards;
+  --animate-collapse: collapse 2s ease-in forwards;
+  --animate-expand: expand 1.2s ease-in forwards;
 
   @keyframes fade-in {
     0% {
-      opacity: "0.5";
+      opacity: 0.5;
     }
     50% {
-      opacity: "0.7";
+      opacity: 0.7;
     }
     100% {
-      opacity: "1";
+      opacity: 1;
     }
   }
 
   @keyframes fade-out {
     0% {
-      opacity: "1";
+      opacity: 1;
     }
     50% {
-      opacity: "0.7";
+      opacity: 0.7;
     }
     100% {
-      opacity: "0.5";
+      opacity: 0.5;
     }
   }
 
   @keyframes full-fade-in {
     0% {
-      opacity: "0";
+      opacity: 0;
     }
     50% {
-      opacity: "0.5";
+      opacity: 0.5;
     }
     100% {
-      opacity: "1";
+      opacity: 1;
     }
   }
 
   @keyframes full-fade-out {
     0% {
-      opacity: "1";
+      opacity: 1;
     }
     50% {
-      opacity: "0.6";
+      opacity: 0.6;
     }
     100% {
-      opacity: "0";
+      opacity: 0;
     }
   }
 
   @keyframes float {
     0%,
     100% {
-      transform: "translateY(0%)";
+      transform: translateY(0%);
     }
     50% {
-      transform: "translateY(2%)";
+      transform: translateY(2%);
     }
   }
 
   @keyframes collapse {
     0% {
-      transform: "translateY(0%)";
+      transform: translateY(0%);
       opacity: 1;
     }
     50% {
-      transform: "translateY(10%)";
+      transform: translateY(10%);
       opacity: 0;
-      display: "none";
+      display: none;
     }
     100% {
-      transform: "translateY(100%)";
+      transform: translateY(100%);
       opacity: 0;
-      display: "none";
+      display: none;
     }
   }
 
   @keyframes expand {
     0% {
-      transform: "translateY(100%)";
+      transform: translateY(100%);
       opacity: 0;
     }
     50% {
-      transform: "translateY(10%)";
+      transform: translateY(10%);
       opacity: 0;
     }
     100% {
-      transform: "translateY(0%)";
+      transform: translateY(0%);
       opacity: 1;
     }
   }
