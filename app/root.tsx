@@ -97,7 +97,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
   queryClient.setQueryData(["currentSong"], updatedSongs[0]);
 
   return (
-    <html className="min-h-screen scroll-smooth" lang="en">
+    <html className="min-h-screen" lang="en">
       <head>
         <Meta />
         <meta charSet="utf-8" />

@@ -119,7 +119,7 @@ export default function DreamSequenceii() {
           style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
         >
           <video
-            className="bg-romance focus:outline-black-fogra29 aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-[310px] object-cover p-8 focus:outline-2 focus:outline-offset-4 sm:h-auto sm:w-[325px] lg:h-auto lg:w-[325px]"
+            className="bg-romance focus:outline-black-fogra29 aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-77.5 object-cover p-8 focus:outline-2 focus:outline-offset-4 sm:h-auto sm:w-81.25 lg:h-auto lg:w-81.25"
             controls
             controlsList="nodownload noplaybackrate"
             preload="auto"

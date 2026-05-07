@@ -87,6 +87,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       cancelAnimationFrame(fadeAnimRef.current);
       fadeAnimRef.current = null;
     }
+    isFading.current = false;
   };
 
   const fadeOut = (onComplete: () => void, duration = 300) => {
@@ -256,15 +257,20 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   const handlePlay = () => {
     const audio = audioRef.current;
     if (!currentSong?.audio || !audio) return;
-    if (isFading.current) return;
 
     if (!audio.paused) {
+      // pause is always allowed — cancel any in-progress fade first
+      cancelFade();
       isFading.current = true;
+      // if interrupted mid fade-in, restore to a non-zero start volume
+      if (audio.volume === 0) audio.volume = volume;
       fadeOut(() => {
         audio.pause();
         isFading.current = false;
       });
     } else {
+      // throttle rapid double-taps on play only
+      if (isFading.current) return;
       isFading.current = true;
       audio
         .play()
