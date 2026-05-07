@@ -62,12 +62,15 @@ const BaseAudioPlayer = () => {
     >
       <div
         className={filterClasses(
-          "border-black-fogra29 bg-romance fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 border-t-2 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
+          "bg-romance fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
           playerExpansion === "collapsed"
             ? "animate-collapse"
             : "animate-expand",
         )}
       >
+        {/* fixed gradient top border */}
+        <div className="from-black-fogra29 to-black-fogra29/40 absolute top-0 left-0 h-0.5 w-full bg-linear-to-r" />
+
         <div className="flex items-center gap-3">
           {/* audio ref & src */}
           <audio preload="auto" ref={audioRef}>
