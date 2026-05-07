@@ -1,7 +1,11 @@
 {
   "private": true,
+  "name": "bure",
   "sideEffects": false,
   "type": "module",
+  "overrides": {
+    "fast-xml-parser": ">=5.7.0"
+  },
   "scripts": {
     "build-storybook": "storybook build",
     "build": "react-router build",

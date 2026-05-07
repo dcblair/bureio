@@ -68,18 +68,73 @@ const AudioContext = createContext<AudioContextType>({
   setCurrentTime: () => {},
   setVolume: () => {},
   togglePlayerExpanded: () => {},
-  volume: 0.7,
+  volume: 0.85,
 });
 
 const AudioProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.7);
+  const [volume, setVolume] = useState(0.85);
   const [playerExpansion, setPlayerExpansion] =
     useState<PlayerExpansion>("standard");
   const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const audio = audioRef.current;
+  const fadeAnimRef = useRef<number | null>(null);
+  const isFading = useRef(false);
+  const operationRef = useRef(0);
+
+  const cancelFade = () => {
+    if (fadeAnimRef.current !== null) {
+      cancelAnimationFrame(fadeAnimRef.current);
+      fadeAnimRef.current = null;
+    }
+    isFading.current = false;
+  };
+
+  const fadeOut = (onComplete: () => void, duration = 300) => {
+    const audio = audioRef.current;
+    if (!audio) {
+      onComplete();
+      return;
+    }
+    cancelFade();
+    const generation = ++operationRef.current;
+    const startVolume = Math.min(1, Math.max(0, audio.volume));
+    const startTime = performance.now();
+    const step = (now: number) => {
+      if (generation !== operationRef.current) return;
+      const progress = Math.min((now - startTime) / duration, 1);
+      audio.volume = Math.min(1, Math.max(0, startVolume * (1 - progress)));
+      if (progress < 1) {
+        fadeAnimRef.current = requestAnimationFrame(step);
+      } else {
+        audio.volume = 0;
+        onComplete();
+      }
+    };
+    fadeAnimRef.current = requestAnimationFrame(step);
+  };
+
+  const fadeIn = (targetVolume: number, duration = 300) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    cancelFade();
+    const generation = ++operationRef.current;
+    audio.volume = 0;
+    const startTime = performance.now();
+    const step = (now: number) => {
+      if (generation !== operationRef.current) return;
+      const progress = Math.min((now - startTime) / duration, 1);
+      audio.volume = Math.min(1, Math.max(0, targetVolume * progress));
+      if (progress < 1) {
+        fadeAnimRef.current = requestAnimationFrame(step);
+      } else {
+        audio.volume = Math.min(1, Math.max(0, targetVolume));
+        isFading.current = false;
+      }
+    };
+    fadeAnimRef.current = requestAnimationFrame(step);
+  };
 
   const {
     data: currentSong,
@@ -123,11 +178,11 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       };
     },
     onSuccess: (updatedSong) => {
-      queryClient.setQueryData(["songs"], (oldSongs: Song[]) => {
-        oldSongs?.map((song) => {
-          song.id === updatedSong.id ? updatedSong : song;
-        });
-      });
+      queryClient.setQueryData(["songs"], (oldSongs: Song[]) =>
+        oldSongs?.map((song) =>
+          song.id === updatedSong.id ? updatedSong : song,
+        ),
+      );
     },
   });
 
@@ -140,11 +195,13 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
 
       queryClient.setQueryData(["currentSong"], updatedSong);
 
-      // load and play updated song if isplaying is true
       if (audioRef?.current) {
         audioRef.current.load();
         if (isPlaying) {
-          audioRef.current.play();
+          audioRef.current.play().catch((err) => {
+            console.error("playback failed:", err);
+            setIsPlaying(false);
+          });
         }
       }
     } catch (error) {
@@ -156,89 +213,86 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     const currentSongIndex = songs.findIndex(
       (song) => song.id === currentSong.id,
     );
-    const nextSong = songs[(currentSongIndex + 1) % songs.length];
-    nextSong ? handleSongChange(nextSong.id) : handleSongChange(songs[0].id);
+    const nextIndex = (currentSongIndex + 1) % songs.length;
+    handleSongChange(songs[nextIndex].id);
   };
 
   const handlePrevSong = () => {
     const currentSongIndex = songs.findIndex(
       (song) => song.id === currentSong.id,
     );
-    const prevSong = songs[(currentSongIndex - 1) % songs.length];
-    prevSong
-      ? handleSongChange(prevSong.id)
-      : handleSongChange(songs[songs.length - 1].id);
+    const prevIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    handleSongChange(songs[prevIndex].id);
   };
 
-  // todo: add fade in and out & fix clean track change
   //  handles saving current time in state and ending song
   useEffect(() => {
-    if (!audioRef?.current || !currentSong?.audio) return;
+    const audio = audioRef.current;
+    if (!audio || !currentSong?.audio) return;
+
+    // sync audio element volume with React state
+    audio.volume = volume;
 
     const updateCurrentTime = () => {
-      if (!audioRef?.current) return;
-      setCurrentTime(audioRef.current.currentTime);
+      setCurrentTime(audio.currentTime);
     };
 
     const handleEndSong = () => {
       handleNextSong();
     };
 
-    audioRef.current.addEventListener("timeupdate", updateCurrentTime);
-    audioRef.current.addEventListener("ended", handleEndSong);
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
+
+    audio.addEventListener("timeupdate", updateCurrentTime);
+    audio.addEventListener("ended", handleEndSong);
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
 
     return () => {
-      if (!audioRef?.current) return;
-      audioRef.current.removeEventListener("timeupdate", updateCurrentTime);
-      audioRef.current.removeEventListener("ended", handleEndSong);
+      audio.removeEventListener("timeupdate", updateCurrentTime);
+      audio.removeEventListener("ended", handleEndSong);
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+      cancelFade();
     };
   }, [audioRef?.current, currentSong]);
 
-  // todo: fix this!
-  // const fadeOut = (milliseconds = 100) => {
-  //   if (!audio) return;
-
-  //   const fade = () => {
-  //     if (audio.volume > 0) {
-  //       audio.volume = Math.max(0, audio.volume - 0.05);
-  //       setInterval(fade, milliseconds);
-  //     } else {
-  //       audio.pause();
-  //     }
-  //   };
-  //   fade();
-  // };
-
-  // const fadeIn = (milliseconds = 100) => {
-  //   if (!audio) return;
-
-  //   const fade = () => {
-  //     if (audio.volume === 0) {
-  //       audio.play();
-  //     }
-
-  //     if (audio.volume < volume) {
-  //       audio.volume = Math.min(1, audio.volume + 0.05);
-  //       setTimeout(fade, milliseconds);
-  //     } else {
-  //     }
-  //   };
-  //   fade();
-  // };
-
   // handles audio playing and pausing
   const handlePlay = () => {
-    if (!currentSong?.audio || !audioRef?.current) return;
+    const audio = audioRef.current;
+    if (!currentSong?.audio || !audio) return;
 
-    if (isPlaying) {
-      // fadeOut(2000);
-      audioRef.current.pause();
+    if (!audio.paused) {
+      // pause is always allowed — cancel any in-progress fade first
+      cancelFade();
+      isFading.current = true;
+      // if interrupted mid fade-in, restore to a non-zero start volume
+      if (audio.volume === 0) audio.volume = volume;
+      fadeOut(() => {
+        audio.pause();
+        isFading.current = false;
+      });
     } else {
-      // fadeIn();
-      audioRef.current.play();
+      // throttle rapid double-taps on play only
+      if (isFading.current) return;
+      isFading.current = true;
+      const operation = ++operationRef.current;
+      audio
+        .play()
+        .then(() => {
+          // discard if a pause was triggered before this resolved
+          if (operation !== operationRef.current) {
+            isFading.current = false;
+            return;
+          }
+          fadeIn(volume);
+        })
+        .catch((err) => {
+          console.error("playback failed:", err);
+          isFading.current = false;
+        });
     }
-
-    setIsPlaying(!isPlaying);
   };
 
   // handles expanding and collapsing the player
@@ -258,8 +312,8 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     currentSongStatus: currentSongStatus,
     currentTime,
     setVolume: (volume: number) => {
-      if (audio) {
-        audio.volume = volume;
+      if (audioRef.current) {
+        audioRef.current.volume = volume;
         setVolume(volume);
       }
     },
@@ -269,8 +323,11 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     playerExpansion,
     isPlaying,
     setCurrentTime: (time: number) => {
-      if (audio) {
-        audio.currentTime = time;
+      if (audioRef.current) {
+        cancelFade();
+        isFading.current = false;
+        audioRef.current.currentTime = time;
+        audioRef.current.volume = volume;
         setCurrentTime(time);
       }
     },

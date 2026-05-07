@@ -46,7 +46,7 @@ const StyledArrow = classed("div", "", {
 
 const StyledContent = classed(
   "div",
-  "rounded-lg bg-rich-black-fogra29 px-2.5 py-2 text-sm font-questrial tracking-wider text-romance",
+  "rounded-lg bg-black-fogra29 px-2.5 py-2 text-sm font-questrial tracking-wider text-romance",
 );
 
 const BaseTooltip = ({
@@ -132,7 +132,7 @@ const BaseTooltip = ({
           >
             {content}
             <StyledArrow
-              className="bg-rich-black-fogra29"
+              className="bg-black-fogra29"
               style={{
                 position: "absolute",
                 width: "1em",

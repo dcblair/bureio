@@ -1,4 +1,4 @@
-import { type ChangeEvent, memo, useContext, useState } from "react";
+import { type ChangeEvent, memo, useContext, useRef, useState } from "react";
 import { AudioContext } from "~/context/AudioContext";
 import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
 import { filterClasses } from "~/utils/filterClasses";
@@ -7,6 +7,7 @@ import { Tooltip } from "../Tooltip";
 import { PlayerExpansionButton } from "./PlayerExpansionButton";
 import { Button } from "../Button/Button";
 import { CloseIcon, MaxVolumeIcon, NextIcon, PreviousIcon } from "../Icons";
+import { useAutoFocus } from "~/hooks";
 
 const BaseAudioPlayer = () => {
   const {
@@ -27,6 +28,8 @@ const BaseAudioPlayer = () => {
   const { album, artwork, duration, title, bandcamp } = currentSong;
   // const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
+  const playButtonRef = useRef<HTMLButtonElement>(null);
+  useAutoFocus(playButtonRef, playerExpansion === "standard");
   const handleCurrentTime = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentTime(parseInt(e.target.value, 10));
   };
@@ -49,16 +52,25 @@ const BaseAudioPlayer = () => {
   const trackDuration = calculateSecondsToMinutesAndSeconds(duration);
   const parsedCurrentTime = calculateSecondsToMinutesAndSeconds(currentTime);
 
+  const hasError = currentSongStatus === "error";
+
   return (
-    <div className="relative hidden h-12 w-full lg:flex">
+    <div
+      className="relative hidden h-12 w-full lg:flex"
+      aria-label="audio player"
+      role="region"
+    >
       <div
         className={filterClasses(
-          "border-rich-black-fogra29 bg-romance fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 border-t-2 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
+          "bg-romance fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
           playerExpansion === "collapsed"
             ? "animate-collapse"
             : "animate-expand",
         )}
       >
+        {/* fixed gradient top border */}
+        <div className="from-black-fogra29 to-black-fogra29/40 absolute top-0 left-0 h-0.5 w-full bg-linear-to-r" />
+
         <div className="flex items-center gap-3">
           {/* audio ref & src */}
           <audio preload="auto" ref={audioRef}>
@@ -74,6 +86,7 @@ const BaseAudioPlayer = () => {
           <Button
             aria-label={isPlaying ? "pause" : "play"}
             iconOnly
+            ref={playButtonRef}
             size="md"
             onClick={handlePlay}
           >
@@ -82,24 +95,33 @@ const BaseAudioPlayer = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="stroke-rich-black-fogra29 size-7"
+                className="size-7"
                 stroke="currentColor"
                 aria-labelledby="pause-title"
               >
                 <title id="pause-title">pause</title>
-                <path strokeWidth={2} d="M10 5v12m5 -12v12" />
+                <path
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  d="M9 5v14M15 5v14"
+                />
               </svg>
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                viewBox="-1 0 25 25"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
                 className="size-7"
                 aria-labelledby="play-title"
               >
                 <title id="play-title">play</title>
-                <path strokeWidth={2} d="M5 3l14 9-14 9V3z" />
+                <path
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  d="M6 4l13 8-13 8V4z"
+                />
               </svg>
             )}
           </Button>
@@ -116,7 +138,7 @@ const BaseAudioPlayer = () => {
             {parsedCurrentTime}
           </span>
           <input
-            className="from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 focus-visible:outline-2 md:w-24 xl:w-48 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+            className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 focus-visible:outline-black-fogra29 [&::-webkit-slider-thumb]:bg-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 focus-visible:outline-2 md:w-24 xl:w-48 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
             id="trackDurationSlider"
             max={Number((audioRef?.current && audioRef.current.duration) || 0)}
             min={0}
@@ -157,7 +179,11 @@ const BaseAudioPlayer = () => {
             zIndex={30}
           >
             <input
-              className="from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 md:w-10 xl:w-16 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+              className={filterClasses(
+                "from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 focus-visible:outline-black-fogra29 [&::-webkit-slider-thumb]:bg-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 md:w-10 xl:w-16 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]",
+                hasError &&
+                  "cursor-not-allowed [&::-webkit-slider-thumb]:bg-gray-400",
+              )}
               id="volumeSlider"
               max={1}
               min={0}
@@ -200,7 +226,7 @@ const BaseAudioPlayer = () => {
                 container: "flex items-center justify-center",
                 tooltip: "tracking-widest",
               }}
-              content="bandcamp"
+              content="open bandcamp"
               placement="top"
               tooltipOffset={20}
               zIndex={30}

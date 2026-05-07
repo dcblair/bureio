@@ -58,12 +58,12 @@ export default function DreamSequenceii() {
       <main className="flex w-full flex-col items-center">
         {/* dsii album artwork image */}
         <div
-          className="mb-4 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:my-10"
+          className="md:hover:shadow-5xl mb-4 size-fit transition-all duration-2000 select-none lg:my-10"
           ref={imgRef}
           style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
         >
           <button
-            className="size-full focus:outline-2 focus:outline-offset-2 focus:outline-rich-black-fogra29"
+            className="focus:outline-black-fogra29 size-full focus:outline-2 focus:outline-offset-2"
             onClick={handleOpenModal}
           >
             <picture>
@@ -77,7 +77,7 @@ export default function DreamSequenceii() {
               />
               <img
                 alt="dream sequence ii album artwork"
-                className="lg:w-325px aspect-9/16 w-[calc(100vw-5rem)] min-w-[310px] sm:h-auto sm:w-[325px]"
+                className="lg:w-325px aspect-9/16 w-[calc(100vw-5rem)] min-w-77.5 sm:h-auto sm:w-81.25"
                 src="/images/webp/cropped-dsii-artwork-420w.webp"
               />
             </picture>
@@ -114,20 +114,20 @@ export default function DreamSequenceii() {
 
         {/* video */}
         <div
-          className="mb-8 size-fit select-none transition-all duration-2000 md:hover:shadow-5xl lg:mb-14"
+          className="md:hover:shadow-5xl mb-8 size-fit transition-all duration-2000 select-none lg:mb-14"
           ref={videoRef}
           style={{ opacity: setOpacityRange(videoIntersectionRatio) }}
         >
           <video
-            className="aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-[310px] bg-romance object-cover p-8 focus:outline-2 focus:outline-offset-4 focus:outline-rich-black-fogra29 sm:h-auto sm:w-[325px] lg:h-auto lg:w-[325px]"
+            className="bg-romance focus:outline-black-fogra29 aspect-9/16 h-auto w-[calc(100vw-5rem)] min-w-77.5 object-cover p-8 focus:outline-2 focus:outline-offset-4 sm:h-auto sm:w-81.25 lg:h-auto lg:w-81.25"
             controls
             controlsList="nodownload noplaybackrate"
             preload="auto"
             poster="/images/webp/floating-still-3-960w.webp"
-            title="floating"
+            title="floating music video"
           >
             <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
-            <p>no browser support.</p>
+            <p>no browser support. please update your browser.</p>
           </video>
         </div>
       </main>
@@ -135,7 +135,7 @@ export default function DreamSequenceii() {
       {/* footer */}
       <footer className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
         {/* right-positioned divider */}
-        <div className="absolute -top-3 right-0 h-0.5 w-1/2 rounded-l-sm rounded-r-sm bg-gradient-to-l from-rich-black-fogra29 to-rich-black-fogra29/40 md:-top-8" />
+        <div className="from-black-fogra29 to-black-fogra29/40 rounded-l-px absolute -top-3 right-0 h-0.5 w-1/2 bg-linear-to-l md:-top-8" />
 
         <div className="mb-6 flex flex-col items-center md:mb-10">
           {/* release info */}
@@ -154,7 +154,7 @@ export default function DreamSequenceii() {
           </span>
 
           {/* divider */}
-          <div className="mt-4 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40" />
+          <div className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 rounded-px mt-4 h-0.5 w-1/2 bg-linear-to-r" />
         </div>
 
         <div className="flex space-x-8">
@@ -169,7 +169,7 @@ export default function DreamSequenceii() {
             >
               <img
                 alt="bandcamp logo"
-                className="h-auto max-w-[4.4rem] md:max-w-[5.5rem]"
+                className="h-auto max-w-[4.4rem] md:max-w-22"
                 loading="lazy"
                 src="/images/bandcamp-square-logo-filled.jpg"
               />
@@ -187,7 +187,7 @@ export default function DreamSequenceii() {
             >
               <img
                 alt="loser records logo"
-                className="h-auto max-w-[4rem] md:max-w-[5rem]"
+                className="h-auto max-w-16 md:max-w-20"
                 loading="lazy"
                 src="/images/webp/loser-logo-offwhite-414w.webp"
               />
