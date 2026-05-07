@@ -1,5 +1,9 @@
 node_modules
 
+# macOS metadata
+.DS_Store
+._*
+
 /.cache
 /build
 /public/build
