@@ -8,6 +8,7 @@
   --color-dark-cyan: #363f43;
   --color-blanched-almond: #ffebcd;
   --color-ivory: #fcfaee;
+  --color-honeydew: #d3e6dd;
 
   /* fonts */
   --font-sans: "Zen Kaku Gothic Antique", sans-serif;
@@ -140,5 +141,25 @@
 
   .header-text-transparent {
     -webkit-text-fill-color: transparent;
+  }
+}
+
+@layer base {
+  /* handle body background color changes */
+  body {
+    transition: background-color 0.6s ease-in-out;
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  /* default / home */
+  body[data-route="/"] {
+    background-color: var(--color-honeydew);
+  }
+
+  /* dsii route */
+  body[data-route="/dsii"] {
+    background-color: var(--color-romance);
   }
 }

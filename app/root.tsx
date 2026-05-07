@@ -14,6 +14,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
   useRouteError,
 } from "react-router";
 import { AudioPlayer, Header } from "~/components";
@@ -82,6 +83,7 @@ export async function loader({}: Route.LoaderArgs) {
 
 export default function App({ loaderData }: Route.ComponentProps) {
   const { updatedSongs } = loaderData;
+  const { pathname } = useLocation();
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -104,7 +106,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Links />
       </head>
-      <body className="bg-romance">
+      <body data-route={pathname}>
         <QueryClientProvider client={queryClient}>
           <AudioProvider>
             <HydrationBoundary>
