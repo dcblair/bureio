@@ -124,10 +124,10 @@ export default function DreamSequenceii() {
             controlsList="nodownload noplaybackrate"
             preload="auto"
             poster="/images/webp/floating-still-3-960w.webp"
-            title="floating"
+            title="floating music video"
           >
             <source src="/videos/floating_vertical_5.mp4" type="video/mp4" />
-            <p>no browser support.</p>
+            <p>no browser support. please update your browser.</p>
           </video>
         </div>
       </main>
