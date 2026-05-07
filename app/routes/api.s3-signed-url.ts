@@ -18,6 +18,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
     return new Response("Bad Request: Missing key parameter", { status: 400 });
   }
 
+  const ALLOWED_PREFIX = "bureio/";
+  if (!key.startsWith(ALLOWED_PREFIX) || key.includes("..")) {
+    return new Response("forbidden", { status: 403 });
+  }
+
   try {
     const signedUrl = await getSignedUrl(
       s3,

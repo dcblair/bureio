@@ -160,12 +160,10 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       if (selectedSong && selectedSong.audio && selectedSong.artwork)
         return selectedSong;
 
-      const selectedSongAudio = await getSignedS3UrlFromApi(
-        selectedSong.audioS3!,
-      );
-      const selectedSongArtwork = await getSignedS3UrlFromApi(
-        selectedSong.artworkS3!,
-      );
+      const [selectedSongAudio, selectedSongArtwork] = await Promise.all([
+        getSignedS3UrlFromApi(selectedSong.audioS3!),
+        getSignedS3UrlFromApi(selectedSong.artworkS3!),
+      ]);
 
       if (!selectedSongAudio || !selectedSongArtwork) {
         throw new Error("failed to fetch audio or artwork");
