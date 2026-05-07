@@ -1,5 +1,5 @@
 import { classed } from "@tw-classed/react";
-import { type ButtonHTMLAttributes, memo, ReactNode } from "react";
+import { type ButtonHTMLAttributes, forwardRef, memo, ReactNode } from "react";
 
 interface ButtonProps
   extends ButtonHTMLAttributes<Omit<HTMLButtonElement, "children">> {
@@ -84,18 +84,31 @@ const StyledButton = classed(
   },
 );
 
-const BaseButton = ({
-  children,
-  iconOnly = false,
-  size = "sm",
-  variant = "primary",
-  ...rest
-}: ButtonProps) => {
-  return (
-    <StyledButton iconOnly={iconOnly} size={size} variant={variant} {...rest}>
-      {children}
-    </StyledButton>
-  );
-};
+const BaseButton = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      iconOnly = false,
+      size = "sm",
+      variant = "primary",
+      ...rest
+    },
+    ref,
+  ) => {
+    return (
+      <StyledButton
+        ref={ref}
+        iconOnly={iconOnly}
+        size={size}
+        variant={variant}
+        {...rest}
+      >
+        {children}
+      </StyledButton>
+    );
+  },
+);
+
+BaseButton.displayName = "Button";
 
 export const Button = memo(BaseButton);
