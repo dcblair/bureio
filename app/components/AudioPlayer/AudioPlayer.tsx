@@ -1,4 +1,4 @@
-import { type ChangeEvent, memo, useContext, useState } from "react";
+import { type ChangeEvent, memo, useContext, useRef, useState } from "react";
 import { AudioContext } from "~/context/AudioContext";
 import { calculateSecondsToMinutesAndSeconds } from "~/utils/time";
 import { filterClasses } from "~/utils/filterClasses";
@@ -7,6 +7,7 @@ import { Tooltip } from "../Tooltip";
 import { PlayerExpansionButton } from "./PlayerExpansionButton";
 import { Button } from "../Button/Button";
 import { CloseIcon, MaxVolumeIcon, NextIcon, PreviousIcon } from "../Icons";
+import { useAutoFocus } from "~/hooks";
 
 const BaseAudioPlayer = () => {
   const {
@@ -27,6 +28,8 @@ const BaseAudioPlayer = () => {
   const { album, artwork, duration, title, bandcamp } = currentSong;
   // const [isDurationIncreasing, setIsDurationIncreasing] = useState(false);
   const [searchParams, setSearchParams] = useState<URLSearchParams>();
+  const playButtonRef = useRef<HTMLButtonElement>(null);
+  useAutoFocus(playButtonRef, playerExpansion === "standard");
   const handleCurrentTime = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentTime(parseInt(e.target.value, 10));
   };
@@ -56,7 +59,6 @@ const BaseAudioPlayer = () => {
       className="relative hidden h-12 w-full lg:flex"
       aria-label="audio player"
       role="region"
-      tabIndex={0}
     >
       <div
         className={filterClasses(
@@ -81,6 +83,7 @@ const BaseAudioPlayer = () => {
           <Button
             aria-label={isPlaying ? "pause" : "play"}
             iconOnly
+            ref={playButtonRef}
             size="md"
             onClick={handlePlay}
           >
@@ -89,24 +92,33 @@ const BaseAudioPlayer = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="stroke-black-fogra29 size-7"
+                className="size-7"
                 stroke="currentColor"
                 aria-labelledby="pause-title"
               >
                 <title id="pause-title">pause</title>
-                <path strokeWidth={2} d="M10 5v12m5 -12v12" />
+                <path
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  d="M9 5v14M15 5v14"
+                />
               </svg>
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                viewBox="-1 0 25 25"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
                 className="size-7"
                 aria-labelledby="play-title"
               >
                 <title id="play-title">play</title>
-                <path strokeWidth={2} d="M5 3l14 9-14 9V3z" />
+                <path
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  d="M6 4l13 8-13 8V4z"
+                />
               </svg>
             )}
           </Button>

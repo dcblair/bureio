@@ -5,6 +5,7 @@ import { memo, useRef } from "react";
 import { classed } from "@tw-classed/react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useAutoFocus } from "~/hooks";
 
 interface PlayerExpansionButtonProps {
   playerExpansion: PlayerExpansion;
@@ -29,6 +30,8 @@ const BasePlayerExpansionButton = ({
   togglePlayerExpanded,
 }: PlayerExpansionButtonProps) => {
   const polylineRef = useRef<SVGPolylineElement | null>(null);
+  const expansionButtonRef = useRef<HTMLButtonElement>(null);
+  useAutoFocus(expansionButtonRef, playerExpansion === "collapsed");
 
   const defaultChevronPoints = "3 8 12 14 20 8";
 
@@ -57,7 +60,7 @@ const BasePlayerExpansionButton = ({
         transitionDuration={[3000, 1600]}
         zIndex={30}
       >
-        <Button iconOnly size="md" onClick={togglePlayerExpanded}>
+        <Button iconOnly size="md" onClick={togglePlayerExpanded} ref={expansionButtonRef}>
           <svg
             aria-labelledby="player-expansion-title"
             className="size-7"
