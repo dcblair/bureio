@@ -81,6 +81,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const fadeAnimRef = useRef<number | null>(null);
   const isFading = useRef(false);
+  const operationRef = useRef(0);
 
   const cancelFade = () => {
     if (fadeAnimRef.current !== null) {
@@ -97,11 +98,13 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
     cancelFade();
-    const startVolume = audio.volume;
+    const generation = ++operationRef.current;
+    const startVolume = Math.min(1, Math.max(0, audio.volume));
     const startTime = performance.now();
     const step = (now: number) => {
+      if (generation !== operationRef.current) return;
       const progress = Math.min((now - startTime) / duration, 1);
-      audio.volume = Math.max(0, startVolume * (1 - progress));
+      audio.volume = Math.min(1, Math.max(0, startVolume * (1 - progress)));
       if (progress < 1) {
         fadeAnimRef.current = requestAnimationFrame(step);
       } else {
@@ -116,15 +119,17 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     const audio = audioRef.current;
     if (!audio) return;
     cancelFade();
+    const generation = ++operationRef.current;
     audio.volume = 0;
     const startTime = performance.now();
     const step = (now: number) => {
+      if (generation !== operationRef.current) return;
       const progress = Math.min((now - startTime) / duration, 1);
-      audio.volume = targetVolume * progress;
+      audio.volume = Math.min(1, Math.max(0, targetVolume * progress));
       if (progress < 1) {
         fadeAnimRef.current = requestAnimationFrame(step);
       } else {
-        audio.volume = targetVolume;
+        audio.volume = Math.min(1, Math.max(0, targetVolume));
         isFading.current = false;
       }
     };
@@ -272,11 +277,16 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       // throttle rapid double-taps on play only
       if (isFading.current) return;
       isFading.current = true;
+      const operation = ++operationRef.current;
       audio
         .play()
         .then(() => {
+          // discard if a pause was triggered before this resolved
+          if (operation !== operationRef.current) {
+            isFading.current = false;
+            return;
+          }
           fadeIn(volume);
-          // isFading.current = false is set inside fadeIn's final rAF step
         })
         .catch((err) => {
           console.error("playback failed:", err);
