@@ -11,19 +11,19 @@ const BaseHeader = () => {
       <nav className="relative mt-3 flex flex-col items-center justify-center pt-1 pb-3 text-center md:mt-12">
         <Link className="group relative w-60" to="/">
           <div className="w-full">
-            <h1 className="header-text-transparent bg-rich-black-fogra29 font-questrial hover:bg-rich-black-fogra29/55 inline bg-clip-text text-4xl tracking-widest text-transparent transition duration-3000 ease-in-out motion-reduce:transition-none md:text-5xl">
+            <h1 className="header-text-transparent bg-black-fogra29 font-questrial hover:bg-black-fogra29/55 inline bg-clip-text text-4xl tracking-widest text-transparent transition duration-3000 ease-in-out motion-reduce:transition-none md:text-5xl">
               bu.re<span className="inline md:hidden">_</span>
             </h1>
 
             {/* underscore */}
-            <div className="from-rich-black-fogra29 to-rich-black-fogra29/45 absolute right-0 bottom-1.5 hidden h-1 w-14 origin-right rounded-sm bg-gradient-to-l to-70% transition-transform duration-3000 ease-in-out group-hover:scale-x-200 motion-reduce:transition-none md:flex" />
+            <div className="from-black-fogra29 to-black-fogra29/45 absolute right-0 bottom-1.5 hidden h-1 w-14 origin-right rounded-sm bg-gradient-to-l to-70% transition-transform duration-3000 ease-in-out group-hover:scale-x-200 motion-reduce:transition-none md:flex" />
           </div>
         </Link>
 
         {/* divider */}
         <div
           className={
-            "from-rich-black-fogra29 to-rich-black-fogra29/30 absolute bottom-1 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r md:-bottom-4"
+            "from-black-fogra29 to-black-fogra29/30 absolute bottom-1 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r md:-bottom-4"
           }
           ref={ref}
         />

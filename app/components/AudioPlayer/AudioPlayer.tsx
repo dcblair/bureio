@@ -49,11 +49,13 @@ const BaseAudioPlayer = () => {
   const trackDuration = calculateSecondsToMinutesAndSeconds(duration);
   const parsedCurrentTime = calculateSecondsToMinutesAndSeconds(currentTime);
 
+  const hasError = currentSongStatus === "error";
+
   return (
     <div className="relative hidden h-12 w-full lg:flex">
       <div
         className={filterClasses(
-          "border-rich-black-fogra29 bg-romance fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 border-t-2 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
+          "border-black-fogra29 bg-romance fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 border-t-2 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
           playerExpansion === "collapsed"
             ? "animate-collapse"
             : "animate-expand",
@@ -82,7 +84,7 @@ const BaseAudioPlayer = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="stroke-rich-black-fogra29 size-7"
+                className="stroke-black-fogra29 size-7"
                 stroke="currentColor"
                 aria-labelledby="pause-title"
               >
@@ -116,7 +118,7 @@ const BaseAudioPlayer = () => {
             {parsedCurrentTime}
           </span>
           <input
-            className="from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 focus-visible:outline-2 md:w-24 xl:w-48 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+            className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 focus-visible:outline-black-fogra29 [&::-webkit-slider-thumb]:bg-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 focus-visible:outline-2 md:w-24 xl:w-48 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
             id="trackDurationSlider"
             max={Number((audioRef?.current && audioRef.current.duration) || 0)}
             min={0}
@@ -157,7 +159,11 @@ const BaseAudioPlayer = () => {
             zIndex={30}
           >
             <input
-              className="from-rich-black-fogra29/40 via-rich-black-fogra29 to-rich-black-fogra29/40 focus-visible:outline-rich-black-fogra29 [&::-webkit-slider-thumb]:bg-rich-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 md:w-10 xl:w-16 [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]"
+              className={filterClasses(
+                "from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 focus-visible:outline-black-fogra29 [&::-webkit-slider-thumb]:bg-black-fogra29 h-0.5 cursor-pointer appearance-none bg-linear-to-r outline-offset-8 transition-colors duration-1000 ease-in-out focus-visible:outline-2 md:w-10 xl:w-16 [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:transition-colors [&::-webkit-slider-thumb]:duration-1000 [&::-webkit-slider-thumb]:hover:bg-[#769FB8] [&::-webkit-slider-thumb]:active:bg-[#769FB8]",
+                hasError &&
+                  "cursor-not-allowed [&::-webkit-slider-thumb]:bg-gray-400",
+              )}
               id="volumeSlider"
               max={1}
               min={0}
