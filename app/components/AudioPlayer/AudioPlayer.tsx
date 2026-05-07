@@ -206,7 +206,7 @@ const BaseAudioPlayer = () => {
                 container: "flex items-center justify-center",
                 tooltip: "tracking-widest",
               }}
-              content="bandcamp"
+              content="open bandcamp"
               placement="top"
               tooltipOffset={20}
               zIndex={30}

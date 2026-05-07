@@ -77,7 +77,7 @@ export default function DreamSequenceii() {
               />
               <img
                 alt="dream sequence ii album artwork"
-                className="lg:w-325px aspect-9/16 w-[calc(100vw-5rem)] min-w-[310px] sm:h-auto sm:w-[325px]"
+                className="lg:w-325px aspect-9/16 w-[calc(100vw-5rem)] min-w-77.5 sm:h-auto sm:w-81.25"
                 src="/images/webp/cropped-dsii-artwork-420w.webp"
               />
             </picture>
@@ -135,7 +135,7 @@ export default function DreamSequenceii() {
       {/* footer */}
       <footer className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
         {/* right-positioned divider */}
-        <div className="from-black-fogra29 to-black-fogra29/40 absolute -top-3 right-0 h-0.5 w-1/2 rounded-l-sm rounded-r-sm bg-gradient-to-l md:-top-8" />
+        <div className="from-black-fogra29 to-black-fogra29/40 rounded-l-px absolute -top-3 right-0 h-0.5 w-1/2 bg-linear-to-l md:-top-8" />
 
         <div className="mb-6 flex flex-col items-center md:mb-10">
           {/* release info */}
@@ -154,7 +154,7 @@ export default function DreamSequenceii() {
           </span>
 
           {/* divider */}
-          <div className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 mt-4 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r" />
+          <div className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 rounded-px mt-4 h-0.5 w-1/2 bg-linear-to-r" />
         </div>
 
         <div className="flex space-x-8">
@@ -169,7 +169,7 @@ export default function DreamSequenceii() {
             >
               <img
                 alt="bandcamp logo"
-                className="h-auto max-w-[4.4rem] md:max-w-[5.5rem]"
+                className="h-auto max-w-[4.4rem] md:max-w-22"
                 loading="lazy"
                 src="/images/bandcamp-square-logo-filled.jpg"
               />
@@ -187,7 +187,7 @@ export default function DreamSequenceii() {
             >
               <img
                 alt="loser records logo"
-                className="h-auto max-w-[4rem] md:max-w-[5rem]"
+                className="h-auto max-w-16 md:max-w-20"
                 loading="lazy"
                 src="/images/webp/loser-logo-offwhite-414w.webp"
               />

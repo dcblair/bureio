@@ -16,14 +16,14 @@ const BaseHeader = () => {
             </h1>
 
             {/* underscore */}
-            <div className="from-black-fogra29 to-black-fogra29/45 absolute right-0 bottom-1.5 hidden h-1 w-14 origin-right rounded-sm bg-gradient-to-l to-70% transition-transform duration-3000 ease-in-out group-hover:scale-x-200 motion-reduce:transition-none md:flex" />
+            <div className="from-black-fogra29 to-black-fogra29/45 rounded-px absolute right-0 bottom-1.5 hidden h-1 w-14 origin-right bg-linear-to-l to-70% transition-transform duration-2000 ease-in-out group-hover:scale-x-204 motion-reduce:transition-none md:flex" />
           </div>
         </Link>
 
         {/* divider */}
         <div
           className={
-            "from-black-fogra29 to-black-fogra29/30 absolute bottom-1 left-0 mt-6 h-0.5 w-1/2 rounded-r-sm bg-gradient-to-r md:-bottom-4"
+            "from-black-fogra29 to-black-fogra29/30 rounded-r-px absolute bottom-1 left-0 mt-6 h-0.5 w-1/2 bg-linear-to-r md:-bottom-4"
           }
           ref={ref}
         />
