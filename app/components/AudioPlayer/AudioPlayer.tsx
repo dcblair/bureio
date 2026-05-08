@@ -6,7 +6,14 @@ import { Overlay } from "../Overlay/Overlay";
 import { Tooltip } from "../Tooltip";
 import { PlayerExpansionButton } from "./PlayerExpansionButton";
 import { Button } from "../Button/Button";
-import { CloseIcon, MaxVolumeIcon, NextIcon, PreviousIcon } from "../Icons";
+import {
+  MaxVolumeIcon,
+  MuteIcon,
+  NextIcon,
+  PauseIcon,
+  PlayIcon,
+  PreviousIcon,
+} from "../Icons";
 import { useAutoFocus } from "~/hooks";
 
 const BaseAudioPlayer = () => {
@@ -90,40 +97,7 @@ const BaseAudioPlayer = () => {
             size="md"
             onClick={handlePlay}
           >
-            {isPlaying ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="size-7"
-                stroke="currentColor"
-                aria-labelledby="pause-title"
-              >
-                <title id="pause-title">pause</title>
-                <path
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  d="M9 5v14M15 5v14"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="size-7"
-                aria-labelledby="play-title"
-              >
-                <title id="play-title">play</title>
-                <path
-                  strokeWidth={2}
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  d="M6 4l13 8-13 8V4z"
-                />
-              </svg>
-            )}
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </Button>
 
           {/* next song button */}
@@ -164,7 +138,7 @@ const BaseAudioPlayer = () => {
             iconOnly
             onClick={() => setVolume(0)}
           >
-            <CloseIcon className="size-9" />
+            <MuteIcon />
           </Button>
 
           {/* volume slider */}

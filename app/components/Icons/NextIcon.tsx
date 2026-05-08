@@ -11,6 +11,6 @@ export const NextIcon = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <title id="next-title">next song</title>
-    <path strokeWidth={2} d="M9 5l7 7-7 7" />
+    <path strokeWidth={1.6} d="M9 6l6 6-6 6" />
   </svg>
 );
