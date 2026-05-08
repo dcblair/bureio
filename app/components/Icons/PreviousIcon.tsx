@@ -11,6 +11,6 @@ export const PreviousIcon = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <title id="previous-title">previous song</title>
-    <path strokeWidth={2} d="M15 19l-7-7 7-7" />
+    <path strokeWidth={1.6} d="M15 6l-6 6 6 6" />
   </svg>
 );

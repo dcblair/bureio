@@ -12,13 +12,13 @@ interface PlayerExpansionButtonProps {
   togglePlayerExpanded: () => void;
 }
 
-const StyledPolyline = classed(
-  "polyline",
+const StyledPath = classed(
+  "path",
   "transition-transform motion-reduce:transition-none duration-3000 ease-in-out",
   {
     variants: {
       playerExpansion: {
-        collapsed: "group-hover:-translate-y-[0.3rem]",
+        collapsed: "group-hover:-translate-y-[0.18rem]",
         standard: "group-hover:translate-y-[0.18rem]",
       },
     },
@@ -29,20 +29,20 @@ const BasePlayerExpansionButton = ({
   playerExpansion,
   togglePlayerExpanded,
 }: PlayerExpansionButtonProps) => {
-  const polylineRef = useRef<SVGPolylineElement | null>(null);
+  const pathRef = useRef<SVGPathElement | null>(null);
   const expansionButtonRef = useRef<HTMLButtonElement>(null);
   useAutoFocus(expansionButtonRef, playerExpansion === "collapsed");
 
-  const defaultChevronPoints = "3 8 12 14 20 8";
+  const defaultChevronD = "M6,10 L12,14 L18,10";
 
   useGSAP(() => {
-    gsap.to(polylineRef?.current, {
+    gsap.to(pathRef?.current, {
       duration: 2.2,
       attr: {
-        points:
+        d:
           playerExpansion === "collapsed"
-            ? "3 12 12 12 20 12"
-            : defaultChevronPoints,
+            ? "M6,12 L12,12 L18,12"
+            : defaultChevronD,
       },
       ease: "power2.inOut",
     });
@@ -60,7 +60,12 @@ const BasePlayerExpansionButton = ({
         transitionDuration={[3000, 1600]}
         zIndex={30}
       >
-        <Button iconOnly size="md" onClick={togglePlayerExpanded} ref={expansionButtonRef}>
+        <Button
+          iconOnly
+          size="md"
+          onClick={togglePlayerExpanded}
+          ref={expansionButtonRef}
+        >
           <svg
             aria-labelledby="player-expansion-title"
             className="size-7"
@@ -69,17 +74,20 @@ const BasePlayerExpansionButton = ({
             viewBox="0 4 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <StyledPolyline
+            <StyledPath
               playerExpansion={playerExpansion}
-              points={defaultChevronPoints}
-              ref={polylineRef}
+              d={defaultChevronD}
+              ref={pathRef}
+              fill="none"
               stroke="currentColor"
-              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
             />
 
             <line
               stroke="currentColor"
-              strokeWidth="2.5"
+              strokeWidth="2"
               x1="0"
               x2="24"
               y1="22"
