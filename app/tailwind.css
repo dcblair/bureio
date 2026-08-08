@@ -9,6 +9,7 @@
   --color-blanched-almond: #ffebcd;
   --color-ivory: #fcfaee;
   --color-honeydew: #d3e6dd;
+  --color-mercury: #e5e5e5;
 
   /* fonts */
   --font-sans: "Zen Kaku Gothic Antique", sans-serif;
@@ -155,11 +156,13 @@
 
   /* default / home */
   body[data-route="/"] {
-    background-color: var(--color-honeydew);
+    background-color: var(--color-mercury);
+    transition: background-color 1s ease-in-out;
   }
 
   /* dsii route */
   body[data-route="/dsii"] {
     background-color: var(--color-romance);
+    transition: background-color 1s ease-in-out;
   }
 }

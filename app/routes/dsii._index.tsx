@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { LinksFunction, MetaFunction } from "react-router";
 import { useIntersectionObserver } from "~/hooks";
 import { Button, Overlay, Tooltip } from "~/components";
+import ArtworkPreview from "~/components/ArtworkPreview/ArtworkPreview";
 
 export const meta: MetaFunction = () => {
   return [
@@ -57,32 +58,12 @@ export default function DreamSequenceii() {
     <div className="flex w-full flex-col items-center text-center">
       <main className="flex w-full flex-col items-center">
         {/* dsii album artwork image */}
-        <div
-          className="md:hover:shadow-5xl mb-4 size-fit transition-all duration-2000 select-none lg:my-10"
-          ref={imgRef}
-          style={{ opacity: setOpacityRange(imgIntersectionRatio) }}
-        >
-          <button
-            className="focus:outline-black-fogra29 size-full focus:outline-2 focus:outline-offset-2"
-            onClick={handleOpenModal}
-          >
-            <picture>
-              <source
-                media="(max-width: 720px)"
-                srcSet="/images/webp/cropped-dsii-artwork-325w.webp 360w, /images/webp/cropped-dsii-artwork-420w.webp 1440w"
-              />
-              <source
-                media="(min-width: 721px)"
-                srcSet="/images/webp/cropped-dsii-artwork-420w.webp 1440w"
-              />
-              <img
-                alt="dream sequence ii album artwork"
-                className="lg:w-325px aspect-9/16 w-[calc(100vw-5rem)] min-w-77.5 sm:h-auto sm:w-81.25"
-                src="/images/webp/cropped-dsii-artwork-420w.webp"
-              />
-            </picture>
-          </button>
-        </div>
+        <ArtworkPreview
+          imgRef={imgRef}
+          imgIntersectionRatio={imgIntersectionRatio}
+          setOpacityRange={setOpacityRange}
+          handleOpenModal={handleOpenModal}
+        />
 
         {/* dsii album artwork modal overlay */}
         <Overlay
@@ -133,7 +114,7 @@ export default function DreamSequenceii() {
       </main>
 
       {/* footer */}
-      <footer className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
+      <footer className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20 mt-8">
         {/* right-positioned divider */}
         <div className="from-black-fogra29 to-black-fogra29/40 rounded-l-px absolute -top-3 right-0 h-0.5 w-1/2 bg-linear-to-l md:-top-8" />
 
