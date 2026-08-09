@@ -9,7 +9,8 @@ const artworkPreviewItems = [
     alt: "seasons in migration album artwork",
     fallbackSrc:
       "/images/webp/seasons-in-migration/seasons-album-artwork-1280w.webp",
-    imageClassName: "aspect-square w-[min(88vw,30rem)] sm:w-[32rem] lg:w-[40rem]",
+    imageClassName:
+      "aspect-square w-[min(88vw,30rem)] sm:w-[32rem] lg:w-[40rem]",
     sources: [
       {
         media: "(max-width: 720px)",
@@ -90,7 +91,6 @@ export const links: LinksFunction = () => [
     href: "/images/webp/seasons-in-migration/seasons-album-artwork-1920w.webp",
   },
 ];
-  
 
 export default function Index() {
   return (
@@ -107,50 +107,50 @@ export default function Index() {
           handleOpenModal={() => {}}
         />
       ))}
-      <footer className="relative mb-6 flex w-full flex-col items-center justify-center lg:mb-20 mt-8">
-              {/* right-positioned divider */}
-              <div className="from-black-fogra29 to-black-fogra29/40 rounded-l-px absolute -top-3 right-0 h-0.5 w-1/2 bg-linear-to-l md:-top-8" />
-      
-              <div className="mb-6 flex flex-col items-center md:mb-10">
-                {/* release info */}
-                <div className="mb-2">
-                  <h2 className="font-questrial text-lg font-black tracking-widest lg:text-xl">
-                    digital album / cassette
-                  </h2>
-                </div>
-                <div className="mb-3 md:mb-7">
-                  <span className="font-questrial text-xl tracking-wider">
-                    august 21
-                  </span>
-                </div>
-                <span className="font-questrial text-xl tracking-[0.5rem]">
-                  available:
-                </span>
-      
-                {/* divider */}
-                <div className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 rounded-px mt-4 h-0.5 w-1/2 bg-linear-to-r" />
-              </div>
-      
-              <div className="flex space-x-8">
-                {/* akp bandcamp link */}
-                <Tooltip content="akp recordings" placement="bottom">
-                  <a
-                    about="bu.re_ seasons in migration akp recordings bandcamp"
-                    className="rounded-none focus:outline-2 focus:outline-offset-8 focus:outline-black"
-                    href="https://akprecordings.bandcamp.com/album/seasons-in-migration/"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <img
-                      alt="akp recordings logo"
-                      className="h-auto max-w-16 md:max-w-20"
-                      loading="lazy"
-                      src="/images/webp/akp-recordings-logo-offwhite-414w.webp"
-                    />
-                  </a>
-                </Tooltip>
-              </div>
-            </footer>
+      <footer className="relative mt-8 mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
+        {/* right-positioned divider */}
+        <div className="from-black-fogra29 to-black-fogra29/40 rounded-l-px absolute -top-3 right-0 h-0.5 w-1/2 bg-linear-to-l md:-top-8" />
+
+        <div className="mb-6 flex flex-col items-center md:mb-10">
+          {/* release info */}
+          <div className="mb-2">
+            <h2 className="font-questrial text-lg font-black tracking-widest lg:text-xl">
+              digital album / cassette
+            </h2>
+          </div>
+          <div className="mb-3 md:mb-7">
+            <span className="font-questrial text-xl tracking-wider">
+              august 21
+            </span>
+          </div>
+          <span className="font-questrial text-xl tracking-[0.5rem]">
+            available:
+          </span>
+
+          {/* divider */}
+          <div className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 rounded-px mt-4 h-0.5 w-1/2 bg-linear-to-r" />
+        </div>
+
+        <div className="flex space-x-8">
+          {/* akp bandcamp link */}
+          <Tooltip content="akp recordings" placement="bottom">
+            <a
+              about="bu.re_ seasons in migration akp recordings bandcamp"
+              className="rounded-none focus:outline-2 focus:outline-offset-8 focus:outline-black"
+              href="https://bu-re.bandcamp.com/album/seasons-in-migration"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="akp recordings logo"
+                className="h-auto max-w-16 md:max-w-20"
+                loading="lazy"
+                src="/images/webp/akp_logo.webp"
+              />
+            </a>
+          </Tooltip>
+        </div>
+      </footer>
     </div>
   );
 }
