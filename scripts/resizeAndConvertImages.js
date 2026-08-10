@@ -1,47 +1,72 @@
-import imagemin from "imagemin";
-import imageminWebp from "imagemin-webp";
-import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 import { glob } from "glob";
+import sharp from "sharp";
 
-const resizeAndConvertToWebp = async (inputPath, outputPath, sizes) => {
+const DEFAULT_SIZES = [320, 640, 960, 1280, 1600, 1920];
+const DEFAULT_INPUT_PATTERN = "public/images/to-convert/*.{jpg,jpeg,png}";
+const DEFAULT_OUTPUT_DIR = "public/images/webp";
+
+const parseSizes = (rawSizes) => {
+  if (!rawSizes) {
+    return DEFAULT_SIZES;
+  }
+
+  return rawSizes
+    .split(",")
+    .map((size) => Number.parseInt(size.trim(), 10))
+    .filter((size) => Number.isInteger(size) && size > 0);
+};
+
+const parseInputPatterns = (rawPatterns) => {
+  if (!rawPatterns) {
+    return [DEFAULT_INPUT_PATTERN];
+  }
+
+  return rawPatterns
+    .split(",")
+    .map((pattern) => pattern.trim())
+    .filter(Boolean);
+};
+
+const resizeAndConvertToWebp = async (inputPath, outputDir, sizes) => {
+  const baseName = path.basename(inputPath, path.extname(inputPath));
+
   for (const width of sizes) {
-    const baseName = path.basename(inputPath, path.extname(inputPath));
     const outputName = `${baseName}-${width}w.webp`;
-    const outputPathWithSize = path.join(outputPath, outputName);
+    const outputPath = path.join(outputDir, outputName);
 
     await sharp(inputPath)
       .resize({
-        width: Number(width),
+        width,
         withoutEnlargement: true,
       })
-      .toFile(outputPathWithSize);
+      .webp({ quality: 75 })
+      .toFile(outputPath);
 
-    await imagemin([outputPathWithSize], {
-      destination: outputPath,
-      plugins: [imageminWebp({ quality: 75 })],
-    });
-
-    console.log(`Converted ${inputPath} to ${outputPathWithSize}`);
+    console.log(`Converted ${inputPath} to ${outputPath}`);
   }
 };
 
 const resizeAndConvertImages = async () => {
-  // edit this to focus on a specific folder or file
-  const images = glob.sync("public/images/to-convert/*.{jpg,jpeg,png}");
+  const inputPatterns = parseInputPatterns(process.argv[2]);
+  const outputDir = path.resolve(process.argv[3] ?? DEFAULT_OUTPUT_DIR);
+  const sizes = parseSizes(process.argv[4]);
+
+  if (!sizes.length) {
+    throw new Error("Please provide at least one valid width value.");
+  }
+
+  fs.mkdirSync(outputDir, { recursive: true });
+
+  const images = [...new Set(inputPatterns.flatMap((pattern) => glob.sync(pattern, { nodir: true })))];
 
   for (const image of images) {
-    const outputPath = path.join("public/images", "webp");
-    fs.mkdirSync(outputPath, { recursive: true });
-
-    // edit this to convert to different sizes
-    await resizeAndConvertToWebp(
-      image,
-      outputPath,
-      [320, 640, 960, 1280, 1600, 1920],
-    );
+    await resizeAndConvertToWebp(image, outputDir, sizes);
   }
 };
 
-resizeAndConvertImages();
+resizeAndConvertImages().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
