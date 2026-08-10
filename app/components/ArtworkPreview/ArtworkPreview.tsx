@@ -56,11 +56,13 @@ const ArtworkPreview = ({
         containerClassName,
       )}
       ref={imgRef}
-      style={{ opacity: hasOpacityChange ? setOpacityRange(imgIntersectionRatio) : 1 }}
+      style={{
+        opacity: hasOpacityChange ? setOpacityRange(imgIntersectionRatio) : 1,
+      }}
     >
       <button
         className={filterClasses(
-          "focus:outline-black-fogra29 size-full cursor-pointer focus:outline-2 focus:outline-offset-2",
+          "focus:outline-black-fogra29 size-full cursor-pointer border-0 bg-transparent p-0 align-top leading-none focus:outline-2 focus:outline-offset-2",
           buttonClassName,
         )}
         onClick={handleOpenModal}

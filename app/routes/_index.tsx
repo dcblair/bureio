@@ -1,8 +1,25 @@
+import { useRef, useState } from "react";
 import type { LinksFunction } from "react-router";
-import { Tooltip } from "~/components";
+import { Button, Overlay, Tooltip } from "~/components";
 import ArtworkPreview from "~/components/ArtworkPreview/ArtworkPreview";
+import { useIntersectionObserver } from "~/hooks";
 
-const artworkPreviewItems = [
+const INTERSECTION_OPTIONS = {
+  threshold: 1.0,
+  rootMargin: "10px",
+};
+
+interface ArtworkPreviewItem {
+  alt: string;
+  fallbackSrc: string;
+  imageClassName: string;
+  sources: Array<{
+    media: string;
+    srcSet: string;
+  }>;
+}
+
+const artworkPreviewItems: ArtworkPreviewItem[] = [
   {
     alt: "seasons in migration album artwork",
     fallbackSrc:
@@ -103,21 +120,84 @@ export const links: LinksFunction = () => [
   },
 ];
 
+interface HomeArtworkPreviewProps {
+  item: ArtworkPreviewItem;
+  onOpenModal: () => void;
+}
+
+const HomeArtworkPreview = ({ item, onOpenModal }: HomeArtworkPreviewProps) => {
+  const imgRef = useRef<HTMLDivElement | null>(null);
+  const { intersectionRatio } = useIntersectionObserver(
+    imgRef,
+    INTERSECTION_OPTIONS,
+  );
+  const setOpacityRange = (value: string | number) =>
+    Math.max(0.25, Number(value));
+
+  return (
+    <ArtworkPreview
+      alt={item.alt}
+      fallbackSrc={item.fallbackSrc}
+      handleOpenModal={onOpenModal}
+      imageClassName={item.imageClassName}
+      imgIntersectionRatio={intersectionRatio}
+      imgRef={imgRef}
+      setOpacityRange={setOpacityRange}
+      sources={item.sources}
+    />
+  );
+};
+
 export default function Index() {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const activeImage = artworkPreviewItems[activeImageIndex];
+
+  const handleOpenModal = (imageIndex: number) => {
+    setActiveImageIndex(imageIndex);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="flex w-full flex-col items-center gap-6 px-6 text-center">
-      {artworkPreviewItems.map((item) => (
-        <ArtworkPreview
+      {artworkPreviewItems.map((item, index) => (
+        <HomeArtworkPreview
           key={item.fallbackSrc}
-          alt={item.alt}
-          fallbackSrc={item.fallbackSrc}
-          imageClassName={item.imageClassName}
-          sources={item.sources}
-          imgIntersectionRatio={1}
-          setOpacityRange={() => 1}
-          handleOpenModal={() => {}}
+          item={item}
+          onOpenModal={() => handleOpenModal(index)}
         />
       ))}
+
+      <Overlay
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title="seasons in migration artwork overlay"
+      >
+        <div className="relative flex items-center">
+          <Button variant="secondary" onClick={handleCloseModal}>
+            <picture>
+              {activeImage.sources.map((source) => (
+                <source
+                  key={`${source.media}-${source.srcSet}`}
+                  media={source.media}
+                  srcSet={source.srcSet}
+                />
+              ))}
+              <img
+                alt={activeImage.alt}
+                className="h-[calc(100dvh-60px)] max-w-[calc(100dvw-30px)] cursor-auto object-contain sm:h-[calc(100dvh-100px)] md:max-h-[calc(90dvh)] md:w-auto"
+                src={activeImage.fallbackSrc}
+                fetchPriority="high"
+              />
+            </picture>
+          </Button>
+        </div>
+      </Overlay>
+
       <footer className="relative mt-8 mb-6 flex w-full flex-col items-center justify-center lg:mb-20">
         {/* right-positioned divider */}
         <div className="from-black-fogra29 to-black-fogra29/40 rounded-l-px absolute -top-3 right-0 h-0.5 w-1/2 bg-linear-to-l md:-top-8" />
