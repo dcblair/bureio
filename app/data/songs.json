@@ -1,5 +1,18 @@
 [
   {
+    "id": "3f3e1c7a-0d8b-4f5e-9c6b-2e1f3c8e9b1a",
+    "title": "ii - heat shimmer",
+    "artist": "bu.re_",
+    "album": "seasons in migration",
+    "duration": 256,
+    "artworkS3": "/artwork/seasons-album-artwork-1920w.webp",
+    "audioS3": "/songs/ii-heat-shimmer.mp3",
+    "trackNumber": 2,
+    "bandcamp": "https://bu-re.bandcamp.com/album/seasons-in-migration",
+    "audio": "",
+    "artwork": ""
+  },
+  {
     "id": "7de7ebca-20c1-4e5e-83fb-5c672ac81c82",
     "title": "falling into sheer blue",
     "artist": "bu.re_",
@@ -29,7 +42,7 @@
     "id": "2219b585-73dc-4e04-92d0-efee63e777c5",
     "title": "calling currents",
     "artist": "bu.re_",
-    "album": "on letting go",
+    "album": "on grieving",
     "duration": 130,
     "artwork": "/images/webp/on-grieving-1200w.webp",
     "audio": "/audio/calling-currents.wav",

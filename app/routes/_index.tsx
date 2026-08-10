@@ -1,6 +1,4 @@
-import { useRef } from "react";
-import type { LinksFunction, LoaderFunction } from "react-router";
-import { redirect } from "react-router";
+import type { LinksFunction } from "react-router";
 import { Tooltip } from "~/components";
 import ArtworkPreview from "~/components/ArtworkPreview/ArtworkPreview";
 
@@ -15,12 +13,12 @@ const artworkPreviewItems = [
       {
         media: "(max-width: 720px)",
         srcSet:
-          "/images/webp/seasons-in-migration/seasons-album-artwork-320w.webp 320w, /images/webp/seasons-in-migration/seasons-album-artwork-1280w.webp 1920w",
+          "/images/webp/seasons-in-migration/seasons-album-artwork-320w.webp 320w, /images/webp/seasons-in-migration/seasons-album-artwork-640w.webp 640w",
       },
       {
         media: "(max-width: 1920px)",
         srcSet:
-          "/images/webp/seasons-in-migration/seasons-album-artwork-1920w.webp 1920w",
+          "/images/webp/seasons-in-migration/seasons-album-artwork-960w.webp 960w, /images/webp/seasons-in-migration/seasons-album-artwork-1920w.webp 1200w",
       },
     ],
   },
@@ -33,12 +31,12 @@ const artworkPreviewItems = [
       {
         media: "(max-width: 720px)",
         srcSet:
-          "/images/webp/seasons-in-migration/seasons-cassette-1-320w.webp 320w, /images/webp/seasons-in-migration/seasons-cassette-1-1280w.webp 1920w",
+          "/images/webp/seasons-in-migration/seasons-cassette-1-320w.webp 320w, /images/webp/seasons-in-migration/seasons-cassette-1-640w.webp 640w",
       },
       {
         media: "(max-width: 1920px)",
         srcSet:
-          "/images/webp/seasons-in-migration/seasons-cassette-1-1920w.webp 1920w",
+          "/images/webp/seasons-in-migration/seasons-cassette-1-960w.webp 960w, /images/webp/seasons-in-migration/seasons-cassette-1-1920w.webp 1200w",
       },
     ],
   },
@@ -51,12 +49,12 @@ const artworkPreviewItems = [
       {
         media: "(max-width: 720px)",
         srcSet:
-          "/images/webp/seasons-in-migration/seasons-cassette-2-320w.webp 320w, /images/webp/seasons-in-migration/seasons-cassette-2-1280w.webp 1920w",
+          "/images/webp/seasons-in-migration/seasons-cassette-2-320w.webp 320w, /images/webp/seasons-in-migration/seasons-cassette-2-640w.webp 640w",
       },
       {
         media: "(max-width: 1920px)",
         srcSet:
-          "/images/webp/seasons-in-migration/seasons-cassette-2-1920w.webp 1920w",
+          "/images/webp/seasons-in-migration/seasons-cassette-2-960w.webp 960w, /images/webp/seasons-in-migration/seasons-cassette-2-1920w.webp 1200w",
       },
     ],
   },
@@ -69,20 +67,33 @@ const artworkPreviewItems = [
       {
         media: "(max-width: 720px)",
         srcSet:
-          "/images/webp/seasons-in-migration/seasons-cassette-3-320w.webp 320w, /images/webp/seasons-in-migration/seasons-cassette-3-1280w.webp 1920w",
+          "/images/webp/seasons-in-migration/seasons-cassette-3-320w.webp 320w, /images/webp/seasons-in-migration/seasons-cassette-3-640w.webp 640w",
       },
       {
         media: "(max-width: 1920px)",
         srcSet:
-          "/images/webp/seasons-in-migration/seasons-cassette-3-1920w.webp 1920w",
+          "/images/webp/seasons-in-migration/seasons-cassette-3-960w.webp 960w, /images/webp/seasons-in-migration/seasons-cassette-3-1920w.webp 1200w",
+      },
+    ],
+  },
+  {
+    alt: "seasons in migration dad hat",
+    fallbackSrc: "/images/webp/seasons-in-migration/seasons-dad-hat-1280w.webp",
+    imageClassName: "h-auto w-[min(88vw,30rem)] sm:w-[32rem] lg:w-[40rem]",
+    sources: [
+      {
+        media: "(max-width: 720px)",
+        srcSet:
+          "/images/webp/seasons-in-migration/seasons-dad-hat-320w.webp 320w, /images/webp/seasons-in-migration/seasons-dad-hat-640w.webp 640w",
+      },
+      {
+        media: "(max-width: 1920px)",
+        srcSet:
+          "/images/webp/seasons-in-migration/seasons-dad-hat-960w.webp 960w, /images/webp/seasons-in-migration/seasons-dad-hat-1920w.webp 1200w",
       },
     ],
   },
 ];
-
-export const loader: LoaderFunction = () => {
-  // return redirect("/dsii");
-};
 
 export const links: LinksFunction = () => [
   {
@@ -143,7 +154,7 @@ export default function Index() {
             >
               <img
                 alt="akp recordings logo"
-                className="h-auto max-w-16 md:max-w-20"
+                className="h-auto max-w-32"
                 loading="lazy"
                 src="/images/webp/akp_logo.webp"
               />

@@ -1,25 +1,76 @@
-import React, { memo } from "react";
-import { Link } from "~/components";
+import React, { memo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Link, Button } from "~/components";
 
 const BaseHeader = () => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   // todo: test intersection with animation
   // const { hasAnimated, isIntersecting } = useIntersectionObserver(ref);
 
   return (
     <header className="mb-8 md:mb-14">
       <nav className="relative mt-3 flex flex-col items-center justify-center pt-1 pb-3 text-center md:mt-12">
-        <Link className="group relative w-60" to="/">
-          <div className="w-full">
-            <h1 className="header-text-transparent bg-black-fogra29 font-questrial hover:bg-black-fogra29/55 inline bg-clip-text text-4xl tracking-widest text-transparent transition duration-3000 ease-in-out motion-reduce:transition-none md:text-5xl">
-              bu.re<span className="inline md:hidden">_</span>
+        <div className="relative flex w-60 items-center justify-center">
+          <div className="relative w-60 md:hidden">
+            <h1 className="header-text-transparent bg-black-fogra29 font-questrial inline bg-clip-text text-4xl tracking-widest text-transparent">
+              bu.re_
             </h1>
-
-            {/* underscore */}
-            <div className="from-black-fogra29 to-black-fogra29/45 rounded-px absolute right-0 bottom-1.5 hidden h-1 w-14 origin-right bg-linear-to-l to-70% transition-transform duration-2000 ease-in-out group-hover:scale-x-204 motion-reduce:transition-none md:flex" />
           </div>
-        </Link>
 
+          <Button
+            className="group relative hidden w-60 md:block"
+            onClick={() => setIsNavOpen(!isNavOpen)}
+          >
+            <div className="w-full">
+              <h1 className="header-text-transparent bg-black-fogra29 font-questrial hover:bg-black-fogra29/55 inline bg-clip-text text-5xl tracking-widest text-transparent transition duration-3000 ease-in-out motion-reduce:transition-none">
+                bu.re
+              </h1>
+
+              {/* underscore */}
+              <div className="from-black-fogra29 to-black-fogra29/45 rounded-px absolute right-0 bottom-1.5 flex h-1 w-14 origin-right bg-linear-to-l to-70% transition-transform duration-2000 ease-in-out group-hover:scale-x-204 motion-reduce:transition-none" />
+            </div>
+          </Button>
+
+          <AnimatePresence initial={false}>
+            {isNavOpen && (
+              <>
+                <motion.div
+                  className="absolute top-1/2 left-full ml-8 hidden -translate-y-1/2 md:block"
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  initial={{ opacity: 0 }}
+                  transition={{ duration: 2, ease: "easeInOut" }}
+                >
+                  <div className="flex h-full w-max items-center justify-center py-2">
+                    <div>
+                      <span className="text-2xl font-black tracking-widest">
+                        .
+                      </span>
+                      <Link
+                        className="font-questrial hover:text-black-fogra29/40 text-base whitespace-nowrap transition duration-1500 ease-in-out"
+                        to="/"
+                      >
+                        seasons in migration
+                      </Link>
+                    </div>
+                    <div>
+                      <span className="text-2xl font-black tracking-widest">
+                        .
+                      </span>
+                      <Link
+                        className="font-questrial hover:text-black-fogra29/40 text-base whitespace-nowrap transition duration-1500 ease-in-out"
+                        to="/dsii"
+                      >
+                        dream sequence ii
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
         {/* divider */}
         <div
           className={
@@ -27,18 +78,6 @@ const BaseHeader = () => {
           }
           ref={ref}
         />
-
-        {/* TODO: Come back to this */}
-        {/* <div className="fixed mt-4 w-full h-12 bg-white">
-                <div className="flex items-center justify-evenly h-full py-4">
-                  <NavLink to="#">home</NavLink>
-                  <p>|</p>
-                  <NavLink to="#">music</NavLink>
-                  <p>|</p>
-                  <NavLink to="#">contact</NavLink>
-                </div>
-                <div className="bg-dark-cyan h-0.5 w-full" />
-              </div> */}
       </nav>
     </header>
   );
