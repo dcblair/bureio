@@ -69,7 +69,7 @@ const BaseAudioPlayer = () => {
     >
       <div
         className={filterClasses(
-          "bg-romance fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
+          "audio-player-surface fixed bottom-0 z-30 flex h-12 w-full items-center gap-4 py-9 transition duration-3000 md:pl-8 lg:pl-12 xl:gap-6 xl:pl-32 2xl:gap-24",
           playerExpansion === "collapsed"
             ? "animate-collapse"
             : "animate-expand",

@@ -202,24 +202,31 @@ export default function Index() {
         {/* right-positioned divider */}
         <div className="from-black-fogra29 to-black-fogra29/40 rounded-l-px absolute -top-3 right-0 h-0.5 w-1/2 bg-linear-to-l md:-top-8" />
 
-        <div className="mb-6 flex flex-col items-center md:mb-10">
+        <div className="mb-4 flex flex-col items-center">
           {/* release info */}
-          <div className="mb-2">
-            <h2 className="font-questrial text-lg font-black tracking-widest lg:text-xl">
-              digital album / cassette
+          <div className="mb-2 flex flex-col items-center">
+            <h2 className="font-questrial text-xl font-black tracking-widest">
+              seasons in migration
             </h2>
+            <div className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 rounded-px mt-4 h-0.5 w-full bg-linear-to-r" />
           </div>
-          <div className="mb-3 md:mb-7">
+
+          <div className="mb-2">
+            <span className="font-questrial font-black tracking-widest">
+              digital album / cassette
+            </span>
+          </div>
+          <div className="mb-3 flex flex-col items-center md:mb-7">
             <span className="font-questrial text-xl tracking-wider">
               august 21
             </span>
+
+            {/* divider */}
+            <div className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 rounded-px mt-4 h-0.5 w-3/4 bg-linear-to-r" />
           </div>
           <span className="font-questrial text-xl tracking-[0.5rem]">
             available:
           </span>
-
-          {/* divider */}
-          <div className="from-black-fogra29/40 via-black-fogra29 to-black-fogra29/40 rounded-px mt-4 h-0.5 w-1/2 bg-linear-to-r" />
         </div>
 
         <div className="flex space-x-8">
