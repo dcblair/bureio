@@ -4,7 +4,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { HeadersFunction, MetaFunction } from "react-router";
 import {
   data,
@@ -84,6 +84,7 @@ export async function loader({}: Route.LoaderArgs) {
 export default function App({ loaderData }: Route.ComponentProps) {
   const { updatedSongs } = loaderData;
   const { pathname } = useLocation();
+  const [enableRouteTransitions, setEnableRouteTransitions] = useState(false);
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -98,6 +99,10 @@ export default function App({ loaderData }: Route.ComponentProps) {
   queryClient.setQueryData(["songs"], updatedSongs);
   queryClient.setQueryData(["currentSong"], updatedSongs[0]);
 
+  useEffect(() => {
+    setEnableRouteTransitions(true);
+  }, []);
+
   return (
     <html className="min-h-screen" lang="en">
       <head>
@@ -106,7 +111,12 @@ export default function App({ loaderData }: Route.ComponentProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Links />
       </head>
-      <body data-route={pathname}>
+      <body
+        className={
+          enableRouteTransitions ? "route-transitions-enabled" : undefined
+        }
+        data-route={pathname}
+      >
         <QueryClientProvider client={queryClient}>
           <AudioProvider>
             <HydrationBoundary>

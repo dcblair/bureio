@@ -9,7 +9,7 @@ const BaseHeader = () => {
   // const { hasAnimated, isIntersecting } = useIntersectionObserver(ref);
 
   return (
-    <header className="mb-8 md:mb-14">
+    <header className="mb-8 md:mb-10">
       <nav className="relative mt-3 flex flex-col items-center justify-center pt-1 pb-3 text-center md:mt-12">
         <div className="relative flex w-60 items-center justify-center">
           <div className="relative w-60 md:hidden">

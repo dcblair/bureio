@@ -146,10 +146,18 @@
 }
 
 @layer base {
-  /* handle body background color changes */
-  body {
+  .audio-player-surface {
+    background-color: var(--color-romance);
+  }
+
+  body.route-transitions-enabled,
+  body.route-transitions-enabled .audio-player-surface {
     transition: background-color 0.6s ease-in-out;
-    @media (prefers-reduced-motion: reduce) {
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body.route-transitions-enabled,
+    body.route-transitions-enabled .audio-player-surface {
       transition: none;
     }
   }
@@ -157,12 +165,18 @@
   /* default / home */
   body[data-route="/"] {
     background-color: var(--color-mercury);
-    transition: background-color 1s ease-in-out;
+  }
+
+  body[data-route="/"] .audio-player-surface {
+    background-color: var(--color-mercury);
   }
 
   /* dsii route */
   body[data-route="/dsii"] {
     background-color: var(--color-romance);
-    transition: background-color 1s ease-in-out;
+  }
+
+  body[data-route="/dsii"] .audio-player-surface {
+    background-color: var(--color-romance);
   }
 }
